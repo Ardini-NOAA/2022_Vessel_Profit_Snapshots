@@ -1,12 +1,8 @@
-book_filename: "Profit Profiles"
-new session: true
+book_filename: "SSB_Profit_Profiles"
 delete_merged_file: true
+output_dir: docs
 edit: https://github.com/Ardini-NOAA/SSB_Profit_Profiles/edit/main/%s
 view: https://github.com/Ardini-NOAA/SSB_Profit_Profiles/blob/main/%s
 language:
   ui:
-rmd_files: ["index.Rmd",
-"Introduction_Background.Rmd",
-"Revenue_Cost_Summary.Rmd",
-"Profit_Results.Rmd",
-"Discussion_References.Rmd"]
+rmd_files: ["index.Rmd"]

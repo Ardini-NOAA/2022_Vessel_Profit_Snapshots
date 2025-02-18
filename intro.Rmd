@@ -29,12 +29,12 @@ There are a number of different metrics to measure net returns to commercial fis
 
 This page provides modified income statements looking at both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
 
-## Operating Profit
+## Operating Profits
 Operating profit refers to gross revenues minus operating costs (variable costs). Within the 2022 cost survey, two sections in particular cover operating costs. The trip expenses section (#3) collects information on fuel, bait, ice, and food. The crew payment section (#4) includes the total amount paid to crew and hired captains, as well as any benefits paid out. Outside of the survey, a few costs collected by at-sea observers, fresh water and crew supplies, are also included in the operating profit calculation.
 
 EQUATION 1: Gross Revenue - (Trip Expenses + Crew Payments)
 
-## Total Profit
+## Total Profits
 Total profit refers to operating profit minus non-operating costs (fixed and quasi-fixed costs). Within the 2022 cost survey, a few different sections include non-operating costs. The vessel repairs, upgrades, and other costs section (#2) includes the amount spent on various vessel components including the engine, hull, fishing gear, electronics, and safety equipment. Other vessel costs such as mooring fees, permit fees, and vessel insurance are also included. The overhead section (#5) includes, among other costs, business vehicle expenses, association fees, non-crew labor payments, and office/storage expenses. The quota costs and revenue section (#7) is also included as a component of non-operating costs.
 
 EQUATION 2: Operating Profit - (RMUI/other Vessel Costs  + Overhead + Quota Leasing)
