@@ -9,9 +9,10 @@ site: bookdown::bookdown_site
 
 Profit is an important metric in assessing the economic performance of commercial fishing fleets and in evaluating the impacts of proposed regulations. Evaluation of economic impacts is required under a number of laws, including Including the Magnuson-Stevens Fishery Conservation and Management Act (MSA), the National Environmental Policy Act (NEPA), Executive Order 12866, and the Regulatory Flexibility Act (RFA). 
 
-Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits. 
+Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits.
 
 Using data primarily collected from the most recent cost survey, this site presents commercial fishing vessel profits during 2022 for those vessels who participated in the survey effort. All information presented follows data confidentiality rules as required under the MSA (at least 3 vessels must be present in each summary group). These snapshots will serve as a performance metric in evaluating the economic impacts of proposed fishery management actions. 
+
 
 ## Cost Survey Background
 
@@ -27,7 +28,7 @@ Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Sc
   8. Completeness of Cost Information
   9. Survey Follow-up Questions
 
-Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 15.0% (371/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (2025). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the Cost Survey Landing Page. Additionally, the Cost Data Visualization Tool presents distributions for the various costs provided by survey respondents.
+Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (2025). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the Cost Survey Landing Page. Additionally, the Cost Data Visualization Tool presents distributions for the various costs provided by survey respondents.
 
 
 # Metrics
@@ -54,7 +55,7 @@ A total of 422 surveys were returned to the Social Sciences Branch at the conclu
 ## Filtering of Observations
 The first filtering step specified that all surveys must have answered at least one cost-related question. This step eliminated 55 observations, bringing the total number to 367. The second filtering step specified that the responding vessel must be commercially active (revenues >$0) during 2022. A further 46 observations were dropped, bringing the total to 321.
 
-Following completion of the initial filtering, a few other steps were performed. The 2022 cost survey included the nine sections listed under Cost Survey Background. For each response, the number of survey sections skipped were counted, where a skipped section was any case in which all questions within the section were left blank. For this exercise, five survey sections were evaluated. Sections 3-5 were evaluated in entirety while section 2 was divided into sub-sections of vessel repair/maintenance/upgrade/improvement (RMUI) questions and vessel fees/insurance questions. If a survey skipped multiple sections, it was removed from the dataset. A total of 17 observations skipped multiple survey sections, bringing the total to 304. An additional 12 observations out of the remaining 304 skipped one survey section. These cases were further evaluated to look at the specific section skipped. Four out of the 12 only skipped the crew payment section. Since these were all small vessels with relatively low costs and operating profit, assuming there was no crew on board was deemed appropriate. The other 8 observations that skipped one survey section were dropped, resulting in a final dataset of 296 observations. Out of a possible 31 questions answered, these observations provided responses to 28 questions on average, with a range of 20-31 questions answered. 
+Following completion of the initial filtering, a few other steps were performed. The 2022 cost survey included the nine sections listed under Cost Survey Background. For each response, the number of survey sections skipped were counted, where a skipped section was any case in which all questions within the section were left blank. For this exercise, five survey sections were evaluated. Sections 3-5 were evaluated in entirety while section 2 was divided into sub-sections of vessel repair/maintenance/upgrade/improvement (RMUI) questions and vessel fees/insurance questions. If a survey skipped multiple sections, it was removed from the dataset. A total of 17 observations skipped multiple survey sections, bringing the total to 304. An additional 12 observations out of the remaining 304 skipped one survey section. These cases were further evaluated to look at the specific section skipped. Four out of the 12 only skipped the crew payment section. Since these were all small vessels with relatively low costs and operating profit, assuming there was no crew on board was deemed appropriate. The other 8 observations that skipped one survey section were dropped. Finally, 1 additional observation was dropped due to extreme costs in a number of different categories, resulting in a final dataset of 295 observations. Out of a possible 31 questions answered, these observations provided responses to 28 questions on average, with a range of 20-31 questions answered. 
 
 
 # Profit Calculation Methods
@@ -72,34 +73,93 @@ Vessel primary fishery is also defined as the largest contributor to total comme
 Vessel primary gear (4.1.1) and primary fishery (4.1.2) were also combined to examine differences within more specific fleets. For most gear types, multiple fisheries are represented. However, scallop dredge gear, for example, is represented by only one fishery (sea scallop). Due to low response levels for some primary gear/fisheries, results are unable to be presented.
 
 ## For-Hire Revenue
-While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to most accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.
+While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.
 
 All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the 2022 National Angler Expenditure Survey administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.
 
 ## Survey Costs
-The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Some manipulation of the data was required to make it usable at the vessel/annual level. These data manipulation steps are summarized below.
+The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:
 
-Operating Costs: Survey respondents were given the option of providing operating costs such as fuel, bait, and ice either at the annual level or as an average by trip. For those respondents who filled in the average cost by trip, the value was multiplied by the number of commercial trips taken during 2022. In general, the number of trips was used directly from the survey (Q2). In cases where this information was not filled in, the number of trips was retrieved from VTRs and/or dealer reports.
 
-Overhead Costs: Survey respondents were given the option of providing these costs either at the vessel level or at the business level. For those respondents who filled in business level costs, the value was divided by the number of vessels owned by the respondent during 2022. The number of vessels owned was taken directly from the survey (Q13).
+New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
 
-Quota Leasing Costs: Survey respondents were given the option to provide quota leasing costs either at the vessel-level or across multiple vessels. If this cost was provided across multiple vessels, the value was divided by the specific number of vessels the quota leasing cost was attributed to (Q17).
+  a. Propulsion Engine
+  b. Deck Equipment / Other Machinery
+  c. Haul-out Costs
+  d. Hull
+  e. Fishing Gear
+  f. Wheelhouse Electronics
+  g. Processing / Refrigeration
+  h. Safety Equipment
+  i. Mooring/Docking Fees
+  j. State and Federal Permits and/or License Renewal Fees
+  k. Vessel or Permit Payments/Financing
+  l. Annual Vessel Insurance Premium
 
-Other Costs: At the end of the survey, respondents were given the opportunity to list other costs that were not included in the survey. When other costs were listed, they were evaluated on a case-by-case basis (see Werner et al. 2025). Those that could not be allocated to an existing cost category were excluded from the profit calculation.
+
+Trip Expenses for the Selected Vessel
+
+  a. Fuel 
+  b. Bait
+  c. Food for captain and crew
+  d. Ice
+  e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
+  f. At-sea Processing At-sea Boxing/Packaging
+
+
+Crew Payment System for the Selected Vessel
+
+  a. Total Payments to Crew
+  b. Total Payments to Hired Captain
+  c. Benefits Paid to Crew and/or Hired Captain
+
+
+Overhead Costs
+
+  a. Business Vehicle Costs
+  b. Business Travel Costs
+  c. Association Fees 
+  d. Legal Expenses 
+  e. Additional Labor Payments
+  f. Advertising Costs
+  g. Communication Costs
+  h. Office/Workshop/Storage Expenses
+
+
+Quota Costs and Revenues for the Selected Vessel
+
+  a. Quota Leasing Costs
+  b. Quota Leasing Revenue
+  c. Quota Monitoring Costs
+
+
+Completeness of Cost Information
+  a. Other Costs for the Selected Vessel
+
+
+From these various cost categories within the survey, some data manipulation was required to make costs usable at the vessel/annual level. These data manipulation steps are summarized below.
+
+Trip Expenses: Survey respondents were given the option of providing trip expenses either at the annual level or as a trip average. For those respondents who filled in the average cost per trip, the value was multiplied by the number of commercial trips taken during 2022. In general, the number of trips was used directly from the survey (Q2). In cases where this information was not filled in, the number of trips was retrieved from VTRs and/or dealer reports. Trip expenses were then allocated to the vessel owner based on how the survey respondent indicated these expenses were paid (Q6). If the respondent answered that the crew paid for trip expenses, the assigned cost to the vessel owner was $0. If the respondent answered that the boat/owner paid for trip expenses, 100% of these costs were assigned to the vessel owner. If the respondent answered that trip expenses were shared between boat/owner and crew, these costs were multiplied by the % indicated for the vessel owner to assign these costs.
+
+Overhead Costs: Survey respondents were given the option of providing these costs either at the vessel level or at the business level. For those respondents who filled in business level costs, the value was divided by the number of vessels owned by the respondent during 2022. The number of vessels owned was taken directly from the survey (Q13). 
+
+Quota Costs and Revenues: Survey respondents were given the option to provide quota leasing costs either at the vessel-level or across multiple vessels. If this cost was provided across multiple vessels, the value was divided by the specific number of vessels the quota leasing cost was attributed to (Q17). Similar to trip expenses, quota leasing costs were then allocated to the vessel owner based on how the survey respondent indicated these expenses were paid (Q18). If the respondent answered that the crew paid for trip expenses, the assigned cost to the vessel owner was $0. If the respondent answered that the boat/owner paid for trip expenses, 100% of these costs were assigned to the vessel owner. If the respondent answered that trip expenses were shared between boat/owner and crew, these costs were multiplied by the % indicated for the vessel owner to assign these costs. Quota leasing revenue was then subtracted from costs to calculate net quota leasing costs to the vessel. Quota leasing occurs within the groundfish, sea scallop, surf clam/ocean quahog, and tilefish fisheries. Due to net quota leasing representing a small portion of total costs for the various fleets presented on this site, these costs are not included in the cost distribution summaries found in Chapter 6. However quota net leasing costs are included in total profit profiles found in Chapter 8.
+
+Other Costs: At the end of the survey, respondents were given the opportunity to list other costs that were not included in the survey. When other costs were listed, they were evaluated on a case-by-case basis (see Werner et al. 2025). When deemed possible, other costs listed were allocated to an existing cost category. Those that could not be allocated to an existing cost category were excluded from the profit calculation. Examples of costs that were able to be allocated to an existing category include registration fees were added to Permit Fees and non-descript vessel repairs/maintenance were allocated evenly across the various repair/maintenance categories.
 
 ## Additional Trip Costs 
-As covered in the previous section, the 2022 cost survey queried a variety of expenses faced by vessel owners. During pre-testing of the survey instrument, fishing industry members generally felt that the survey did a good job of including all significant costs. Furthermore, comments on the survey itself and a lack of other costs filled in by respondents indicated the survey covered significant costs. However there are two costs, crew supplies and fresh water, that are collected by at-sea observers that were not included in the 2022 cost survey. 
+As covered in Chapter 4.3, the 2022 cost survey queried a variety of expenses faced by vessel owners. During pre-testing of the survey instrument, fishing industry members generally felt that the survey did a good job of including all significant costs. Furthermore, comments on the survey itself and a lack of other costs filled in by respondents indicated the survey covered significant costs. However there are two costs, crew supplies and fresh water, that are collected by at-sea observers that were not included in the 2022 cost survey. 
 
 To capture these costs, data from observer programs was used to calculate average costs per trip by gear. All 2022 trips from observer data tables were pulled, along with the primary gear utilized on each trip. The average crew supply and fresh water trip costs by gear type were calculated and these averages were then merged by gear with all of the trips taken by survey responding vessels during 2022. Finally, trip-level costs were summed to the vessel-level.
 
 ## Depreciation
 The final cost component included in the profit calculation is vessel depreciation. Ideally, a different depreciation value would be assigned to each physical capital component (e.g. electronics, engine, hull) using the estimated market value and age of each piece of vessel equipment. This method would require additional information beyond that collected in the 2022 cost survey. 
 
-Information on the estimated market vessel value, including all equipment and fishing gear, was collected in the 2022 cost survey. However the number of responses to this question were lower than most other survey questions explained in part by the inclusion of a “I Prefer not to Answer” option, which was not included for other survey questions. Given the relative lack of response for vessel market value, an alternate method was used in which shadow values of vessel characteristics- age, gross tonnage, length, and type of construction were estimated. The shadow values were then multiplied by each vessel characteristic to calculate a total vessel value. From the vessel values, a depreciation cost was calculated as 4% of the value for those vessels less than 25 years old and 2% of the value for those vessels 25 years or older.
+Information on the estimated market vessel value, including all equipment and fishing gear, was collected in the 2022 cost survey. However the number of responses to this question were lower than other survey questions explained in part by the inclusion of a “I prefer not to answer” option, which was not included for other survey questions. Given the relative lack of response for vessel market value, an alternate method was used in which shadow values of vessel characteristics including age, gross tonnage, length, and type of construction were estimated. The shadow values were then multiplied by each vessel characteristic to calculate a total vessel value. From the vessel values, a depreciation cost was calculated as 4% of the value for those vessels less than 25 years old and 2% of the value for those vessels 25 years or older following methods utilized for fishing fleets in Kitts et al. (2020).
+
 
 
 # Revenue Summary
-
 ```{r, echo=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -147,11 +207,12 @@ gear_fmp_revenue_plot_2 <- ggplot(gear_fmp_revenue_plot, aes(x = Gear_Fishery, y
 gear_fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge and trawl have mean and median values more than twice of those for other gear types. Pot/trap has the third highest median values, followed by gillnet and handgear. For pot/trap and trawl gear, mean values greatly exceed median values, indicating skewness in the distribution to the right. For scallop dredge, the opposite is true.
+By primary gear, seine vessels have the highest mean revenue, noting the presence of only three observations. Scallop dredge, trawl, and seine vessels have the highest median revenue, more than twice the value of those for other gear types. Longline has the fourth highest median values, followed by pot/trap, gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
 
-By FMP, scallop, squid/mackerel/butterfish, and groundfish have the highest mean revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues while the number of lobster vessel observations is more than 5x the number of scallop vessels. 
+By FMP, scallop, squid/mackerel/butterfish, and groundfish have the highest mean revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, noting that the lobster fleet has considerably more vessels than the scallop fleet. 
 
 When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.
+
 
 
 # Cost Summary
@@ -210,6 +271,10 @@ ggplot(data=gear_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 
 gear_dist5<- subset(gear_dist3, Gear== "Longline" | Gear== "Pot/Trap" | Gear== "Seine" | Gear== "Trawl")
 ggplot(data=gear_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
 
+gear_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_quota_percent_no_conf.csv")
+gear_quota$Quota_Percent_Total_Cost<-paste(gear_quota$Quota_Percent_Total_Cost,"%")
+gear_quota_2 <- subset(gear_quota, select=c(Gear, Quota_Percent_Total_Cost))
+knitr::kable(gear_quota_2)
 #gear_dist6<- subset(gear_dist3, Gear== "Trawl")
 #ggplot(data=gear_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + #geom_text(aes(label=percent(percent)), position = position_stack(vjust = 0.5), size=4) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12))
 
@@ -226,6 +291,11 @@ ggplot(data=fmp_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1
 fmp_dist6<- subset(fmp_dist3, Fishery== "Other" | Fishery== "Scallop" | Fishery== "Squid, Mackerel, Butterfish" | Fishery== "Striped Bass")
 ggplot(data=fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
 
+fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/fmp_quota_percent_no_conf.csv")
+fmp_quota$Quota_Percent_Total_Cost<-paste(fmp_quota$Quota_Percent_Total_Cost,"%")
+fmp_quota_2 <- subset(fmp_quota, select=c(Fishery, Quota_Percent_Total_Cost))
+knitr::kable(fmp_quota_2)
+
 #gear_fmp_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_cost_cat_perc.csv")
 #knitr::kable(gear_fmp_dist)
 gear_fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_cost_cat_perc_2.csv")
@@ -241,13 +311,19 @@ ggplot(data=gear_fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(widt
 
 gear_fmp_dist7<- subset(gear_fmp_dist3, Gear_Fishery== "Trawl-Fluke, BSB, Scup" | Gear_Fishery== "Trawl-Groundfish" | Gear_Fishery== "Trawl-Other" | Gear_Fishery== "Trawl-Squid, Mackerel, Butterfish")
 ggplot(data=gear_fmp_dist7, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
+
+gear_fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_quota_percent_no_conf.csv")
+gear_fmp_quota$Quota_Percent_Total_Cost<-paste(gear_fmp_quota$Quota_Percent_Total_Cost,"%")
+gear_fmp_quota_2 <- subset(gear_fmp_quota, select=c(Gear_Fishery, Quota_Percent_Total_Cost))
+knitr::kable(gear_fmp_quota_2)
 ```
 
-By primary gear, the order of costs from highest to lowest follows the same order as with revenue- scallop dredge, trawl, pot/trap, gillnet, handgear. Scallop dredge and trawl again have mean and median values more than twice of those for other gear types. These highest cost gear types are crew-intensive with crew expenses accounting for over 40% of total costs among scallop dredge and trawl vessels. Pot/trap and gillnet vessels have the highest share of trip expenses. For pot/trap vessels, high trip expenses can be explained in part by the cost of bait. For handgear vessels, the lowest cost gear group, repair/maintenance/upgrade/improvement (RMUI) is the largest share of costs. Overhead costs as a share of total are similar across primary gear groups, ranging from 6-10%. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for the longline group. Some gear groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+By primary gear, magnitude of mean costs from highest to lowest follows a similar order as with revenue- seine, scallop dredge, trawl, longline, pot/trap, gillnet, handgear. The highest cost gear types are generally more crew-intensive with crew expenses accounting for over 40% of total costs among scallop dredge, seine, and trawl vessels. Gillnet and pot/trap vessels have the highest share of trip expenses. For pot/trap vessels, high trip expenses can be explained in part by the cost of bait. For handgear vessels, the lowest cost gear group, repairs/upgrades are the largest share of costs. Overhead costs as a share of total costs are similar across primary gear groups, ranging from 6-10% for most gear groups. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for the longline group. Some gear groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
-By FMP, a number of fisheries have similar mean costs. Scallop vessels have the highest mean costs, though groundfish herring, and squid, mackerel, butterfish all have mean values within 5% of scallop vessels. The squid, mackerel, butterfish and scallop fisheries are the most crew-intensive, with crew payments exceeding 40% of total costs for both fisheries. The lobster fishery has relatively higher trip expenses than most other FMPs, with 28% of total costs in this category. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for groundfish. Some FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+By FMP, a number of fisheries have similar mean costs. Scallop vessels have the highest mean costs, though groundfish, herring, and squid, mackerel, butterfish all have mean values only slightly lower than scallop vessels. The groundfish, scallop and squid, mackerel, butterfish fisheries are the most crew-intensive, with crew payments exceeding 40% of total costs for each. The lobster fishery has relatively higher trip expenses than most other FMPs, with 31% of total costs in this category. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for groundfish. Some FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
-When primary gear and FMP are combined, trawl-groundfish has the highest mean and median costs. Within primary gear types, a considerable difference in costs is found across fisheries. For example, mean and median values for lobster pot/trap vessels are greater than those values for fluke, black sea bass, and scup pot/trap vessels. The top cost contributors are generally similar within a gear group and across fisheries. For example, all trawl fisheries have relatively high crew payments, ~40% of total costs. Handgear fisheries have relatively large shares of repair/maintenance/upgrade/improvement (RMUI) costs. Pot/trap fisheries have relatively high trip expenses ~25-30% of total costs, possibly due to the cost of bait. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for Longline-HMS and Trawl- groundfish. Some gear/FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+When primary gear and FMP are combined, trawl-groundfish has the highest mean and median costs. Within primary gear types, a considerable difference in costs is found across fisheries. For example, mean and median values for lobster pot/trap vessels are greater than those values for fluke, black sea bass, and scup pot/trap vessels. The top cost contributors are generally similar within a gear group and across fisheries. For example, all trawl fisheries have relatively high crew payments, ~40% of total costs. Handgear fisheries have relatively large shares of repair/maintenance/upgrade/improvement (RMUI) costs. Pot/trap fisheries have relatively high trip expenses, possibly due to the cost of bait. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for Longline-HMS and Trawl- groundfish. Some gear/FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+
 
 
 # Operating Profit
@@ -297,11 +373,11 @@ gear_fmp_op <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_operating
 gear_fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge has considerably higher mean and median operating profit than other gear groups. Trawl has the second highest mean and median values, followed by pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Pot/trap and gillnet extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the Handgear and Pot/Trap gear groups.
+By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups.
 
-By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. For lobster and scallop, the difference between mean and median values is relatively small. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0.  A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
+By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. For scallop, the difference between mean and median values is relatively small. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
 
-When primary gear and FMP are combined, trawl-groundfish has the highest mean operating profit, while scallop dredge-scallop has the highest median value. Within primary gear types, a considerable difference in operating profit is found across fisheries. For example, the mean value for squid trawl vessels is roughly twice that for fluke, black sea bass, and scup trawl vessels. Within the pot/trap gear group, summer flounder, black sea bass, scup vessels have a higher median value than for lobster but a lower median value. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue.
+When primary gear and FMP are combined, trawl-groundfish has the highest mean operating profit, while scallop dredge-scallop has the highest median value. Within primary gear types, a considerable difference in operating profit is found across fisheries. For example, the mean value for squid trawl vessels is roughly twice that for fluke, black sea bass, and scup trawl vessels. Within the pot/trap gear group, summer flounder, black sea bass, scup vessels have a higher mean value than for lobster but a lower median value. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue.
 
 
 # Total Profit
@@ -348,11 +424,24 @@ gear_fmp_tp <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_profit, f
 gear_fmp_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge has considerably higher mean and median total profit than other gear groups. Trawl has the second highest mean and median values. Gillnet, handgear, and pot/trap show negative mean profit while the median value is slightly positive for pot/trap. For scallop dredge and trawl gear, mean values greatly exceed median values. For pot/trap the opposite is true. A considerable range of profits is evident in all gear groups, especially scallop dredge and trawl. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+By primary gear, scallop dredge has considerably higher median total profit than other gear groups. Pot/trap, seine, and trawl show positive values for mean and median total profit. Gillnet, and handgear show negative mean and median values, while longline shows a positive median and negative mean. For scallop dredge, seine, and trawl gear, mean values greatly exceed median values. For pot/trap mean and median values are nearly identical. In terms of operating profit, mean and median values are relatively close for a number of gear types (longline, pot/trap, scallop dredge). However with total profits, a considerable range is evident in all gear groups. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
 
-By FMP, scallop and squid, mackerel butterfish have the highest mean and median total profits. By median values, the difference between these two fisheries and all other FMPs is considerable. Groundfish has the third highest mean and median values. The lobster fleet, representing over half of the total observations, shows slightly positive median profits. The fluke black sea bass, scup fishery shows similar limited median operating profit as the lobster fishery. A considerable range of profits is evident in many fisheries. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+By FMP, scallop and squid, mackerel, butterfish have the highest mean and median total profits. By median values, the difference between these two fisheries and all other FMPs is considerable. Groundfish has the third highest mean and median values. The lobster fleet, representing over half of the total observations, shows slightly positive mean and median profits. The fluke, black sea bass, scup fishery shows similar limited median profit as the lobster fishery. In terms of operating profit, mean and median values are relatively close for a number of fisheries (herring, lobster, scallop). However with total profits, a considerable range is evident in all fisheries. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
 
-When primary gear and FMP are combined, trawl-squid, mackerel, butterfish, trawl-groundfish, and scallop dredge-scallop have the highest mean profits. Median values tell a different story, with trawl groundfish showing profits more similar to trawl vessels in the summer flounder, black sea bass, scup fishery. Median profits are highest for trawl-squid, mackerel, butterfish, and scallop dredge-scallop. Within primary gear types, a considerable difference in total profit is found across fisheries. For example, within the pot/trap gear group, summer flounder, black sea bass, scup vessels have higher median profits compared to lobster. This is noteworthy as lobster vessels showed higher revenues than summer flounder, black sea bass, scup vessels within the pot/trap gear group. Within the Trawl group, squid, mackerel, butterfish vessels show substantially higher median profits compared to groundfish or summer flounder, black sea bass, scup vessels. Wide ranges within Gear/FMP groupings are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+When primary gear and FMP are combined, trawl-squid, mackerel, butterfish, trawl-groundfish, and scallop dredge-scallop have the highest mean profits. Median values tell a different story, with trawl-groundfish showing profits more similar to trawl vessels in the summer flounder, black sea bass, scup fishery. Median profits are highest for trawl-squid, mackerel, butterfish, and scallop dredge-scallop. Within primary gear types, a considerable difference in total profit is found across fisheries. For example, within the pot/trap gear group, summer flounder, black sea bass, scup vessels have higher median profits compared to lobster. This is noteworthy as lobster vessels showed higher revenues than summer flounder, black sea bass, scup vessels within the pot/trap gear group. Within the trawl group- squid, mackerel, butterfish vessels show substantially higher median profits compared to groundfish or summer flounder, black sea bass, scup vessels. Wide ranges within Gear/FMP groupings are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+
+
+# Summmary
+
+The Northeast U.S. is home to several economically important commercial fisheries, representing a variety of gear types. Vessels on this site are grouped by fishery and gear based on their highest source of revenue during calendar year 2022. Only vessels that provided a complete response to the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 are included. See Chapter 3.1 for the definition of a complete survey response. All fisheries and gears are represented in Chapters 5-8 as allowed by data confidentiality rules (at least 3 vessels). Below is a brief summary of the results presented in Chapters 5-8. See Chapter 10 for ways in which these results can be used as well as data limitations.
+
+Chapter 5 provides a summary of fleet ex-vessel revenues. These values are queried from the Catch Accounting and Monitoring System (CAMS), a collaborative database developed by the Greater Atlantic Regional Fisheries Office (GARFO) and the Northeast Fisheries Science Center (NEFSC). Mean and median values show substantially higher vessel revenues for some gear groups (e.g. scallop dredge, trawl) than others (e.g. gillnet, handgear). Similarly, some fisheries (e.g. scallop, squid, mackerel, and butterfish) show substantially higher mean and median vessel revenues than others (e.g. fluke, black sea bass, and scup, lobster).
+
+Chapter 6 provides a summary of costs, which mainly are derived from the 2022 cost survey. A breakdown of costs into major categories shows important insight into the differences between fisheries and gear groups. For example, crew-intensive fisheries such as groundfish, scallop, and squid, mackerel, and butterfish show 41-47% of total costs being payments to crew and 9-22% being trip expenses. In contrast, lobster shows 26% of total costs as payments to crew 31% of total costs as trip expenses. Important similarities are present as well. For example, overhead costs represent between 6-10% of total costs for nearly all fisheries and gear groups.
+
+Operating profit is presented in Chapter 7. This metric is calculated by taking gross revenues (Chapter 5) and subtracting trip expenses and crew payments, highlighted in Chapter 6. Operating profit is an important measure of the short-run economic viability of fishing businesses. If vessels can not cover their operating expenses, fishing trips are not profitable. All gear groups show positive mean and median operating profits, though a small number of observations are negative. These may be explained by vessels participating in other activities outside of commercial fishing in which costs are incurred but revenue is not generated.
+
+Finally, total profit is presented in Chapter 8. This metric is calculated by taking gross revenues (Chapter 5) and subtracting all costs (Chapter 6). Total profit provides important insight into the overall economic viability of fishing businesses. The results show vessels which generated the majority of revenue from scallop or squid, mackerel, butterfish fisheries during 2022 yielded the highest total profits on a mean or median basis. Several fisheries and gear groups show negative mean or median vessel profits. Negative profit during 2022 can be driven by a variety of factors, including high costs, low revenue, as well as vessel activity that incurs costs but does not generate revenue (e.g. leisure uses on a commercial fishing vessel). 
 
 
 # Discussion
@@ -360,22 +449,76 @@ When primary gear and FMP are combined, trawl-squid, mackerel, butterfish, trawl
 ## Applications
 These profit profiles are intended to support the management of commercial fisheries in the Northeast U.S. The results presented have a number of different applications, including:
 
-1. Allowing end-users to gain a better understanding of cost distributions by fishing fleet. In economic analyses to support management, operating profit/net revenue is      most often calculated. Across FMPs, operating costs account for varying levels of total costs.
-2. Allowing end-users to gain a better understanding of how gross revenues translate to profit by fishing fleet.  
-3. Supporting research into the viability of fishing operations. By examining the economic health of commercial vessels, the implications of management actions on fisheries  can be better understood. These potential actions include, but are not limited to:
+  1. Cost distributions and cost share overviews across fishing fleets
+    a. Allowing end-users to gain a foundational understanding of cost distributions and shares by fishing fleet. In economic analyses to support management, operating profit/net revenue is most often calculated. Across FMPs, operating costs account for varying levels of total costs. 
+  2. Profits by fishing fleet 
+    a. Allowing end-users to gain a better understanding of how gross revenues translate to profit by fishing fleet. 
+  3. Supporting research into the viability of fishing operations. By examining the economic health of commercial vessels, the implications of management actions on fisheries can be better understood. These potential actions include, but are not limited to:
     a. Changes in fishing quotas/days-at-sea 
     b. Re-allocation of quota among sectors (e.g. commercial vs. recreational)
     c. Establishment or modification of accumulation limits
-    d. Changes in costs faced by fishing vessels (e.g. monitoring) 
+    d. Changes in costs faced by fishing vessels (e.g. monitoring)
 
-For management purposes, these profiles can be incorporated into the Affected Environment: Human Communities section for various FMP actions. This section has frequently focused on trends in gross revenue and fishery effort. Profit provides additional information in capturing the current state of the fishery. When looking at operating profit, mean and median values are relatively close for a number of gear types (scallop dredge, longline, pot trap) and fisheries (herring, lobster, scallop). The disparity between mean and median tends to increase when looking at total profit as more sporadic costs are incorporated. In other words, it is difficult to assess what a “typical vessel” in a particular gear group or fishery looks given large distributions. 
+These data and analyses offer the best available information on the following topics at the fleet level:
+  - Profit estimations
+  - Cost profiles and shares
+  - Operating profit estimations 
+  - Crew and captain payments 
 
-The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of total profits to gross revenues can inform how changes in quota impact the bottom line of vessel operators. For the squid, mackerel, butterfish fishery, the ratio of total profit/gross revenue is 33% when using mean values and 26% using median values. For the scallop fishery, these numbers are 32% and 17% respectively. For the groundfish fishery, these numbers are 26% and 8%.
+Until additional cost data is collected, processed and analyzed or cost models have been conducted, these estimates are recommended for generating baseline analyses. 
+
+Given these analyses, we recommend using these data for analyses and summaries such as:
+  - Affected Environments in frameworks and amendments
+  - Economic analyses investigating impacts or changes to fishing costs
+  - Impacts of changes in estimated landings on profits
+
+
+For management purposes, these 2022 snapshots can be incorporated into the Affected Environment: Human Communities section for various FMP actions. This section has frequently focused on trends in gross revenue and fishery effort. Profit provides additional information in capturing the economic performance of the fishery. 
+
+The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of total profits to gross revenues can inform how changes in quota/expected landings impact the bottom line of vessel operators. For the squid, mackerel, butterfish fishery, the ratio of total profit/gross revenue is 33% when using mean values and 26% using median values. For the scallop fishery, these numbers are 32% and 17% respectively. For the groundfish fishery, these numbers are 26% and 8%.
+
+```{r, echo=FALSE}
+library(dplyr)
+
+gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_profit_margin.csv")
+gear_margins_2 <- gear_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
+gear_margins_3 <- gear_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+gear_margins_4 <- gear_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+gear_margins_4$Median_Revenue<-paste("$",gear_margins_4$Median_Revenue)
+gear_margins_4$Median_OP<-paste("$",gear_margins_4$Median_OP)
+gear_margins_4$Median_TP<-paste("$",gear_margins_4$Median_TP)
+gear_margins_4$op_margin<-paste(gear_margins_4$op_margin,"%")
+gear_margins_4$tp_margin<-paste(gear_margins_4$tp_margin,"%")
+gear_margins_5 <- subset(gear_margins_4, select=c(Gear, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
+knitr::kable(gear_margins_5)
+
+fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/fmp_profit_margin.csv")
+fmp_margins_2 <- fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
+fmp_margins_3 <- fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+fmp_margins_4 <- fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+fmp_margins_4$Median_Revenue<-paste("$",fmp_margins_4$Median_Revenue)
+fmp_margins_4$Median_OP<-paste("$",fmp_margins_4$Median_OP)
+fmp_margins_4$Median_TP<-paste("$",fmp_margins_4$Median_TP)
+fmp_margins_4$op_margin<-paste(fmp_margins_4$op_margin,"%")
+fmp_margins_4$tp_margin<-paste(fmp_margins_4$tp_margin,"%")
+fmp_margins_5 <- subset(fmp_margins_4, select=c(Fishery, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
+knitr::kable(fmp_margins_5)
+
+gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_fmp_profit_margin.csv")
+gear_fmp_margins_2 <- gear_fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
+gear_fmp_margins_3 <- gear_fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+gear_fmp_margins_4 <- gear_fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+gear_fmp_margins_4$Median_Revenue<-paste("$",gear_fmp_margins_4$Median_Revenue)
+gear_fmp_margins_4$Median_OP<-paste("$",gear_fmp_margins_4$Median_OP)
+gear_fmp_margins_4$Median_TP<-paste("$",gear_fmp_margins_4$Median_TP)
+gear_fmp_margins_4$op_margin<-paste(gear_fmp_margins_4$op_margin,"%")
+gear_fmp_margins_4$tp_margin<-paste(gear_fmp_margins_4$tp_margin,"%")
+gear_fmp_margins_5 <- subset(gear_fmp_margins_4, select=c(Gear_Fishery, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
+knitr::kable(gear_fmp_margins_5)
+```
 
 ## Limitations and Future Work
-The use of these profit profiles does have some limitations. The Commercial Fishing Business Cost Survey is conducted within the Northeast region every few years. For some vessel owners, 2022 may have been an unusually profitable year, either through increased revenues, decreased costs, or a combination. In contrast, other vessels likely experienced a less profitable year than normal in 2022. A vessel owner may have been more/less likely to respond based on their economic situation during 2022. Since the cost survey is not conducted on an annual basis, and the individuals that respond to the survey vary, it is difficult to assess this effect.  
-
-As more years of data are available, the better we can understand the economic performance of fishing fleets in the region. Data collected in future surveys will feed into the profit calculations presented on this site. Similar to the gear/FMP dropdown function, the user will be able to query the year of interest.
+There are a number of limitations and caveats to consider when to use the data provided on this site. The Commercial Fishing Business Cost Survey is conducted within the Northeast region every few years, such that this does not provide annual-level estimations or contiguous time series data. For some vessel owners, 2022 may have been an unusually profitable year, either through increased revenues, decreased costs, or a combination. In contrast, other vessels likely experienced a less profitable year than normal in 2022. A vessel owner may have been more/less likely to respond based on their economic situation during 2022. It is difficult to assess this effect since the individuals that respond to the survey vary over time and the survey is not conducted annually. When using the information, special attention should be placed on the number of respondents and the response rate associated with each gear or fishery group. Though efforts are ongoing to understand the representativeness of the data, there can still be caveats at the unit of observation (i.e., gear and species level may be sparse for creating fleet-wide inferences). There is currently no way to estimate the costs across survey non-respondent such that means are the only method of estimating costs for vessels outside the snapshots. This can cause issues in applying a mean to a single vessel as results vary greatly from vessel to vessel.  As more years of data become available,we can enhance our understanding of the economic performance of fishing fleets in the region. Data collected in future surveys will feed into the profit calculations presented on this site. Similar to the gear/FMP dropdown function, the user will be able to query the year of interest.
 
 
 # References
@@ -384,7 +527,8 @@ Ardini G., Murphy T., Werner S., Bailey M. 2022. An Overview of the Social Scien
 
 Das C. 2013. An Overview of the Annual Cost Survey Protocol and Results in the Northeast (2007 to 2009). US Dept Commer, Northeast Fish Sci Cent Tech Memo 226. 45 p.
 
+Kitts, A., Van Anrooy, R., Van Eijs, S., Pino Shibata, J., Pallalever Pérez, R., Augusto Gonçalves, A., Ardini, G., Liese, C., Pan, M., Steiner, E. 2020. Techno-economic performance review of selected fishing fleets in North and South America. FAO Fisheries and Aquaculture Technical Paper No. 653/2. Rome, FAO.
+
 Kitts A., Walden J., Squires D., Travis M., Steiner E., Pfeiffer L., Liese C., Pan M. 2022. NOAA Fisheries Best Practices for Measuring Returns to Fishing Businesses. US Dept Commer, NOAA Tech Memo NMFS-F/SPO-231, 54 p.
 
 (forthcoming) Werner S., Conley E., Ardini G. 2025. Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022: Survey Implementation, Data Processing Methods and Preliminary Results.
-

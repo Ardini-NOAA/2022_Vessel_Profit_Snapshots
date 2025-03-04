@@ -23,7 +23,7 @@
 <meta name="author" content="Greg Ardini, Samantha Werner, Elizabeth Conley" />
 
 
-<meta name="date" content="2025-02-18" />
+<meta name="date" content="2025-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -106,12 +106,13 @@
 <li class="chapter" data-level="6" data-path="cost-summary.html"><a href="cost-summary.html"><i class="fa fa-check"></i><b>6</b> Cost Summary</a></li>
 <li class="chapter" data-level="7" data-path="operating-profit.html"><a href="operating-profit.html"><i class="fa fa-check"></i><b>7</b> Operating Profit</a></li>
 <li class="chapter" data-level="8" data-path="total-profit.html"><a href="total-profit.html"><i class="fa fa-check"></i><b>8</b> Total Profit</a></li>
-<li class="chapter" data-level="9" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>9</b> Discussion</a>
+<li class="chapter" data-level="9" data-path="summmary.html"><a href="summmary.html"><i class="fa fa-check"></i><b>9</b> Summmary</a></li>
+<li class="chapter" data-level="10" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>10</b> Discussion</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="discussion.html"><a href="discussion.html#applications"><i class="fa fa-check"></i><b>9.1</b> Applications</a></li>
-<li class="chapter" data-level="9.2" data-path="discussion.html"><a href="discussion.html#limitations-and-future-work"><i class="fa fa-check"></i><b>9.2</b> Limitations and Future Work</a></li>
+<li class="chapter" data-level="10.1" data-path="discussion.html"><a href="discussion.html#applications"><i class="fa fa-check"></i><b>10.1</b> Applications</a></li>
+<li class="chapter" data-level="10.2" data-path="discussion.html"><a href="discussion.html#limitations-and-future-work"><i class="fa fa-check"></i><b>10.2</b> Limitations and Future Work</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -151,26 +152,76 @@
 </div>
 <div id="for-hire-revenue" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> For-Hire Revenue<a href="profit-calculation-methods.html#for-hire-revenue" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to most accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.</p>
+<p>While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.</p>
 <p>All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the 2022 National Angler Expenditure Survey administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.</p>
 </div>
 <div id="survey-costs" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Survey Costs<a href="profit-calculation-methods.html#survey-costs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Some manipulation of the data was required to make it usable at the vessel/annual level. These data manipulation steps are summarized below.</p>
-<p>Operating Costs: Survey respondents were given the option of providing operating costs such as fuel, bait, and ice either at the annual level or as an average by trip. For those respondents who filled in the average cost by trip, the value was multiplied by the number of commercial trips taken during 2022. In general, the number of trips was used directly from the survey (Q2). In cases where this information was not filled in, the number of trips was retrieved from VTRs and/or dealer reports.</p>
+<p>The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:</p>
+<p>New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel</p>
+<ol style="list-style-type: lower-alpha">
+<li>Propulsion Engine</li>
+<li>Deck Equipment / Other Machinery</li>
+<li>Haul-out Costs</li>
+<li>Hull</li>
+<li>Fishing Gear</li>
+<li>Wheelhouse Electronics</li>
+<li>Processing / Refrigeration</li>
+<li>Safety Equipment</li>
+<li>Mooring/Docking Fees</li>
+<li>State and Federal Permits and/or License Renewal Fees</li>
+<li>Vessel or Permit Payments/Financing</li>
+<li>Annual Vessel Insurance Premium</li>
+</ol>
+<p>Trip Expenses for the Selected Vessel</p>
+<ol style="list-style-type: lower-alpha">
+<li>Fuel</li>
+<li>Bait</li>
+<li>Food for captain and crew</li>
+<li>Ice</li>
+<li>Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading.</li>
+<li>At-sea Processing At-sea Boxing/Packaging</li>
+</ol>
+<p>Crew Payment System for the Selected Vessel</p>
+<ol style="list-style-type: lower-alpha">
+<li>Total Payments to Crew</li>
+<li>Total Payments to Hired Captain</li>
+<li>Benefits Paid to Crew and/or Hired Captain</li>
+</ol>
+<p>Overhead Costs</p>
+<ol style="list-style-type: lower-alpha">
+<li>Business Vehicle Costs</li>
+<li>Business Travel Costs</li>
+<li>Association Fees</li>
+<li>Legal Expenses</li>
+<li>Additional Labor Payments</li>
+<li>Advertising Costs</li>
+<li>Communication Costs</li>
+<li>Office/Workshop/Storage Expenses</li>
+</ol>
+<p>Quota Costs and Revenues for the Selected Vessel</p>
+<ol style="list-style-type: lower-alpha">
+<li>Quota Leasing Costs</li>
+<li>Quota Leasing Revenue</li>
+<li>Quota Monitoring Costs</li>
+</ol>
+<p>Completeness of Cost Information
+a. Other Costs for the Selected Vessel</p>
+<p>From these various cost categories within the survey, some data manipulation was required to make costs usable at the vessel/annual level. These data manipulation steps are summarized below.</p>
+<p>Trip Expenses: Survey respondents were given the option of providing trip expenses either at the annual level or as a trip average. For those respondents who filled in the average cost per trip, the value was multiplied by the number of commercial trips taken during 2022. In general, the number of trips was used directly from the survey (Q2). In cases where this information was not filled in, the number of trips was retrieved from VTRs and/or dealer reports. Trip expenses were then allocated to the vessel owner based on how the survey respondent indicated these expenses were paid (Q6). If the respondent answered that the crew paid for trip expenses, the assigned cost to the vessel owner was $0. If the respondent answered that the boat/owner paid for trip expenses, 100% of these costs were assigned to the vessel owner. If the respondent answered that trip expenses were shared between boat/owner and crew, these costs were multiplied by the % indicated for the vessel owner to assign these costs.</p>
 <p>Overhead Costs: Survey respondents were given the option of providing these costs either at the vessel level or at the business level. For those respondents who filled in business level costs, the value was divided by the number of vessels owned by the respondent during 2022. The number of vessels owned was taken directly from the survey (Q13).</p>
-<p>Quota Leasing Costs: Survey respondents were given the option to provide quota leasing costs either at the vessel-level or across multiple vessels. If this cost was provided across multiple vessels, the value was divided by the specific number of vessels the quota leasing cost was attributed to (Q17).</p>
-<p>Other Costs: At the end of the survey, respondents were given the opportunity to list other costs that were not included in the survey. When other costs were listed, they were evaluated on a case-by-case basis (see Werner et al. 2025). Those that could not be allocated to an existing cost category were excluded from the profit calculation.</p>
+<p>Quota Costs and Revenues: Survey respondents were given the option to provide quota leasing costs either at the vessel-level or across multiple vessels. If this cost was provided across multiple vessels, the value was divided by the specific number of vessels the quota leasing cost was attributed to (Q17). Similar to trip expenses, quota leasing costs were then allocated to the vessel owner based on how the survey respondent indicated these expenses were paid (Q18). If the respondent answered that the crew paid for trip expenses, the assigned cost to the vessel owner was $0. If the respondent answered that the boat/owner paid for trip expenses, 100% of these costs were assigned to the vessel owner. If the respondent answered that trip expenses were shared between boat/owner and crew, these costs were multiplied by the % indicated for the vessel owner to assign these costs. Quota leasing revenue was then subtracted from costs to calculate net quota leasing costs to the vessel. Quota leasing occurs within the groundfish, sea scallop, surf clam/ocean quahog, and tilefish fisheries. Due to net quota leasing representing a small portion of total costs for the various fleets presented on this site, these costs are not included in the cost distribution summaries found in Chapter 6. However quota net leasing costs are included in total profit profiles found in Chapter 8.</p>
+<p>Other Costs: At the end of the survey, respondents were given the opportunity to list other costs that were not included in the survey. When other costs were listed, they were evaluated on a case-by-case basis (see Werner et al. 2025). When deemed possible, other costs listed were allocated to an existing cost category. Those that could not be allocated to an existing cost category were excluded from the profit calculation. Examples of costs that were able to be allocated to an existing category include registration fees were added to Permit Fees and non-descript vessel repairs/maintenance were allocated evenly across the various repair/maintenance categories.</p>
 </div>
 <div id="additional-trip-costs" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Additional Trip Costs<a href="profit-calculation-methods.html#additional-trip-costs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As covered in the previous section, the 2022 cost survey queried a variety of expenses faced by vessel owners. During pre-testing of the survey instrument, fishing industry members generally felt that the survey did a good job of including all significant costs. Furthermore, comments on the survey itself and a lack of other costs filled in by respondents indicated the survey covered significant costs. However there are two costs, crew supplies and fresh water, that are collected by at-sea observers that were not included in the 2022 cost survey.</p>
+<p>As covered in Chapter 4.3, the 2022 cost survey queried a variety of expenses faced by vessel owners. During pre-testing of the survey instrument, fishing industry members generally felt that the survey did a good job of including all significant costs. Furthermore, comments on the survey itself and a lack of other costs filled in by respondents indicated the survey covered significant costs. However there are two costs, crew supplies and fresh water, that are collected by at-sea observers that were not included in the 2022 cost survey.</p>
 <p>To capture these costs, data from observer programs was used to calculate average costs per trip by gear. All 2022 trips from observer data tables were pulled, along with the primary gear utilized on each trip. The average crew supply and fresh water trip costs by gear type were calculated and these averages were then merged by gear with all of the trips taken by survey responding vessels during 2022. Finally, trip-level costs were summed to the vessel-level.</p>
 </div>
 <div id="depreciation" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Depreciation<a href="profit-calculation-methods.html#depreciation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The final cost component included in the profit calculation is vessel depreciation. Ideally, a different depreciation value would be assigned to each physical capital component (e.g. electronics, engine, hull) using the estimated market value and age of each piece of vessel equipment. This method would require additional information beyond that collected in the 2022 cost survey.</p>
-<p>Information on the estimated market vessel value, including all equipment and fishing gear, was collected in the 2022 cost survey. However the number of responses to this question were lower than most other survey questions explained in part by the inclusion of a “I Prefer not to Answer” option, which was not included for other survey questions. Given the relative lack of response for vessel market value, an alternate method was used in which shadow values of vessel characteristics- age, gross tonnage, length, and type of construction were estimated. The shadow values were then multiplied by each vessel characteristic to calculate a total vessel value. From the vessel values, a depreciation cost was calculated as 4% of the value for those vessels less than 25 years old and 2% of the value for those vessels 25 years or older.</p>
+<p>Information on the estimated market vessel value, including all equipment and fishing gear, was collected in the 2022 cost survey. However the number of responses to this question were lower than other survey questions explained in part by the inclusion of a “I prefer not to answer” option, which was not included for other survey questions. Given the relative lack of response for vessel market value, an alternate method was used in which shadow values of vessel characteristics including age, gross tonnage, length, and type of construction were estimated. The shadow values were then multiplied by each vessel characteristic to calculate a total vessel value. From the vessel values, a depreciation cost was calculated as 4% of the value for those vessels less than 25 years old and 2% of the value for those vessels 25 years or older following methods utilized for fishing fleets in Kitts et al. (2020).</p>
 </div>
 </div>
             </section>

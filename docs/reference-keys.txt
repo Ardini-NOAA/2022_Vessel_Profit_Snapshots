@@ -18,6 +18,7 @@ revenue-summary
 cost-summary
 operating-profit
 total-profit
+summmary
 discussion
 applications
 limitations-and-future-work
