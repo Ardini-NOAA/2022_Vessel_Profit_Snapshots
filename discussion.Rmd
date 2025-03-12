@@ -1,5 +1,4 @@
 # Summmary
-
 The Northeast U.S. is home to several economically important commercial fisheries, representing a variety of gear types. Vessels on this site are grouped by fishery and gear based on their highest source of revenue during calendar year 2022. Only vessels that provided a complete response to the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 are included. See Chapter 3.1 for the definition of a complete survey response. All fisheries and gears are represented in Chapters 5-8 as allowed by data confidentiality rules (at least 3 vessels). Below is a brief summary of the results presented in Chapters 5-8. See Chapter 10 for ways in which these results can be used as well as data limitations.
 
 Chapter 5 provides a summary of fleet ex-vessel revenues. These values are queried from the Catch Accounting and Monitoring System (CAMS), a collaborative database developed by the Greater Atlantic Regional Fisheries Office (GARFO) and the Northeast Fisheries Science Center (NEFSC). Mean and median values show substantially higher vessel revenues for some gear groups (e.g. scallop dredge, trawl) than others (e.g. gillnet, handgear). Similarly, some fisheries (e.g. scallop, squid, mackerel, and butterfish) show substantially higher mean and median vessel revenues than others (e.g. fluke, black sea bass, and scup, lobster).
@@ -42,12 +41,10 @@ Given these analyses, we recommend using these data for analyses and summaries s
 
 For management purposes, these 2022 snapshots can be incorporated into the Affected Environment: Human Communities section for various FMP actions. This section has frequently focused on trends in gross revenue and fishery effort. Profit provides additional information in capturing the economic performance of the fishery. 
 
-The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of total profits to gross revenues can inform how changes in quota/expected landings impact the bottom line of vessel operators. For the squid, mackerel, butterfish fishery, the ratio of total profit/gross revenue is 33% when using mean values and 26% using median values. For the scallop fishery, these numbers are 32% and 17% respectively. For the groundfish fishery, these numbers are 26% and 8%.
+The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of operating profits and total profits to gross revenues can inform how changes in quota/expected landings impact the bottom line of vessel operators. These ratios are shown in the table below. To interpret these results, $1.00 of ex-vessel revenue for scallop vessels translates to $0.16 of profit for the vessel owner. For groundfish vessels, $1.00 of revenue translates to $0.08 of profit for the vessel owner. The combination of gear and fishery also highlights the differences in how fleets operate. For example, vessels in the scup, black sea bass, scup fishery have substantially different operations depending on whether they use pot/trap or trawl gear. Those vessels using pot/trap gear within the fishery show modest gross revenues but a relatively high total profit/revenue ratio of 23.5%. Those vessels using trawl gear have higher revenues and total profit but a lower total profit/revenue ratio of 18.1%. These total profit margins can provide critical insight into the state of fishing fleets beyond more commonly reported metrics such as gross revenue or operating profit. However, care should be taken when considering fleets with a low number of observations such longline or seine vessels.
 
 ```{r, echo=FALSE}
-library(dplyr)
-
-gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_profit_margin.csv")
+gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_profit_margin.csv")
 gear_margins_2 <- gear_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_margins_3 <- gear_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_margins_4 <- gear_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -59,7 +56,7 @@ gear_margins_4$tp_margin<-paste(gear_margins_4$tp_margin,"%")
 gear_margins_5 <- subset(gear_margins_4, select=c(Gear, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
 knitr::kable(gear_margins_5)
 
-fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/fmp_profit_margin.csv")
+fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_profit_margin.csv")
 fmp_margins_2 <- fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 fmp_margins_3 <- fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 fmp_margins_4 <- fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -71,7 +68,7 @@ fmp_margins_4$tp_margin<-paste(fmp_margins_4$tp_margin,"%")
 fmp_margins_5 <- subset(fmp_margins_4, select=c(Fishery, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
 knitr::kable(fmp_margins_5)
 
-gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_fmp_profit_margin.csv")
+gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_profit_margin.csv")
 gear_fmp_margins_2 <- gear_fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_margins_3 <- gear_fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_fmp_margins_4 <- gear_fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -82,7 +79,6 @@ gear_fmp_margins_4$op_margin<-paste(gear_fmp_margins_4$op_margin,"%")
 gear_fmp_margins_4$tp_margin<-paste(gear_fmp_margins_4$tp_margin,"%")
 gear_fmp_margins_5 <- subset(gear_fmp_margins_4, select=c(Gear_Fishery, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
 knitr::kable(gear_fmp_margins_5)
-
 ```
 
 ## Limitations and Future Work
@@ -98,5 +94,7 @@ Das C. 2013. An Overview of the Annual Cost Survey Protocol and Results in the N
 Kitts, A., Van Anrooy, R., Van Eijs, S., Pino Shibata, J., Pallalever Pérez, R., Augusto Gonçalves, A., Ardini, G., Liese, C., Pan, M., Steiner, E. 2020. Techno-economic performance review of selected fishing fleets in North and South America. FAO Fisheries and Aquaculture Technical Paper No. 653/2. Rome, FAO.
 
 Kitts A., Walden J., Squires D., Travis M., Steiner E., Pfeiffer L., Liese C., Pan M. 2022. NOAA Fisheries Best Practices for Measuring Returns to Fishing Businesses. US Dept Commer, NOAA Tech Memo NMFS-F/SPO-231, 54 p.
+
+National Marine Fisheries Service. 2024. Fisheries Economics of the United States, 2021. U.S. Dept. of Commerce, NOAA Tech. Memo. NMFS-F/SPO-247, 188 p.
 
 (forthcoming) Werner S., Conley E., Ardini G. 2025. Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022: Survey Implementation, Data Processing Methods and Preliminary Results.

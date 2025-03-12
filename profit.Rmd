@@ -1,8 +1,6 @@
 # Operating Profit
 ```{r, echo=FALSE}
-library(ggplot2)
-
-gear_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_gear.csv")
+gear_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear.csv")
 gear_op_stats_2 <- gear_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 gear_op_stats_3 <- gear_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_op_stats_4 <- gear_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -12,11 +10,11 @@ gear_op_stats_4$St.Dev<-paste("$",gear_op_stats_4$St.Dev)
 gear_op_stats_4$Response_Perc<-paste(gear_op_stats_4$Response_Rate,"%")
 gear_op_stats_4 <- subset(gear_op_stats_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_op_stats_4)
-gear_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_boxplots.csv")
+gear_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
 gear_op <- ggplot(gear_profit, aes(x = Gear, y = total_operating_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000))
 
-fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_fmp.csv")
+fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_fmp.csv")
 fmp_op_stats_2 <- fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 fmp_op_stats_3 <- fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 fmp_op_stats_4 <- fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -26,11 +24,11 @@ fmp_op_stats_4$St.Dev<-paste("$",fmp_op_stats_4$St.Dev)
 fmp_op_stats_4$Response_Perc<-paste(fmp_op_stats_4$Response_Rate,"%")
 fmp_op_stats_4 <- subset(fmp_op_stats_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_op_stats_4)
-fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/fmp_boxplots.csv")
+fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
 fmp_op <- ggplot(fmp_profit, aes(x = Fishery, y = total_operating_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-gear_fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_gear_fmp.csv")
+gear_fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear_fmp.csv")
 gear_fmp_op_stats_2 <- gear_fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 gear_fmp_op_stats_3 <- gear_fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_fmp_op_stats_4 <- gear_fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -40,12 +38,12 @@ gear_fmp_op_stats_4$St.Dev<-paste("$",gear_fmp_op_stats_4$St.Dev)
 gear_fmp_op_stats_4$Response_Perc<-paste(gear_fmp_op_stats_4$Response_Rate,"%")
 gear_fmp_op_stats_4 <- subset(gear_fmp_op_stats_4, select=c(Gear_Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_op_stats_4)
-gear_fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_fmp_boxplots.csv")
+gear_fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_op <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_operating_profit, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups.
+By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups. 
 
 By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. For scallop, the difference between mean and median values is relatively small. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
 
@@ -54,9 +52,7 @@ When primary gear and FMP are combined, trawl-groundfish has the highest mean op
 
 # Total Profit
 ```{r, echo=FALSE}
-library(ggplot2)
-
-gear_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_gear.csv")
+gear_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear.csv")
 gear_tp_stats_2 <- gear_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 gear_tp_stats_3 <- gear_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 gear_tp_stats_4 <- gear_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
@@ -69,7 +65,7 @@ knitr::kable(gear_tp_stats_4)
 gear_tp <- ggplot(gear_profit, aes(x = Gear, y = total_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000))
 
-fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_fmp.csv")
+fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_fmp.csv")
 fmp_tp_stats_2 <- fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 fmp_tp_stats_3 <- fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 fmp_tp_stats_4 <- fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
@@ -82,7 +78,7 @@ knitr::kable(fmp_tp_stats_4)
 fmp_tp <- ggplot(fmp_profit, aes(x = Fishery, y = total_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-gear_fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_gear_fmp.csv")
+gear_fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear_fmp.csv")
 gear_fmp_tp_stats_2 <- gear_fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 gear_fmp_tp_stats_3 <- gear_fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 gear_fmp_tp_stats_4 <- gear_fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))

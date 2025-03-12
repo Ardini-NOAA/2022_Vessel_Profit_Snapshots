@@ -6,16 +6,13 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
-
 Profit is an important metric in assessing the economic performance of commercial fishing fleets and in evaluating the impacts of proposed regulations. Evaluation of economic impacts is required under a number of laws, including Including the Magnuson-Stevens Fishery Conservation and Management Act (MSA), the National Environmental Policy Act (NEPA), Executive Order 12866, and the Regulatory Flexibility Act (RFA). 
 
-Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits.
+Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits. 
 
 Using data primarily collected from the most recent cost survey, this site presents commercial fishing vessel profits during 2022 for those vessels who participated in the survey effort. All information presented follows data confidentiality rules as required under the MSA (at least 3 vessels must be present in each summary group). These snapshots will serve as a performance metric in evaluating the economic impacts of proposed fishery management actions. 
 
-
 ## Cost Survey Background
-
 Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Science Center (NEFSC) has intermittently collected commercial fishing cost information from vessel owners through a voluntary survey. The most recent survey, formally known as the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 (hereafter 2022 cost survey), was fielded in March-August 2023 to collect costs incurred by vessel owners during calendar year 2022. The 2022 cost survey was split up into the following sections:
 
   1. General Information
@@ -28,11 +25,10 @@ Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Sc
   8. Completeness of Cost Information
   9. Survey Follow-up Questions
 
-Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (2025). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the Cost Survey Landing Page. Additionally, the Cost Data Visualization Tool presents distributions for the various costs provided by survey respondents.
+Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (in review). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the [Cost Survey Landing Page](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey). Additionally, the [Cost Data Visualization Tool](https://apps-nefsc.fisheries.noaa.gov/cost-data/) presents distributions for the various costs provided by survey respondents.
 
 
 # Metrics
-
 There are a number of different metrics to measure net returns to commercial fishing businesses as detailed in Kitts et al. (2022). For example a cash flow statement typically shows returns over time and can help inform the need to acquire cash reserves through loans. An income statement is somewhat similar to a cash flow statement and focuses on gross revenues and costs associated with operating a fishing business. An economic profit statement includes opportunity costs, such as physical capital costs and the vessel owner’s time. A vessel may yield a positive accounting profit but a negative economic profit after accounting for opportunity costs.
 
 This page provides modified income statements looking at both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
@@ -49,7 +45,6 @@ EQUATION 2: Operating Profit - (RMUI/other Vessel Costs  + Overhead + Quota Leas
 
 
 # Respondent Pool
-
 A total of 422 surveys were returned to the Social Sciences Branch at the conclusion of the 2022 cost survey. Profit calculations were first performed for all observations followed by a series of steps to eliminate those observations that were deemed inappropriate to include.
 
 ## Filtering of Observations
@@ -75,7 +70,7 @@ Vessel primary gear (4.1.1) and primary fishery (4.1.2) were also combined to ex
 ## For-Hire Revenue
 While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.
 
-All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the 2022 National Angler Expenditure Survey administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.
+All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the [2022 National Angler Expenditure Survey](https://www.fisheries.noaa.gov/national/socioeconomics/marine-recreational-fishing-expenditure-survey) administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.
 
 ## Survey Costs
 The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:
@@ -158,13 +153,13 @@ The final cost component included in the profit calculation is vessel depreciati
 Information on the estimated market vessel value, including all equipment and fishing gear, was collected in the 2022 cost survey. However the number of responses to this question were lower than other survey questions explained in part by the inclusion of a “I prefer not to answer” option, which was not included for other survey questions. Given the relative lack of response for vessel market value, an alternate method was used in which shadow values of vessel characteristics including age, gross tonnage, length, and type of construction were estimated. The shadow values were then multiplied by each vessel characteristic to calculate a total vessel value. From the vessel values, a depreciation cost was calculated as 4% of the value for those vessels less than 25 years old and 2% of the value for those vessels 25 years or older following methods utilized for fishing fleets in Kitts et al. (2020).
 
 
-
 # Revenue Summary
 ```{r, echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
 library(dplyr)
 library(ggplot2)
 
-gear_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/revenue_summary/gear_revenue_no_conf.csv")
+gear_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_revenue_no_conf.csv")
 gear_revenue_2 <- gear_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 gear_revenue_3 <- gear_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_revenue_4 <- gear_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
@@ -174,11 +169,11 @@ gear_revenue_4$St.Dev<-paste("$",gear_revenue_4$St.Dev)
 gear_revenue_4$Response_Perc<-paste(gear_revenue_4$Response_Rate,"%")
 gear_revenue_4 <- subset(gear_revenue_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_revenue_4)
-gear_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_boxplots.csv")
+gear_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
 gear_revenue_plot_2 <- ggplot(gear_revenue_plot, aes(x = Gear, y = total_revenue, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000))
 
-fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/revenue_summary/fmp_revenue_no_conf.csv")
+fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_revenue_no_conf.csv")
 fmp_revenue_2 <- fmp_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 fmp_revenue_3 <- fmp_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 fmp_revenue_4 <- fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
@@ -188,11 +183,11 @@ fmp_revenue_4$St.Dev<-paste("$",fmp_revenue_4$St.Dev)
 fmp_revenue_4$Response_Perc<-paste(fmp_revenue_4$Response_Rate,"%")
 fmp_revenue_4 <- subset(fmp_revenue_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_revenue_4)
-fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/fmp_boxplots.csv")
+fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
 fmp_revenue_plot_2 <- ggplot(fmp_revenue_plot, aes(x = Fishery, y = total_revenue, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-gear_fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/revenue_summary/gear_fmp_revenue_no_conf.csv")
+gear_fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_revenue_no_conf.csv")
 gear_fmp_revenue_2<- gear_fmp_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_revenue_3<- gear_fmp_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_revenue_4<- gear_fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
@@ -202,25 +197,23 @@ gear_fmp_revenue_4$St.Dev<-paste("$",gear_fmp_revenue_4$St.Dev)
 gear_fmp_revenue_4$Response_Perc<-paste(gear_fmp_revenue_4$Response_Rate,"%")
 gear_fmp_revenue_4<- subset(gear_fmp_revenue_4, select=c(Gear_Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_revenue_4)
-gear_fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_fmp_boxplots.csv")
+gear_fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_revenue_plot_2 <- ggplot(gear_fmp_revenue_plot, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, seine vessels have the highest mean revenue, noting the presence of only three observations. Scallop dredge, trawl, and seine vessels have the highest median revenue, more than twice the value of those for other gear types. Longline has the fourth highest median values, followed by pot/trap, gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
+By primary gear, seine vessels have the highest mean revenue, noting the presence of only three observations. Scallop dredge, trawl, and seine vessels have the highest median revenue, more than twice the value of those for other gear types. These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024).  Longline has the fourth highest median values, followed by pot/trap, gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
 
 By FMP, scallop, squid/mackerel/butterfish, and groundfish have the highest mean revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, noting that the lobster fleet has considerably more vessels than the scallop fleet. 
 
 When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.
 
 
-
 # Cost Summary
 ```{r, echo=FALSE}
-library(dplyr)
 library(scales)
 
-gear_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_summary/gear_cost_no_conf.csv")
+gear_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_no_conf.csv")
 gear_cost_2 <- gear_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 gear_cost_3 <- gear_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 gear_cost_4 <- gear_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
@@ -231,7 +224,7 @@ gear_cost_4$Response_Perc<-paste(gear_cost_4$Response_Rate,"%")
 gear_cost_4 <- subset(gear_cost_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_cost_4)
 
-fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_summary/fmp_cost_no_conf.csv")
+fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_no_conf.csv")
 fmp_cost_2 <- fmp_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 fmp_cost_3 <- fmp_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 fmp_cost_4 <- fmp_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
@@ -242,7 +235,7 @@ fmp_cost_4$Response_Perc<-paste(fmp_cost_4$Response_Rate,"%")
 fmp_cost_4 <- subset(fmp_cost_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_cost_4)
 
-gear_fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_summary/gear_fmp_cost_no_conf.csv")
+gear_fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_no_conf.csv")
 gear_fmp_cost_2 <- gear_fmp_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 gear_fmp_cost_3 <- gear_fmp_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 gear_fmp_cost_4 <- gear_fmp_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
@@ -255,15 +248,7 @@ knitr::kable(gear_fmp_cost_4)
 ```
 
 ```{r, echo=FALSE}
-library(ggplot2)
-
-#gear_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_cost_cat_perc.csv")
-#knitr::kable(gear_dist)
-
-#ggplot(gear_dist2, aes(x = "", y=Dredge_Scallop, fill = Cost_Category)) + geom_col(color="white") + geom_text(aes(label=percent(Dredge_Scallop)), position = #position_stack(vjust = 0.5), size=6) + coord_polar(theta = "y")  + ggtitle("Dredge_Scallop") + theme(plot.title = element_text(hjust = 0.5, size = 18), 
-#axis.title=element_blank(), axis.text=element_blank(), axis.ticks=element_blank(), panel.grid = element_blank(),panel.border = element_blank()) + theme(legend.text = #element_text(size=16), legend.title = element_text(size=16))
-
-gear_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_cost_cat_perc_2.csv")
+gear_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_cat_perc_2.csv")
 gear_dist3$perc=percent(gear_dist3$percent, accuracy = 0.1)
 gear_dist4<- subset(gear_dist3, Gear== "Dredge_Scallop" | Gear== "Gillnet" | Gear== "Handgear")
 ggplot(data=gear_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11))
@@ -271,16 +256,12 @@ ggplot(data=gear_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 
 gear_dist5<- subset(gear_dist3, Gear== "Longline" | Gear== "Pot/Trap" | Gear== "Seine" | Gear== "Trawl")
 ggplot(data=gear_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
 
-gear_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_quota_percent_no_conf.csv")
+gear_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_quota_percent_no_conf.csv")
 gear_quota$Quota_Percent_Total_Cost<-paste(gear_quota$Quota_Percent_Total_Cost,"%")
 gear_quota_2 <- subset(gear_quota, select=c(Gear, Quota_Percent_Total_Cost))
 knitr::kable(gear_quota_2)
-#gear_dist6<- subset(gear_dist3, Gear== "Trawl")
-#ggplot(data=gear_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + #geom_text(aes(label=percent(percent)), position = position_stack(vjust = 0.5), size=4) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12))
 
-#fmp_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/fmp_cost_cat_perc.csv")
-#knitr::kable(fmp_dist)
-fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/fmp_cost_cat_perc_2.csv")
+fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_cat_perc_2.csv")
 fmp_dist3$perc=percent(fmp_dist3$percent, accuracy = 0.1)
 fmp_dist4<- subset(fmp_dist3, Fishery== "Dogfish" | Fishery== "Fluke, BSB, Scup" | Fishery== "Groundfish")
 ggplot(data=fmp_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11))
@@ -291,14 +272,12 @@ ggplot(data=fmp_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1
 fmp_dist6<- subset(fmp_dist3, Fishery== "Other" | Fishery== "Scallop" | Fishery== "Squid, Mackerel, Butterfish" | Fishery== "Striped Bass")
 ggplot(data=fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
 
-fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/fmp_quota_percent_no_conf.csv")
+fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_quota_percent_no_conf.csv")
 fmp_quota$Quota_Percent_Total_Cost<-paste(fmp_quota$Quota_Percent_Total_Cost,"%")
 fmp_quota_2 <- subset(fmp_quota, select=c(Fishery, Quota_Percent_Total_Cost))
 knitr::kable(fmp_quota_2)
 
-#gear_fmp_dist<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_cost_cat_perc.csv")
-#knitr::kable(gear_fmp_dist)
-gear_fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_cost_cat_perc_2.csv")
+gear_fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_cat_perc_2.csv")
 gear_fmp_dist3$perc=percent(gear_fmp_dist3$percent, accuracy = 0.1)
 gear_fmp_dist4<- subset(gear_fmp_dist3, Gear_Fishery== "Dredge_Scallop-Scallop" | Gear_Fishery== "Gillnet-Monkfish" | Gear_Fishery== "Gillnet-Other")
 ggplot(data=gear_fmp_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11))
@@ -312,7 +291,7 @@ ggplot(data=gear_fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(widt
 gear_fmp_dist7<- subset(gear_fmp_dist3, Gear_Fishery== "Trawl-Fluke, BSB, Scup" | Gear_Fishery== "Trawl-Groundfish" | Gear_Fishery== "Trawl-Other" | Gear_Fishery== "Trawl-Squid, Mackerel, Butterfish")
 ggplot(data=gear_fmp_dist7, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_blank(), legend.title = element_blank(), legend.position = "none", strip.text.x = element_text(size=11))
 
-gear_fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors/gear_fmp_quota_percent_no_conf.csv")
+gear_fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_quota_percent_no_conf.csv")
 gear_fmp_quota$Quota_Percent_Total_Cost<-paste(gear_fmp_quota$Quota_Percent_Total_Cost,"%")
 gear_fmp_quota_2 <- subset(gear_fmp_quota, select=c(Gear_Fishery, Quota_Percent_Total_Cost))
 knitr::kable(gear_fmp_quota_2)
@@ -325,12 +304,9 @@ By FMP, a number of fisheries have similar mean costs. Scallop vessels have the 
 When primary gear and FMP are combined, trawl-groundfish has the highest mean and median costs. Within primary gear types, a considerable difference in costs is found across fisheries. For example, mean and median values for lobster pot/trap vessels are greater than those values for fluke, black sea bass, and scup pot/trap vessels. The top cost contributors are generally similar within a gear group and across fisheries. For example, all trawl fisheries have relatively high crew payments, ~40% of total costs. Handgear fisheries have relatively large shares of repair/maintenance/upgrade/improvement (RMUI) costs. Pot/trap fisheries have relatively high trip expenses, possibly due to the cost of bait. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for Longline-HMS and Trawl- groundfish. Some gear/FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
 
-
 # Operating Profit
 ```{r, echo=FALSE}
-library(ggplot2)
-
-gear_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_gear.csv")
+gear_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear.csv")
 gear_op_stats_2 <- gear_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 gear_op_stats_3 <- gear_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_op_stats_4 <- gear_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -340,11 +316,11 @@ gear_op_stats_4$St.Dev<-paste("$",gear_op_stats_4$St.Dev)
 gear_op_stats_4$Response_Perc<-paste(gear_op_stats_4$Response_Rate,"%")
 gear_op_stats_4 <- subset(gear_op_stats_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_op_stats_4)
-gear_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_boxplots.csv")
+gear_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
 gear_op <- ggplot(gear_profit, aes(x = Gear, y = total_operating_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000))
 
-fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_fmp.csv")
+fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_fmp.csv")
 fmp_op_stats_2 <- fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 fmp_op_stats_3 <- fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 fmp_op_stats_4 <- fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -354,11 +330,11 @@ fmp_op_stats_4$St.Dev<-paste("$",fmp_op_stats_4$St.Dev)
 fmp_op_stats_4$Response_Perc<-paste(fmp_op_stats_4$Response_Rate,"%")
 fmp_op_stats_4 <- subset(fmp_op_stats_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_op_stats_4)
-fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/fmp_boxplots.csv")
+fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
 fmp_op <- ggplot(fmp_profit, aes(x = Fishery, y = total_operating_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-gear_fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_op_gear_fmp.csv")
+gear_fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear_fmp.csv")
 gear_fmp_op_stats_2 <- gear_fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
 gear_fmp_op_stats_3 <- gear_fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_fmp_op_stats_4 <- gear_fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
@@ -368,12 +344,12 @@ gear_fmp_op_stats_4$St.Dev<-paste("$",gear_fmp_op_stats_4$St.Dev)
 gear_fmp_op_stats_4$Response_Perc<-paste(gear_fmp_op_stats_4$Response_Rate,"%")
 gear_fmp_op_stats_4 <- subset(gear_fmp_op_stats_4, select=c(Gear_Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_op_stats_4)
-gear_fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets/gear_fmp_boxplots.csv")
+gear_fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_op <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_operating_profit, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups.
+By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups. 
 
 By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. For scallop, the difference between mean and median values is relatively small. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
 
@@ -382,9 +358,7 @@ When primary gear and FMP are combined, trawl-groundfish has the highest mean op
 
 # Total Profit
 ```{r, echo=FALSE}
-library(ggplot2)
-
-gear_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_gear.csv")
+gear_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear.csv")
 gear_tp_stats_2 <- gear_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 gear_tp_stats_3 <- gear_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 gear_tp_stats_4 <- gear_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
@@ -397,7 +371,7 @@ knitr::kable(gear_tp_stats_4)
 gear_tp <- ggplot(gear_profit, aes(x = Gear, y = total_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000))
 
-fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_fmp.csv")
+fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_fmp.csv")
 fmp_tp_stats_2 <- fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 fmp_tp_stats_3 <- fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 fmp_tp_stats_4 <- fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
@@ -410,7 +384,7 @@ knitr::kable(fmp_tp_stats_4)
 fmp_tp <- ggplot(fmp_profit, aes(x = Fishery, y = total_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-gear_fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/summary_stats_tp_gear_fmp.csv")
+gear_fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear_fmp.csv")
 gear_fmp_tp_stats_2 <- gear_fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
 gear_fmp_tp_stats_3 <- gear_fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
 gear_fmp_tp_stats_4 <- gear_fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
@@ -432,7 +406,6 @@ When primary gear and FMP are combined, trawl-squid, mackerel, butterfish, trawl
 
 
 # Summmary
-
 The Northeast U.S. is home to several economically important commercial fisheries, representing a variety of gear types. Vessels on this site are grouped by fishery and gear based on their highest source of revenue during calendar year 2022. Only vessels that provided a complete response to the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 are included. See Chapter 3.1 for the definition of a complete survey response. All fisheries and gears are represented in Chapters 5-8 as allowed by data confidentiality rules (at least 3 vessels). Below is a brief summary of the results presented in Chapters 5-8. See Chapter 10 for ways in which these results can be used as well as data limitations.
 
 Chapter 5 provides a summary of fleet ex-vessel revenues. These values are queried from the Catch Accounting and Monitoring System (CAMS), a collaborative database developed by the Greater Atlantic Regional Fisheries Office (GARFO) and the Northeast Fisheries Science Center (NEFSC). Mean and median values show substantially higher vessel revenues for some gear groups (e.g. scallop dredge, trawl) than others (e.g. gillnet, handgear). Similarly, some fisheries (e.g. scallop, squid, mackerel, and butterfish) show substantially higher mean and median vessel revenues than others (e.g. fluke, black sea bass, and scup, lobster).
@@ -475,12 +448,10 @@ Given these analyses, we recommend using these data for analyses and summaries s
 
 For management purposes, these 2022 snapshots can be incorporated into the Affected Environment: Human Communities section for various FMP actions. This section has frequently focused on trends in gross revenue and fishery effort. Profit provides additional information in capturing the economic performance of the fishery. 
 
-The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of total profits to gross revenues can inform how changes in quota/expected landings impact the bottom line of vessel operators. For the squid, mackerel, butterfish fishery, the ratio of total profit/gross revenue is 33% when using mean values and 26% using median values. For the scallop fishery, these numbers are 32% and 17% respectively. For the groundfish fishery, these numbers are 26% and 8%.
+The profiles can also be incorporated into the economic impact analysis of management actions. For example, the ratio of operating profits and total profits to gross revenues can inform how changes in quota/expected landings impact the bottom line of vessel operators. These ratios are shown in the table below. To interpret these results, $1.00 of ex-vessel revenue for scallop vessels translates to $0.16 of profit for the vessel owner. For groundfish vessels, $1.00 of revenue translates to $0.08 of profit for the vessel owner. The combination of gear and fishery also highlights the differences in how fleets operate. For example, vessels in the scup, black sea bass, scup fishery have substantially different operations depending on whether they use pot/trap or trawl gear. Those vessels using pot/trap gear within the fishery show modest gross revenues but a relatively high total profit/revenue ratio of 23.5%. Those vessels using trawl gear have higher revenues and total profit but a lower total profit/revenue ratio of 18.1%. These total profit margins can provide critical insight into the state of fishing fleets beyond more commonly reported metrics such as gross revenue or operating profit. However, care should be taken when considering fleets with a low number of observations such longline or seine vessels.
 
 ```{r, echo=FALSE}
-library(dplyr)
-
-gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_profit_margin.csv")
+gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_profit_margin.csv")
 gear_margins_2 <- gear_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_margins_3 <- gear_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_margins_4 <- gear_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -492,7 +463,7 @@ gear_margins_4$tp_margin<-paste(gear_margins_4$tp_margin,"%")
 gear_margins_5 <- subset(gear_margins_4, select=c(Gear, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
 knitr::kable(gear_margins_5)
 
-fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/fmp_profit_margin.csv")
+fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_profit_margin.csv")
 fmp_margins_2 <- fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 fmp_margins_3 <- fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 fmp_margins_4 <- fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -504,7 +475,7 @@ fmp_margins_4$tp_margin<-paste(fmp_margins_4$tp_margin,"%")
 fmp_margins_5 <- subset(fmp_margins_4, select=c(Fishery, Median_Revenue, Median_OP, Median_TP, op_margin, tp_margin))
 knitr::kable(fmp_margins_5)
 
-gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary/gear_fmp_profit_margin.csv")
+gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_profit_margin.csv")
 gear_fmp_margins_2 <- gear_fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_margins_3 <- gear_fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
 gear_fmp_margins_4 <- gear_fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
@@ -530,5 +501,7 @@ Das C. 2013. An Overview of the Annual Cost Survey Protocol and Results in the N
 Kitts, A., Van Anrooy, R., Van Eijs, S., Pino Shibata, J., Pallalever Pérez, R., Augusto Gonçalves, A., Ardini, G., Liese, C., Pan, M., Steiner, E. 2020. Techno-economic performance review of selected fishing fleets in North and South America. FAO Fisheries and Aquaculture Technical Paper No. 653/2. Rome, FAO.
 
 Kitts A., Walden J., Squires D., Travis M., Steiner E., Pfeiffer L., Liese C., Pan M. 2022. NOAA Fisheries Best Practices for Measuring Returns to Fishing Businesses. US Dept Commer, NOAA Tech Memo NMFS-F/SPO-231, 54 p.
+
+National Marine Fisheries Service. 2024. Fisheries Economics of the United States, 2021. U.S. Dept. of Commerce, NOAA Tech. Memo. NMFS-F/SPO-247, 188 p.
 
 (forthcoming) Werner S., Conley E., Ardini G. 2025. Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022: Survey Implementation, Data Processing Methods and Preliminary Results.

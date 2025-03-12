@@ -1,0 +1,36 @@
+Gear,Category,percent
+Dredge_Scallop,Repairs/Upgrades,0.169
+Gillnet,Repairs/Upgrades,0.187
+Handgear,Repairs/Upgrades,0.457
+Longline,Repairs/Upgrades,0.407
+Pot/Trap,Repairs/Upgrades,0.246
+Seine,Repairs/Upgrades,0.141
+Trawl,Repairs/Upgrades,0.244
+Dredge_Scallop,Vessel Costs,0.201
+Gillnet,Vessel Costs,0.066
+Handgear,Vessel Costs,0.175
+Longline,Vessel Costs,0.181
+Pot/Trap,Vessel Costs,0.086
+Seine,Vessel Costs,0.081
+Trawl,Vessel Costs,0.127
+Dredge_Scallop,Trip Expenses,0.092
+Gillnet,Trip Expenses,0.348
+Handgear,Trip Expenses,0.162
+Longline,Trip Expenses,0.171
+Pot/Trap,Trip Expenses,0.313
+Seine,Trip Expenses,0.016
+Trawl,Trip Expenses,0.159
+Dredge_Scallop,Crew Payments,0.466
+Gillnet,Crew Payments,0.301
+Handgear,Crew Payments,0.134
+Longline,Crew Payments,0.166
+Pot/Trap,Crew Payments,0.26
+Seine,Crew Payments,0.726
+Trawl,Crew Payments,0.407
+Dredge_Scallop,Overhead,0.073
+Gillnet,Overhead,0.099
+Handgear,Overhead,0.071
+Longline,Overhead,0.075
+Pot/Trap,Overhead,0.096
+Seine,Overhead,0.036
+Trawl,Overhead,0.063

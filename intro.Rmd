@@ -1,14 +1,11 @@
 # Introduction
-
 Profit is an important metric in assessing the economic performance of commercial fishing fleets and in evaluating the impacts of proposed regulations. Evaluation of economic impacts is required under a number of laws, including Including the Magnuson-Stevens Fishery Conservation and Management Act (MSA), the National Environmental Policy Act (NEPA), Executive Order 12866, and the Regulatory Flexibility Act (RFA). 
 
-Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits.
+Within the Northeast United States, commercial revenues are readily available to NOAA Fisheries, as all federally permitted vessels are required to report sales to licensed dealers. Cost data, on the other hand, have generally been the limiting factor in calculating vessel profits. The Northeast Fisheries Science Center conducts a voluntary survey to collect comprehensive cost information from commercial fishing vessel owners. This survey was last implemented during 2023 for costs incurred during calendar year 2022. One of the primary goals of the survey was to calculate vessel-level profits. 
 
 Using data primarily collected from the most recent cost survey, this site presents commercial fishing vessel profits during 2022 for those vessels who participated in the survey effort. All information presented follows data confidentiality rules as required under the MSA (at least 3 vessels must be present in each summary group). These snapshots will serve as a performance metric in evaluating the economic impacts of proposed fishery management actions. 
 
-
 ## Cost Survey Background
-
 Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Science Center (NEFSC) has intermittently collected commercial fishing cost information from vessel owners through a voluntary survey. The most recent survey, formally known as the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 (hereafter 2022 cost survey), was fielded in March-August 2023 to collect costs incurred by vessel owners during calendar year 2022. The 2022 cost survey was split up into the following sections:
 
   1. General Information
@@ -21,11 +18,10 @@ Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Sc
   8. Completeness of Cost Information
   9. Survey Follow-up Questions
 
-Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (2025). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the Cost Survey Landing Page. Additionally, the Cost Data Visualization Tool presents distributions for the various costs provided by survey respondents.
+Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (in review). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the [Cost Survey Landing Page](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey). Additionally, the [Cost Data Visualization Tool](https://apps-nefsc.fisheries.noaa.gov/cost-data/) presents distributions for the various costs provided by survey respondents.
 
 
 # Metrics
-
 There are a number of different metrics to measure net returns to commercial fishing businesses as detailed in Kitts et al. (2022). For example a cash flow statement typically shows returns over time and can help inform the need to acquire cash reserves through loans. An income statement is somewhat similar to a cash flow statement and focuses on gross revenues and costs associated with operating a fishing business. An economic profit statement includes opportunity costs, such as physical capital costs and the vessel owner’s time. A vessel may yield a positive accounting profit but a negative economic profit after accounting for opportunity costs.
 
 This page provides modified income statements looking at both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
@@ -42,7 +38,6 @@ EQUATION 2: Operating Profit - (RMUI/other Vessel Costs  + Overhead + Quota Leas
 
 
 # Respondent Pool
-
 A total of 422 surveys were returned to the Social Sciences Branch at the conclusion of the 2022 cost survey. Profit calculations were first performed for all observations followed by a series of steps to eliminate those observations that were deemed inappropriate to include.
 
 ## Filtering of Observations
@@ -68,55 +63,67 @@ Vessel primary gear (4.1.1) and primary fishery (4.1.2) were also combined to ex
 ## For-Hire Revenue
 While the 2022 cost survey was sent to vessels engaged in commercial fishing during 2021 or 2022, some of these vessels also were engaged in for-hire fishing. In order to accurately capture vessel-level profits, it is important to include this additional source of revenue. For-hire revenue is derived from angler/customer payments on recreational trips.
 
-All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the 2022 National Angler Expenditure Survey administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.
+All 2022 party/charter trips, and the number of anglers per trip, were first pulled from logbook data. Average angler charter/guide fees by state were then retrieved from the results of the [2022 National Angler Expenditure Survey](https://www.fisheries.noaa.gov/national/socioeconomics/marine-recreational-fishing-expenditure-survey) administered by NOAA Fisheries. This survey is conducted every 3-5 years to better understand the economic contribution of recreational fishing within each region. The survey collects information on a variety of angler expenditures including bait, ice, lodging, and travel costs. For the purpose of the vessel profit calculation, only the amount paid by the angler for the party/charter ticket is used. State-level averages from the angler expenditure survey were used in light of the variability in fees by state within the Northeast region as well as the high level of response for each state. The average angler fee was multiplied by the number of anglers for each 2022 party/charter trip by state. Finally, the trip-level calculations were summed to an annual vessel-level value.
 
 ## Survey Costs
 The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:
 
-  (2) New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
-    Propulsion Engine
-    Deck Equipment / Other Machinery
-    Haul-out Costs
-    Hull
-    Fishing Gear
-    Wheelhouse Electronics
-    Processing / Refrigeration
-    Safety Equipment
-    Mooring/Docking Fees
-    State and Federal Permits and/or License Renewal Fees
-    Vessel or Permit Payments/Financing
-    Annual Vessel Insurance Premium
 
-  (3) Trip Expenses for the Selected Vessel
-    Fuel 
-    Bait
-    Food for captain and crew
-    Ice
-    Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
-    At-sea Processing At-sea Boxing/Packaging
+New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
 
-  (4) Crew Payment System for the Selected Vessel
-    Total Payments to Crew
-    Total Payments to Hired Captain
-    Benefits Paid to Crew and/or Hired Captain
+  a. Propulsion Engine
+  b. Deck Equipment / Other Machinery
+  c. Haul-out Costs
+  d. Hull
+  e. Fishing Gear
+  f. Wheelhouse Electronics
+  g. Processing / Refrigeration
+  h. Safety Equipment
+  i. Mooring/Docking Fees
+  j. State and Federal Permits and/or License Renewal Fees
+  k. Vessel or Permit Payments/Financing
+  l. Annual Vessel Insurance Premium
 
-  (5) Overhead Costs
-    Business Vehicle Costs
-    Business Travel Costs
-    Association Fees 
-    Legal Expenses 
-    Additional Labor Payments
-    Advertising Costs
-    Communication Costs
-    Office/Workshop/Storage Expenses
 
-  (7) Quota Costs and Revenues for the Selected Vessel
-    Quota Leasing Costs
-    Quota Leasing Revenue
-    Quota Monitoring Costs
+Trip Expenses for the Selected Vessel
 
-  (8) Completeness of Cost Information
-    Other Costs for the Selected Vessel
+  a. Fuel 
+  b. Bait
+  c. Food for captain and crew
+  d. Ice
+  e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
+  f. At-sea Processing At-sea Boxing/Packaging
+
+
+Crew Payment System for the Selected Vessel
+
+  a. Total Payments to Crew
+  b. Total Payments to Hired Captain
+  c. Benefits Paid to Crew and/or Hired Captain
+
+
+Overhead Costs
+
+  a. Business Vehicle Costs
+  b. Business Travel Costs
+  c. Association Fees 
+  d. Legal Expenses 
+  e. Additional Labor Payments
+  f. Advertising Costs
+  g. Communication Costs
+  h. Office/Workshop/Storage Expenses
+
+
+Quota Costs and Revenues for the Selected Vessel
+
+  a. Quota Leasing Costs
+  b. Quota Leasing Revenue
+  c. Quota Monitoring Costs
+
+
+Completeness of Cost Information
+  a. Other Costs for the Selected Vessel
+
 
 From these various cost categories within the survey, some data manipulation was required to make costs usable at the vessel/annual level. These data manipulation steps are summarized below.
 
