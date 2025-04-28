@@ -75,62 +75,45 @@ All 2022 party/charter trips, and the number of anglers per trip, were first pul
 ## Survey Costs
 The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:
 
-
-1.  New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
-
-  a. Propulsion Engine
-  b. Deck Equipment / Other Machinery
-  c. Haul-out Costs
-  d. Hull
-  e. Fishing Gear
-  f. Wheelhouse Electronics
-  g. Processing / Refrigeration
-  h. Safety Equipment
-  i. Mooring/Docking Fees
-  j. State and Federal Permits and/or License Renewal Fees
-  k. Vessel or Permit Payments/Financing
-  l. Annual Vessel Insurance Premium
-
-
-Trip Expenses for the Selected Vessel
-
-  a. Fuel 
-  b. Bait
-  c. Food for captain and crew
-  d. Ice
-  e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
-  f. At-sea Processing At-sea Boxing/Packaging
-
-
-Crew Payment System for the Selected Vessel
-
-  a. Total Payments to Crew
-  b. Total Payments to Hired Captain
-  c. Benefits Paid to Crew and/or Hired Captain
-
-
-Overhead Costs
-
-  a. Business Vehicle Costs
-  b. Business Travel Costs
-  c. Association Fees 
-  d. Legal Expenses 
-  e. Additional Labor Payments
-  f. Advertising Costs
-  g. Communication Costs
-  h. Office/Workshop/Storage Expenses
-
-
-Quota Costs and Revenues for the Selected Vessel
-
-  a. Quota Leasing Costs
-  b. Quota Leasing Revenue
-  c. Quota Monitoring Costs
-
-
-Completeness of Cost Information
-  a. Other Costs for the Selected Vessel
-
+1. New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
+    a. Propulsion Engine
+    b. Deck Equipment / Other Machinery
+    c. Haul-out Costs
+    d. Hull
+    e. Fishing Gear
+    f. Wheelhouse Electronics
+    g. Processing / Refrigeration
+    h. Safety Equipment
+    i. Mooring/Docking Fees
+    j. State and Federal Permits and/or License Renewal Fees
+    k. Vessel or Permit Payments/Financing
+    l. Annual Vessel Insurance Premium
+2. Trip Expenses for the Selected Vessel
+    a. Fuel 
+    b. Bait
+    c. Food for captain and crew
+    d. Ice
+    e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
+    f. At-sea Processing At-sea Boxing/Packaging
+3. Crew Payment System for the Selected Vessel
+    a. Total Payments to Crew
+    b. Total Payments to Hired Captain
+    c. Benefits Paid to Crew and/or Hired Captain
+4. Overhead Costs
+    a. Business Vehicle Costs
+    b. Business Travel Costs
+    c. Association Fees 
+    d. Legal Expenses 
+    e. Additional Labor Payments
+    f. Advertising Costs
+    g. Communication Costs
+    h. Office/Workshop/Storage Expenses
+5. Quota Costs and Revenues for the Selected Vessel
+    a. Quota Leasing Costs
+    b. Quota Leasing Revenue
+    c. Quota Monitoring Costs
+6. Completeness of Cost Information
+    a. Other Costs for the Selected Vessel
 
 From these various cost categories within the survey, some data manipulation was required to make costs usable at the vessel/annual level. These data manipulation steps are summarized below.
 

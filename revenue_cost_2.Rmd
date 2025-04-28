@@ -11,8 +11,8 @@ gear_revenue_4 <- gear_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark
 gear_revenue_4$Mean<-paste("$",gear_revenue_4$Mean)
 gear_revenue_4$Median<-paste("$",gear_revenue_4$Median)
 gear_revenue_4$St.Dev<-paste("$",gear_revenue_4$St.Dev)
-gear_revenue_4$Response_Perc<-paste(gear_revenue_4$Response_Rate,"%")
-gear_revenue_4 <- subset(gear_revenue_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+gear_revenue_4$Resp_Perc<-paste(gear_revenue_4$Response_Rate,"%")
+gear_revenue_4 <- subset(gear_revenue_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_revenue_4)
 gear_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
 gear_revenue_plot_2 <- ggplot(gear_revenue_plot, aes(x = Gear, y = total_revenue, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
@@ -25,8 +25,8 @@ fmp_revenue_4 <- fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark =
 fmp_revenue_4$Mean<-paste("$",fmp_revenue_4$Mean)
 fmp_revenue_4$Median<-paste("$",fmp_revenue_4$Median)
 fmp_revenue_4$St.Dev<-paste("$",fmp_revenue_4$St.Dev)
-fmp_revenue_4$Response_Perc<-paste(fmp_revenue_4$Response_Rate,"%")
-fmp_revenue_4 <- subset(fmp_revenue_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+fmp_revenue_4$Resp_Perc<-paste(fmp_revenue_4$Response_Rate,"%")
+fmp_revenue_4 <- subset(fmp_revenue_4, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_revenue_4)
 fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
 fmp_revenue_plot_2 <- ggplot(fmp_revenue_plot, aes(x = Fishery, y = total_revenue, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
@@ -39,8 +39,8 @@ gear_fmp_revenue_4<- gear_fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, b
 gear_fmp_revenue_4$Mean<-paste("$",gear_fmp_revenue_4$Mean)
 gear_fmp_revenue_4$Median<-paste("$",gear_fmp_revenue_4$Median)
 gear_fmp_revenue_4$St.Dev<-paste("$",gear_fmp_revenue_4$St.Dev)
-gear_fmp_revenue_4$Response_Perc<-paste(gear_fmp_revenue_4$Response_Rate,"%")
-gear_fmp_revenue_4<- subset(gear_fmp_revenue_4, select=c(Gear_Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+gear_fmp_revenue_4$Resp_Perc<-paste(gear_fmp_revenue_4$Response_Rate,"%")
+gear_fmp_revenue_4<- subset(gear_fmp_revenue_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_revenue_4)
 gear_fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_revenue_plot_2 <- ggplot(gear_fmp_revenue_plot, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
@@ -49,9 +49,11 @@ gear_fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuo
 
 By primary gear, seine vessels have the highest mean revenue, noting the presence of only three observations. Scallop dredge, trawl, and seine vessels have the highest median revenue, more than twice the value of those for other gear types. These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024).  Longline has the fourth highest median values, followed by pot/trap, gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
 
-By FMP, scallop, squid/mackerel/butterfish, and groundfish have the highest mean revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, noting that the lobster fleet has considerably more vessels than the scallop fleet. 
+By FMP; scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, which is most likely driven by the number of  lobster fleet vessels which is considerably more vessels than the scallop fleet. 
 
-When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.
+When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue per vessel, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.
+
+Of note, revenues are available for all commercial fishing vessels in the Northeast region, not only for those which responded to the Cost Survey. When comparing revenues for responding vessels to the entire survey sampling frame, similar trends are apparent by fishing fleet. For example, scallop dredge, trawl, and seine vessels have the highest mean vessel-level revenues across the entire sampling frame. By fishery, squid/mackerel/butterfish, scallop, and groundfish have the highest mean vessel-level revenues. Additionally details on other sources of data are included in the Discussion chapter.
 
 
 # Cost Summary
@@ -66,7 +68,7 @@ gear_cost_4$Mean<-paste("$",gear_cost_4$Mean)
 gear_cost_4$Median<-paste("$",gear_cost_4$Median)
 gear_cost_4$St.Dev<-paste("$",gear_cost_4$St.Dev)
 gear_cost_4$Response_Perc<-paste(gear_cost_4$Response_Rate,"%")
-gear_cost_4 <- subset(gear_cost_4, select=c(Gear, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+gear_cost_4 <- subset(gear_cost_4, select=c(Gear, Response, Sample, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_cost_4)
 
 fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_no_conf.csv")
@@ -77,7 +79,7 @@ fmp_cost_4$Mean<-paste("$",fmp_cost_4$Mean)
 fmp_cost_4$Median<-paste("$",fmp_cost_4$Median)
 fmp_cost_4$St.Dev<-paste("$",fmp_cost_4$St.Dev)
 fmp_cost_4$Response_Perc<-paste(fmp_cost_4$Response_Rate,"%")
-fmp_cost_4 <- subset(fmp_cost_4, select=c(Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+fmp_cost_4 <- subset(fmp_cost_4, select=c(Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(fmp_cost_4)
 
 gear_fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_no_conf.csv")
@@ -88,7 +90,7 @@ gear_fmp_cost_4$Mean<-paste("$",gear_fmp_cost_4$Mean)
 gear_fmp_cost_4$Median<-paste("$",gear_fmp_cost_4$Median)
 gear_fmp_cost_4$St.Dev<-paste("$",gear_fmp_cost_4$St.Dev)
 gear_fmp_cost_4$Response_Perc<-paste(gear_fmp_cost_4$Response_Rate,"%")
-gear_fmp_cost_4 <- subset(gear_fmp_cost_4, select=c(Gear_Fishery, Observations, Sampled, Response_Perc, Mean, Median, St.Dev))
+gear_fmp_cost_4 <- subset(gear_fmp_cost_4, select=c(Gear_Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_cost_4)
 ```
 
