@@ -1,0 +1,186 @@
+libname input '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Dataset';
+libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Supply_Water_Cost/Hullid';
+
+%let orausername1 = "gardini";
+%let orapassword1 = "XXXXXXXXXXXX";
+
+data response_2022; set input.final_dataset_hullid;
+hullid_1 = strip(put(hull_id, 10.));
+keep icf_master_id hullid_1; proc sort; by hullid_1;
+
+/***Calculate average trip-level, and total 2022 vessel-level, supply and water costs from CAMS gear type***/
+
+/*Queries supply costs, water costs, and gear from 2022 observer data (NEFOP, IFS, and ASM)*/
+proc sql;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+create view obs_supplies as select * from connection to oracle
+(select a.link1, a.gearcat, a.supplycost, a.watercost, b.negear, b.primgear
+from obdbs.obtrp a, obdbs.obtrg b
+where a.link1=b.link1
+and a.year=2022);
+
+create view asm_supplies as select * from connection to oracle
+(select a.link1, a.gearcat, a.supplycost, a.watercost, b.negear, b.primgear
+from obdbs.asmtrp a, obdbs.asmtrg b
+where a.link1=b.link1
+and a.year=2022);
+
+disconnect from oracle;
+quit;
+
+data cost.all_supplies; set obs_supplies asm_supplies; 
+negear_1 = input(negear, 12.);
+
+data cost.all_supplies_primgear; set cost.all_supplies;
+if primgear in ('1'); /*Retain one observation per trip based on primary gear, as recorded by the observer. In cases of multiple gears used on the same trip, the same SUPPLYCOST and WATERCOST are attached to each record*/
+proc sort; by negear_1;
+
+
+
+proc sql;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries commercial revenue, geartype, and variables to define commercial trips for 2022*/
+create table cost.cams_1 as select * from connection to oracle
+(select year, hullid, negear, docid, date_trip, camsid, lndlb, value from cams_garfo.cams_land
+where year=2022);
+
+disconnect from oracle;
+quit;
+
+data gear_1; set cost.cams_1;
+hullid_1 = strip(put(hullid, 10.)); drop hullid; 
+negear_1 = input(negear, 12.); drop negear;
+if value=. then delete;
+date_1=datepart(date_trip); /*Use trip date as second way of defining trips, after DOCID*/
+year=year(date_1);
+month=month(date_1);
+day=day(date_1);
+proc sort; by hullid_1 docid year month day;
+
+/*Sum revenue by trip, retaining gear*/
+proc means noprint data=gear_1;
+by hullid_1 docid year month day;
+var value;
+id camsid negear_1;
+output out=trip_revenue_gear sum=commercial_revenue;
+data cost.trip_revenue_gear; set trip_revenue_gear; /*This dataset is used again below to merge to observer data*/ 
+proc sort; by camsid;
+
+
+
+/*Sort CAMS trip-level data to merge to response*/
+data trip_revenue_gear_2; set cost.trip_revenue_gear;
+proc sort; by hullid_1;
+
+/*Merge to response dataset*/
+data cost.trip_revenue_gear_3;
+merge trip_revenue_gear_2 response_2022 (in=intwo);
+by hullid_1;
+if intwo=1;
+proc sort; by negear_1;
+
+/*Merge to key for defining gear type in 2022 cost survey*/
+data cost.response_with_survey_gear;
+merge cost.trip_revenue_gear_3 (in=inone) cost.key; 
+by negear_1; if inone=1;
+if geargroupfor2022survey in ('Trawl_Bottom') then geargroupfor2022survey = "Trawl";
+if geargroupfor2022survey in ('Trawl_Midwater') then geargroupfor2022survey = "Trawl";
+proc sort; by geargroupfor2022survey;
+
+/*All trips by responding vessels in 2022 with survey gear*/
+data response_with_survey_gear_2; set cost.response_with_survey_gear; /*These are trips by responding vessels with gear type. This dataset is used again below to merge to avg. cost per trip from observer data*/
+proc sort; by geargroupfor2022survey;
+
+
+
+
+proc sql;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries variables to match with CAMS response data (camsid) and observer data (link1)*/
+create view cams_2 as select * from connection to oracle
+(select camsid, obs_link1 as link1 from cams_garfo.match_obs 
+order by camsid);
+
+disconnect from oracle;
+quit;
+
+
+/*Link to CAMS data first*/
+data cost.cams_2_match_obs;
+merge cost.trip_revenue_gear (in=inone) cams_2; /*Note that these are ALL trips, not just those from responding vessels*/
+by camsid; if inone=1;
+keep hullid_1 docid camsid link1 negear_1;
+proc sort; by link1;
+
+/*Bring in supply and water costs*/
+data all_supplies_primgear_2; set cost.all_supplies_primgear;
+obs_negear=negear_1; /*do not use the obs_negear*/
+keep link1 supplycost watercost primgear obs_negear;
+proc sort; by link1;
+
+/*Link CAMS data with observer data*/
+data cost.cams_2_match_obs_2;
+merge cost.cams_2_match_obs (in=inone) all_supplies_primgear_2 (in=intwo); 
+by link1;
+if inone=1; if intwo=1;
+proc sort; by negear_1;
+
+/*Merge to key for defining gear type in 2022 cost survey*/
+data cost.supplies_with_survey_gear_2;
+merge cost.cams_2_match_obs_2 (in=inone) cost.key;
+by negear_1; if inone=1; /*In this case, negear_1 is from CAMS*/
+if SUPPLYCOST=. then SUPPLYCOST=0;
+if WATERCOST=. then WATERCOST=0;
+if geargroupfor2022survey in ('Trawl_Bottom') then geargroupfor2022survey = "Trawl";
+if geargroupfor2022survey in ('Trawl_Midwater') then geargroupfor2022survey = "Trawl";
+proc sort; by geargroupfor2022survey;
+
+/*Calculate average supply and water costs per trip*/
+proc means noprint;
+by geargroupfor2022survey;
+vars SUPPLYCOST WATERCOST;
+output out=cost.supply_water_avgs_2 mean=; 
+
+/*Calculate median supply and water costs per trip. These values aren't used in the profit calculation but are retained for discussion purposes (i.e. the skewness in the data)*/
+proc means noprint data=cost.supplies_with_survey_gear_2;
+by geargroupfor2022survey;
+vars SUPPLYCOST WATERCOST;
+output out=cost.supply_water_medians median=; 
+
+
+/*Merge CAMS trip-level data for responding vessels to average supply and water costs per trip*/
+data cost.response_supply_water_costs_2;
+merge response_with_survey_gear_2 (in=inone) cost.supply_water_avgs_2;
+by geargroupfor2022survey; if inone=1;  
+proc sort; by icf_master_id hullid_1;
+
+/*Sum supply and water costs by vessel, retaining gear*/
+proc means noprint;
+by icf_master_id hullid_1;
+vars SUPPLYCOST WATERCOST;
+id geargroupfor2022survey;
+output out=cost.supply_water_by_vessel_2 sum=;
+
+data cost.final_supply_water_costs; set cost.supply_water_by_vessel_2;
+icf_master_id=ICF_MASTER_ID;
+hullid=hullid_1;
+if SUPPLYCOST^=. then observer_supply_cost=round(SUPPLYCOST);
+if SUPPLYCOST=. then observer_supply_cost=0;
+
+if WATERCOST^=. then observer_water_cost=round(WATERCOST);
+if WATERCOST=. then observer_water_cost=0;
+
+drop hullid_1 geargroupfor2022survey SUPPLYCOST WATERCOST _TYPE_ _FREQ_;
+
+
+
+
+
+
+
+
+
+

@@ -1,16 +1,16 @@
 Gear_Fishery,Quota_Percent,Quota_Percent_Total_Cost
-Dredge_Scallop-Scallop,0.0112412262,1.1
+Dredge_Scallop-Scallop,0.0141346547,1.4
 Gillnet-Monkfish,0,0
-Gillnet-Other,0.0297847918,3
-"Handgear-Fluke, BSB, Scup",0.0009390053,0.1
-Handgear-Highly Migratory Species,0.0005842468,0.1
-Handgear-Other,0.0016914498,0.2
+Gillnet-Other,0.0403294589,4
+"Handgear-Fluke, BSB, Scup",0.0008958781,0.1
+Handgear-Highly Migratory Species,0.0005364509,0.1
+Handgear-Other,0.0015400404,0.2
 Handgear-Striped Bass,0,0
-Longline-Highly Migratory Species,0.0417841134,4.2
-"Pot/Trap-Fluke, BSB, Scup",-0.11691369,-11.7
-Pot/Trap-Lobster,-0.009172436,-0.9
+Longline-Highly Migratory Species,0.0693220248,6.9
+"Pot/Trap-Fluke, BSB, Scup",-0.113293813,-11.3
+Pot/Trap-Lobster,-0.008802763,-0.9
 Pot/Trap-Other,0,0
-"Trawl-Fluke, BSB, Scup",-0.003202548,-0.3
-Trawl-Groundfish,0.0352851036,3.5
-Trawl-Other,-0.002996801,-0.3
-"Trawl-Squid, Mackerel, Butterfish",-0.259004812,-25.9
+"Trawl-Fluke, BSB, Scup",-0.002405623,-0.2
+Trawl-Groundfish,0.0419444201,4.2
+Trawl-Other,-0.002008951,-0.2
+"Trawl-Squid, Mackerel, Butterfish",-0.204722448,-20.5

@@ -1,0 +1,830 @@
+libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
+libname obs '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Supply_Water_Cost/CAMS_GEAR';
+libname surv '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Survey_Costs';
+libname dep '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Depreciation';
+libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final';
+
+libname cost_sp '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Response_Inclusion_Exclusion';
+libname cost_3 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Response_Inclusion_Exclusion/count_question_responses';
+
+libname sp '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/starting_point';
+
+libname revsm '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/revenue_summary';
+libname other '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Primary_FMP';
+libname costsm '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_summary';
+libname contr '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/cost_contributors';
+libname fleet '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fleets';
+libname profsm '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/profit_summary';
+
+
+/***Combine Revenues, Observer Costs, Survey Costs, and Depreciation***/
+data aaa; set rev.final_revenue; permit_1 = strip(put(permit, 6.)); drop permit; proc sort; by icf_master_id permit_1;
+data bbb; set obs.final_supply_water_costs; permit_1 = strip(put(permit, 6.)); drop permit; proc sort; by icf_master_id permit_1; 
+data ccc; set surv.final_survey_costs; permit_1 = strip(put(permit, 6.)); drop permit; proc sort; by icf_master_id permit_1;   
+data ddd; set dep.final_depreciation; permit_1 = strip(put(permit, 6.)); drop permit; proc sort; by icf_master_id permit_1;
+
+data eee;  
+merge aaa (in=inone) bbb (in=intwo) ccc (in=inthree) ddd;  
+by icf_master_id permit_1;
+if inone=1; if intwo=1; if inthree=1;
+permit=permit_1; drop permit_1;
+/*One additional step before calculating profits- built fleets combining primary gear and FMP*/
+if primary_comm_gear_2022 in ('Dredge_Scallop') then do;
+ if primary_comm_fmp_2022 in ('Scallop') then primary_gear_fmp_2022 = "Dredge_Scallop-Scallop             ";
+ else primary_gear_fmp_2022 = "Dredge_Scallop-Other";end;
+
+if primary_comm_gear_2022 in ('Dredge_Hydraulic') then do;
+ if primary_comm_fmp_2022 in ('Surf Clam, Ocean Quahog') then primary_gear_fmp_2022 = "Dredge_Hydraulic-SCOQ         ";
+ else primary_gear_fmp_2022 = "Dredge_Hydraulic-Other";end;
+
+if primary_comm_gear_2022 in ('Gillnet') then do;
+ if primary_comm_fmp_2022 in ('Monkfish') then primary_gear_fmp_2022 = "Gillnet-Monkfish             ";
+ else primary_gear_fmp_2022 = "Gillnet-Other";end;
+
+if primary_comm_gear_2022 in ('Handgear') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Handgear-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Highly Migratory Species') then primary_gear_fmp_2022 = "Handgear-Highly Migratory Species";
+ if primary_comm_fmp_2022 in ('Striped Bass') then primary_gear_fmp_2022 = "Handgear-Striped Bass";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Highly Migratory Species', 'Striped Bass') then primary_gear_fmp_2022 = "Handgear-Other";end;
+
+if primary_comm_gear_2022 in ('Longline') then do;
+ if primary_comm_fmp_2022 in ('Dogfish') then primary_gear_fmp_2022 = "Longline-Dogfish             ";
+ if primary_comm_fmp_2022 in ('Highly Migratory Species') then primary_gear_fmp_2022 = "Longline-Highly Migratory Species";
+ if primary_comm_fmp_2022 not in ('Dogfish', 'Highly Migratory Species') then primary_gear_fmp_2022 = "Longline-Other";end;
+
+if primary_comm_gear_2022 in ('Pot/Trap') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Pot/Trap-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Lobster";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
+
+if primary_comm_gear_2022 in ('Seine') then do;
+ if primary_comm_fmp_2022 in ('Herring') then primary_gear_fmp_2022 = "Seine-Herring             ";
+ else primary_gear_fmp_2022 = "Seine-Other";end;
+
+if primary_comm_gear_2022 in ('Trawl') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Trawl-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Groundfish') then primary_gear_fmp_2022 = "Trawl-Groundfish";
+ if primary_comm_fmp_2022 in ('Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Squid, Mackerel, Butterfish";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Groundfish', 'Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Other";end;
+
+ if primary_comm_gear_2022 in ('Recreational') then primary_gear_fmp_2022 = "Recreational";
+ if primary_comm_gear_2022 in ('No Revenue') then primary_gear_fmp_2022 = "No Revenue";
+
+
+ /***Calculate Operating Profit and Total Profit for all Observations***/
+data cost.all_profit_components;  
+retain icf_master_id permit hullid  complete_1  complete_2  primary_comm_gear_2022  primary_gear_revenue  primary_comm_fmp_2022  primary_fmp_revenue  primary_gear_fmp_2022 commercial_revenue  recreational_revenue total_revenue 
+observer_supply_cost  observer_water_cost  operating_survey_cost  crew_captain_survey_cost  non_operating_survey_cost vessel_value  vessel_val_est  vessel_age  depreciation_cost;  
+set eee;
+keep   icf_master_id permit hullid  complete_1  complete_2  primary_comm_gear_2022  primary_gear_revenue  primary_comm_fmp_2022  primary_fmp_revenue  primary_gear_fmp_2022 commercial_revenue  recreational_revenue total_revenue
+observer_supply_cost  observer_water_cost  operating_survey_cost  crew_captain_survey_cost  non_operating_survey_cost  vessel_value  vessel_val_est  vessel_age  depreciation_cost; 
+
+data cost.profit_calculation_all; set cost.all_profit_components;  
+total_operating_profit_no_crew = total_revenue - observer_supply_cost - observer_water_cost - operating_survey_cost;
+
+total_operating_cost =   observer_supply_cost + observer_water_cost + operating_survey_cost + crew_captain_survey_cost;
+total_operating_profit = total_revenue - total_operating_cost;
+
+total_cost = total_operating_cost + non_operating_survey_cost - depreciation_cost;
+total_profit = total_revenue - total_cost;
+proc sort; by icf_master_id;
+
+
+/***Narrow down the Number of Observations to the Starting Point. (see cost_1 folder)***/
+data starting_point; set cost_sp.starting_point; keep icf_master_id; proc sort; by icf_master_id;
+
+data sp.profit_calculation_start_point; /*321 observations*/
+merge cost.profit_calculation_all (in=inone) starting_point (in=intwo);
+by icf_master_id; 
+if inone=1; if intwo=1;
+
+
+/***Further Narrow down to the Final Dataset***/
+data final_starting_point; set sp.profit_calculation_start_point; proc sort; by icf_master_id;
+data questions_answered_final_gear; set cost_3.questions_answered_final_gear;
+if process_1_drop=1 then delete; /*17 to drop*/
+if process_2_drop=1 then do; /*12 additional to evaluate*/
+if sect_4_0_answered=1 then delete;end; /*This indicates that the survey section skipped is something other than crew payments. The Cost WG reviewed the 4 observations which skipped crew payments (May 29, 2024)
+and decided these observations should be retained. The 8 other observations under process_2_drop=1 skipped other sections of the survey and are dropped*/
+keep icf_master_id; proc sort; by icf_master_id;
+
+data cost.final_dataset; /*296 observations*/
+merge final_starting_point (in=inone) questions_answered_final_gear (in=intwo);
+by icf_master_id; if inone=1; if intwo=1;
+if icf_master_id in ('49855311F') then delete; /*Visual assessment of costs shows multiple outliers (see Google doc Histograms_10.16.23)*/
+proc sort; by permit;
+
+
+/***Refine Variable Names***/
+data cost.final_dataset_2; set cost.final_dataset;
+Gear = primary_comm_gear_2022; drop primary_comm_gear_2022;
+Fishery = primary_comm_fmp_2022; drop primary_comm_fmp_2022;
+Gear_Fishery = primary_gear_fmp_2022; drop primary_gear_fmp_2022;
+
+
+/***Sampling Frame*/
+data sampling_frame_groups; set rev.final_sampling_frame_groups;
+Gear = primary_comm_gear_2022; drop primary_comm_gear_2022;
+Fishery = primary_comm_fmp_2022; drop primary_comm_fmp_2022;
+Gear_Fishery = primary_gear_fmp_2022; drop primary_gear_fmp_2022;
+
+
+/***Number of Questions Answered by Responses in Final Dataset***/
+data final_dataset_questions_link; set cost.final_dataset_2;
+keep icf_master_id; proc sort; by icf_master_id;
+
+data questions_answered_link; set cost_3.questions_answered_final_gear;
+keep icf_master_id  questions_answered_positive  questions_answered_0_positive;
+proc sort; by icf_master_id;
+
+data cost.questions_answered_final; /*Do not include this table in the site but briefly describe the average number of questions answered and the range of questions answered*/
+merge final_dataset_questions_link (in=inone) questions_answered_link;
+by icf_master_id; if inone=1;
+
+
+/***Summarize Revenues***/
+/*Gear*/
+data gear_count_sf; set sampling_frame_groups; gear_count=1;
+proc sort; by Gear;
+proc means noprint;
+by Gear;
+var gear_count;
+output out = gear_count_sf_2 sum=Sampled; 
+data gear_count_sf_3; set gear_count_sf_2; drop _TYPE_ _FREQ_;
+
+data gear_revenue_summary; set cost.final_dataset_2;
+proc sort; by Gear;
+proc means noprint;
+by Gear;
+var total_revenue;
+output out = revsm.gear_revenue n=Observations mean=mean_rev median=med_rev std=std_rev;
+
+data revsm.gear_revenue_no_conf; 
+merge revsm.gear_revenue (in=inone) gear_count_sf_3;
+by Gear; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_rev=round(mean_rev, 1);
+med_rev=round(med_rev, 1);
+std_rev=round(std_rev, 1);
+drop _TYPE_ _FREQ_;
+proc export data=revsm.gear_revenue_no_conf outfile="gear_revenue_no_conf.csv" dbms=csv replace; /*#1 input file*/
+
+data gear_revenue_sf; set sampling_frame_groups; 
+if commercial_revenue=0 then delete; if commercial_revenue=. then delete;
+proc sort; by Gear;
+proc means noprint;
+by Gear;
+var commercial_revenue;
+output out = gear_revenue_sf_2 mean=sf_mean median=sf_median; 
+data gear_revenue_no_conf; set revsm.gear_revenue_no_conf; keep Gear Observations Sampled mean_rev med_rev; proc sort; by Gear; /*Merge in response results*/
+data revsm.gear_revenue_sf; 
+merge gear_revenue_sf_2 (in=inone) gear_revenue_no_conf;
+by Gear; 
+if inone=1; 
+if Observations<3 then delete;
+drop _TYPE_ _FREQ_;
+proc export data=revsm.gear_revenue_sf outfile="gear_revenue_sf.csv" dbms=csv replace; /*#0 input file*/
+
+/*FMP*/
+data fmp_count_sf; set sampling_frame_groups; fmp_count=1;
+proc sort; by Fishery;
+proc means noprint;
+by Fishery;
+var fmp_count;
+output out = fmp_count_sf_2 sum=Sampled; 
+data fmp_count_sf_3; set fmp_count_sf_2; drop _TYPE_ _FREQ_;
+
+data fmp_revenue_summary; set cost.final_dataset_2;
+proc sort; by Fishery;
+proc means noprint;
+by Fishery;
+var total_revenue;
+output out = revsm.fmp_revenue n=Observations mean=mean_rev median=med_rev std=std_rev;
+
+data revsm.fmp_revenue_no_conf; 
+merge revsm.fmp_revenue (in=inone) fmp_count_sf_3;
+by Fishery;
+if inone=1;
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_rev=round(mean_rev, 1);
+med_rev=round(med_rev, 1);
+std_rev=round(std_rev, 1);
+drop _TYPE_ _FREQ_;
+proc export data=revsm.fmp_revenue_no_conf outfile="fmp_revenue_no_conf.csv" dbms=csv replace; /*#3 input file*/
+
+data fmp_revenue_sf; set sampling_frame_groups; 
+if commercial_revenue=0 then delete; if commercial_revenue=. then delete;
+proc sort; by Fishery;
+proc means noprint;
+by Fishery;
+var commercial_revenue;
+output out = fmp_revenue_sf_2 mean=sf_mean median=sf_median; 
+data fmp_revenue_no_conf; set revsm.fmp_revenue_no_conf; keep Fishery Observations Sampled mean_rev med_rev; proc sort; by Fishery; /*Merge in response results*/
+data revsm.fmp_revenue_sf; 
+merge fmp_revenue_sf_2 (in=inone) fmp_revenue_no_conf;
+by Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+drop _TYPE_ _FREQ_;
+proc export data=revsm.fmp_revenue_sf outfile="fmp_revenue_sf.csv" dbms=csv replace; /*#0 input file*/
+
+/*Gear_FMP*/
+data gear_fmp_count_sf; set sampling_frame_groups; gear_fmp_count=1;
+proc sort; by Gear_Fishery;
+proc means noprint;
+by Gear_Fishery;
+var gear_fmp_count;
+output out = gear_fmp_count_sf_2 sum=Sampled; 
+data gear_fmp_count_sf_3; set gear_fmp_count_sf_2; drop _TYPE_ _FREQ_;
+
+data gear_fmp_revenue_summary; set cost.final_dataset_2;
+proc sort; by Gear_Fishery;
+proc means noprint;
+by Gear_Fishery;
+var total_revenue;
+output out = revsm.gear_fmp_revenue n=Observations mean=mean_rev median=med_rev std=std_rev;
+
+data revsm.gear_fmp_revenue_no_conf;
+merge revsm.gear_fmp_revenue (in=inone) gear_fmp_count_sf_3;
+by Gear_Fishery;
+if inone=1;
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_rev=round(mean_rev, 1);
+med_rev=round(med_rev, 1);
+std_rev=round(std_rev, 1);
+drop _TYPE_ _FREQ_;
+proc export data=revsm.gear_fmp_revenue_no_conf outfile="gear_fmp_revenue_no_conf.csv" dbms=csv replace; /*#5 input file*/
+
+data gear_fmp_revenue_sf; set sampling_frame_groups; 
+if commercial_revenue=0 then delete; if commercial_revenue=. then delete;
+proc sort; by Gear_Fishery;
+proc means noprint;
+by Gear_Fishery;
+var commercial_revenue;
+output out = gear_fmp_revenue_sf_2 mean=sf_mean median=sf_median; 
+data gear_fmp_revenue_no_conf; set revsm.gear_fmp_revenue_no_conf; keep Gear_Fishery Observations Sampled mean_rev med_rev; proc sort; by Gear_Fishery; /*Merge in response results*/
+data revsm.gear_fmp_revenue_sf; 
+merge gear_fmp_revenue_sf_2 (in=inone) gear_fmp_revenue_no_conf;
+by Gear_Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+drop _TYPE_ _FREQ_;
+proc export data=revsm.gear_fmp_revenue_sf outfile="gear_fmp_revenue_sf.csv" dbms=csv replace; /*#0 input file*/
+
+
+/***Identify top species/fishery revenue for those vessels in the 'Other' FMP category***/
+data all_species_revenue; set other.fmp_1; /*This file is produced in the revenue code and includes all species-level revenue from 2022*/
+hullid=hullid_1;
+keep year hullid itis_group1 commercial_revenue;
+proc sort; by hullid;
+
+data final_other; set cost.final_dataset_2;
+if Fishery in ('Other');
+keep hullid Fishery;
+proc sort; by hullid;
+
+data revsm.other_fmp_species_rev;
+merge final_other (in=inone) all_species_revenue;
+by hullid; if inone=1;
+proc sort; by hullid itis_group1;
+
+proc means noprint;
+by hullid itis_group1;
+var commercial_revenue;
+id year Fishery;
+output out = other_fmp_species_rev_2 sum=species_revenue;
+data revsm.other_fmp_species_rev_3; set other_fmp_species_rev_2; /*This is at the vessel/species level. Sort by revenue to only retain the top-earning species*/
+if species_revenue=. then delete; if species_revenue=0 then delete;
+proc sort; by hullid species_revenue;
+
+data revsm.other_fmp_species_rev_final;
+set revsm.other_fmp_species_rev_3; 
+by hullid;
+if last.hullid;
+drop _TYPE_ _FREQ_;
+proc sort; by itis_group1;
+
+
+/***Summarize Costs***/
+/*Gear*/
+data gear_cost_summary; set cost.final_dataset_2;
+proc sort; by Gear;
+proc means noprint;
+by Gear;
+var total_cost;
+output out = costsm.gear_cost n=Observations mean=mean_cost median=med_cost std=std_cost;
+
+data costsm.gear_cost_no_conf;
+merge costsm.gear_cost (in=inone) gear_count_sf_2;
+by Gear; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_cost=round(mean_cost, 1);
+med_cost=round(med_cost, 1);
+std_cost=round(std_cost, 1);
+drop _TYPE_ _FREQ_;
+proc export data=costsm.gear_cost_no_conf outfile="gear_cost_no_conf.csv" dbms=csv replace; /*#7 input file*/
+
+/*FMP*/
+data fmp_cost_summary; set cost.final_dataset_2;
+proc sort; by Fishery;
+proc means noprint;
+by Fishery;
+var total_cost;
+output out = costsm.fmp_cost n=Observations mean=mean_cost median=med_cost std=std_cost;
+
+data costsm.fmp_cost_no_conf; 
+merge costsm.fmp_cost (in=inone) fmp_count_sf_2;
+by Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_cost=round(mean_cost, 1);
+med_cost=round(med_cost, 1);
+std_cost=round(std_cost, 1);
+drop _TYPE_ _FREQ_;
+proc export data=costsm.fmp_cost_no_conf outfile="fmp_cost_no_conf.csv" dbms=csv replace; /*#8 input file*/
+
+/*Gear_FMP*/
+data gear_fmp_cost_summary; set cost.final_dataset_2;
+proc sort; by Gear_Fishery;
+proc means noprint;
+by Gear_Fishery;
+var total_cost;
+output out = costsm.gear_fmp_cost n=Observations mean=mean_cost median=med_cost std=std_cost;
+
+data costsm.gear_fmp_cost_no_conf;
+merge costsm.gear_fmp_cost (in=inone) gear_fmp_count_sf_2;
+by Gear_Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_cost=round(mean_cost, 1);
+med_cost=round(med_cost, 1);
+std_cost=round(std_cost, 1);
+drop _TYPE_ _FREQ_;
+proc export data=costsm.gear_fmp_cost_no_conf outfile="gear_fmp_cost_no_conf.csv" dbms=csv replace; /*#9 input file*/
+
+ 
+/***Aggregate Costs into Categories***/
+data final_master_ids; set cost.final_dataset_2;
+keep icf_master_id  Gear  Fishery  Gear_Fishery  observer_supply_cost  observer_water_cost  operating_survey_cost  crew_captain_survey_cost  non_operating_survey_cost;
+proc sort; by icf_master_id;
+
+data survey_costs; set surv.final_survey_cost_variables; 
+proc sort; by icf_master_id;
+
+data cost.all_costs_final_dataset;
+merge final_master_ids (in=inone) survey_costs (in=intwo);
+by icf_master_id; if inone=1; if intwo=1;
+Observer_Water_Supply_Costs = observer_supply_cost + observer_water_cost;
+
+RMUI_Costs = 
+rmui_engine_exp_final+
+rmui_seine_skiff_exp_final+
+rmui_deck_eqpt_exp_final+
+rmui_haulout_cost_final+
+rmui_hull_exp_final+
+rmui_fishing_gear_exp_final+
+rmui_wheel_electronics_exp_final+
+rmui_process_refrig_exp_final+
+rmui_safety_eqpt_exp_final;
+
+Vessel_Costs = 
+mooring_fees_final+
+ifq_recovery_cost_final+
+vessel_or_permit_pymt_final+
+permit_fees_final+
+trailer_launch_fees_final+
+vessel_insurance_cost_final;
+
+Trip_Expenses_Survey =
+fuel_cost_final+
+bait_cost_final+
+food_cost_final+
+ice_cost_final+
+catch_handling_cost_final+
+at_sea_processing_cost_final+
+paralytic_testing_final; 
+
+Crew_Expenses=
+crew_pymts_final+
+captain_pymts_final+
+crew_benefits_final;
+
+Overhead_Costs=
+vehicle_usage_cost_final+
+business_travel_cost_final+
+association_fees_final+
+legal_fees_final+
+advertising_cost_final+
+communication_cost_final+
+office_expenses_final+
+noncrew_labor_cost_final+
+spotter_plane_cost_final;
+
+Quota_Costs=
+(quota_das_payments_final+
+quota_monitoring_cost_final)-
+leasing_quota_revenue_final;
+
+keep
+ICF_MASTER_ID
+Gear  
+Fishery  
+Gear_Fishery 
+
+observer_supply_cost 
+observer_water_cost
+Observer_Water_Supply_Costs
+operating_survey_cost 
+crew_captain_survey_cost 
+non_operating_survey_cost
+
+RMUI_Costs
+rmui_engine_exp_final
+rmui_seine_skiff_exp_final
+rmui_deck_eqpt_exp_final
+rmui_haulout_cost_final
+rmui_hull_exp_final
+rmui_fishing_gear_exp_final
+rmui_wheel_electronics_exp_final
+rmui_process_refrig_exp_final
+rmui_safety_eqpt_exp_final
+
+Vessel_Costs
+mooring_fees_final
+ifq_recovery_cost_final
+vessel_or_permit_pymt_final
+permit_fees_final
+trailer_launch_fees_final
+vessel_insurance_cost_final
+
+Trip_Expenses_Survey
+fuel_cost_final
+bait_cost_final
+food_cost_final
+ice_cost_final
+catch_handling_cost_final
+at_sea_processing_cost_final
+paralytic_testing_final
+
+Crew_Expenses
+crew_pymts_final
+captain_pymts_final
+crew_benefits_final
+
+Overhead_Costs
+vehicle_usage_cost_final
+business_travel_cost_final
+association_fees_final
+legal_fees_final
+advertising_cost_final
+communication_cost_final
+office_expenses_final
+noncrew_labor_cost_final
+spotter_plane_cost_final
+
+Quota_Costs
+quota_das_payments_final
+leasing_quota_revenue_final
+quota_monitoring_cost_final;
+proc sort; by icf_master_id;
+
+
+data contr.cost_percent_semifinal; set cost.all_costs_final_dataset; 
+total_cost_check_1 = Observer_Water_Supply_Costs + RMUI_Costs + Vessel_Costs + Trip_Expenses_Survey + Crew_Expenses + Overhead_Costs + Quota_Costs;
+total_cost_check_2 = observer_supply_cost + observer_water_cost + operating_survey_cost + crew_captain_survey_cost + non_operating_survey_cost;  
+check=total_cost_check_1-total_cost_check_2;
+
+data gear_quota_percent; set contr.cost_percent_semifinal;
+proc sort; by Gear;
+proc means noprint;
+by Gear;
+vars Quota_Costs total_cost_check_2;
+output out=gear_quota_percent_2 sum=;
+data contr.gear_quota_percent; set gear_quota_percent_2; 
+Quota_Percent = Quota_Costs/total_cost_check_2;
+drop _TYPE_ _FREQ_;
+proc sort; by Gear;
+data gear_quota_percent_no_conf; 
+merge costsm.gear_cost_no_conf (in=inone) contr.gear_quota_percent;
+by Gear;
+if inone=1; /*Retain gear groups with at least 3 observations*/
+keep Gear Quota_Percent;
+data contr.gear_quota_percent_no_conf; set gear_quota_percent_no_conf;  /*Use this file to describe the percent contribution of quota costs to the total by gear.*/
+Quota_Percent_Total_Cost = round(Quota_Percent, .001)*100;
+proc sort; by Gear;
+proc export data=contr.gear_quota_percent_no_conf outfile="gear_quota_percent_no_conf.csv" dbms=csv replace; /*#11 input file*/
+
+data fmp_quota_percent; set contr.cost_percent_semifinal;
+proc sort; by Fishery;
+proc means noprint;
+by Fishery;
+vars Quota_Costs total_cost_check_2;
+output out=fmp_quota_percent_2 sum=;
+data contr.fmp_quota_percent; set fmp_quota_percent_2; 
+Quota_Percent = Quota_Costs/total_cost_check_2;
+drop _TYPE_ _FREQ_;
+proc sort; by Fishery;
+data fmp_quota_percent_no_conf;
+merge costsm.fmp_cost_no_conf (in=inone) contr.fmp_quota_percent;
+by Fishery;
+if inone=1; /*Retain FMPs with at least 3 observations*/
+keep Fishery Quota_Percent;
+data contr.fmp_quota_percent_no_conf; set fmp_quota_percent_no_conf; /*Use this file to describe the percent contribution of quota costs to the total by FMP.*/
+Quota_Percent_Total_Cost = round(Quota_Percent, .001)*100;
+proc sort; by Fishery;
+proc export data=contr.fmp_quota_percent_no_conf outfile="fmp_quota_percent_no_conf.csv" dbms=csv replace; /*#13 input file*/
+
+data gear_fmp_quota_percent; set contr.cost_percent_semifinal;
+proc sort; by Gear_Fishery;
+proc means noprint;
+by Gear_Fishery;
+vars Quota_Costs total_cost_check_2;
+output out=gear_fmp_quota_percent_2 sum=;
+data contr.gear_fmp_quota_percent; set gear_fmp_quota_percent_2; 
+Quota_Percent = Quota_Costs/total_cost_check_2;
+drop _TYPE_ _FREQ_;
+proc sort; by Gear_Fishery;
+data gear_fmp_quota_percent_no_conf; 
+merge costsm.gear_fmp_cost_no_conf (in=inone) contr.gear_fmp_quota_percent;
+by Gear_Fishery;
+if inone=1; /*Retain gear/FMPs with at least 3 observations*/
+keep Gear_Fishery Quota_Percent;
+data contr.gear_fmp_quota_percent_no_conf; set gear_fmp_quota_percent_no_conf;  /*Use this file to describe the percent contribution of quota costs to the total by gear/FMP.*/
+Quota_Percent_Total_Cost = round(Quota_Percent, .001)*100;
+proc sort; by Gear_Fishery;
+proc export data=contr.gear_fmp_quota_percent_no_conf outfile="gear_fmp_quota_percent_no_conf.csv" dbms=csv replace; /*#15 input file*/
+
+data contr.cost_percent_final; set cost.all_costs_final_dataset;
+Trip_Expenses = Observer_Water_Supply_Costs+Trip_Expenses_Survey; /*Including observer water and crew supply costs here as they are trip expenses and they are a small portion of total costs*/
+Total_Cost = RMUI_Costs + Vessel_Costs + Trip_Expenses + Crew_Expenses + Overhead_Costs; /*Leaving out Quota Costs since they are a small portion of overall costs and quota leasing revenue sometimes exceeds cost*/
+
+/*Gear*/
+data primary_gear_dist;
+set contr.cost_percent_final;
+proc sort; by Gear;
+proc means noprint; by Gear;
+vars 
+RMUI_Costs
+Vessel_Costs
+Trip_Expenses
+Crew_Expenses
+Overhead_Costs
+Total_Cost;
+output out = contr.gear_cost_cat_totals sum=;
+
+data contr.gear_cost_cat_perc; set contr.gear_cost_cat_totals;
+Observations = _FREQ_;
+if _FREQ_<3 then delete;
+RMUI=round(RMUI_Costs/Total_Cost, .001);
+Vessel=round(Vessel_Costs/Total_Cost, .001);
+Trip=round(Trip_Expenses/Total_Cost, .001);
+Crew=round(Crew_Expenses/Total_Cost, .001);
+Overhead=round(Overhead_Costs/Total_Cost, .001);
+keep Gear
+Observations
+RMUI
+Vessel 
+Trip
+Crew
+Overhead;
+
+data gear_rmui_perc    ; set contr.gear_cost_cat_perc; Category="Repairs/Upgrades"; percent=RMUI    ; keep Gear Category percent;
+data gear_Vessel_perc  ; set contr.gear_cost_cat_perc; Category="Vessel Costs    "; percent=Vessel  ; keep Gear Category percent;
+data gear_Trip_perc    ; set contr.gear_cost_cat_perc; Category="Trip Expenses   "; percent=Trip    ; keep Gear Category percent;
+data gear_Crew_perc    ; set contr.gear_cost_cat_perc; Category="Crew Payments   "; percent=Crew    ; keep Gear Category percent;
+data gear_Overhead_perc; set contr.gear_cost_cat_perc; Category="Overhead        "; percent=Overhead; keep Gear Category percent;
+data contr.gear_cost_cat_perc_2; set gear_rmui_perc  gear_Vessel_perc  gear_Trip_perc  gear_Crew_perc  gear_Overhead_perc;
+proc export data=contr.gear_cost_cat_perc_2 outfile="gear_cost_cat_perc_2.csv" dbms=csv replace; /*#10 input file*/
+
+/*FMP*/
+data primary_fmp_dist;
+set contr.cost_percent_final;
+proc sort; by Fishery;
+proc means noprint; by Fishery;
+vars 
+RMUI_Costs
+Vessel_Costs
+Trip_Expenses
+Crew_Expenses
+Overhead_Costs
+Total_Cost;
+output out = contr.fmp_cost_cat_totals sum=;
+
+data contr.fmp_cost_cat_perc; set contr.fmp_cost_cat_totals;
+Observations = _FREQ_;
+if _FREQ_<3 then delete;
+RMUI=round(RMUI_Costs/Total_Cost, .001);
+Vessel=round(Vessel_Costs/Total_Cost, .001);
+Trip=round(Trip_Expenses/Total_Cost, .001);
+Crew=round(Crew_Expenses/Total_Cost, .001);
+Overhead=round(Overhead_Costs/Total_Cost, .001);
+keep Fishery
+Observations
+RMUI
+Vessel
+Trip
+Crew
+Overhead;
+
+data fmp_rmui_perc    ; set contr.fmp_cost_cat_perc; Category="Repairs/Upgrades"; percent=RMUI    ; keep Fishery Category percent;
+data fmp_Vessel_perc  ; set contr.fmp_cost_cat_perc; Category="Vessel Costs    "; percent=Vessel  ; keep Fishery Category percent;
+data fmp_Trip_perc    ; set contr.fmp_cost_cat_perc; Category="Trip Expenses   "; percent=Trip    ; keep Fishery Category percent;
+data fmp_Crew_perc    ; set contr.fmp_cost_cat_perc; Category="Crew Payments   "; percent=Crew    ; keep Fishery Category percent;
+data fmp_Overhead_perc; set contr.fmp_cost_cat_perc; Category="Overhead        "; percent=Overhead; keep Fishery Category percent;
+data contr.fmp_cost_cat_perc_2; set fmp_rmui_perc  fmp_Vessel_perc  fmp_Trip_perc  fmp_Crew_perc  fmp_Overhead_perc;
+proc export data=contr.fmp_cost_cat_perc_2 outfile="fmp_cost_cat_perc_2.csv" dbms=csv replace; /*#12 input file*/
+
+
+/*Gear/FMP*/
+data primary_gear_fmp_dist;
+set contr.cost_percent_final;
+proc sort; by Gear_Fishery;
+proc means noprint; by Gear_Fishery;
+vars 
+RMUI_Costs
+Vessel_Costs
+Trip_Expenses
+Crew_Expenses
+Overhead_Costs
+Total_Cost;
+output out = contr.gear_fmp_cost_cat_totals sum=;
+
+data contr.gear_fmp_cost_cat_perc; set contr.gear_fmp_cost_cat_totals;
+Observations = _FREQ_;
+if _FREQ_<3 then delete;
+RMUI=round(RMUI_Costs/Total_Cost, .001);
+Vessel=round(Vessel_Costs/Total_Cost, .001);
+Trip=round(Trip_Expenses/Total_Cost, .001);
+Crew=round(Crew_Expenses/Total_Cost, .001);
+Overhead=round(Overhead_Costs/Total_Cost, .001);
+keep Gear_Fishery
+Observations
+RMUI
+Vessel
+Trip
+Crew
+Overhead;
+
+data gear_fmp_rmui_perc    ; set contr.gear_fmp_cost_cat_perc; Category="Repairs/Upgrades"; percent=RMUI    ; keep Gear_Fishery Category percent;
+data gear_fmp_Vessel_perc  ; set contr.gear_fmp_cost_cat_perc; Category="Vessel Costs    "; percent=Vessel  ; keep Gear_Fishery Category percent;
+data gear_fmp_Trip_perc    ; set contr.gear_fmp_cost_cat_perc; Category="Trip Expenses   "; percent=Trip    ; keep Gear_Fishery Category percent;
+data gear_fmp_Crew_perc    ; set contr.gear_fmp_cost_cat_perc; Category="Crew Payments   "; percent=Crew    ; keep Gear_Fishery Category percent;
+data gear_fmp_Overhead_perc; set contr.gear_fmp_cost_cat_perc; Category="Overhead        "; percent=Overhead; keep Gear_Fishery Category percent;
+data contr.gear_fmp_cost_cat_perc_2; set gear_fmp_rmui_perc  gear_fmp_Vessel_perc  gear_fmp_Trip_perc  gear_fmp_Crew_perc  gear_fmp_Overhead_perc;
+proc export data=contr.gear_fmp_cost_cat_perc_2 outfile="gear_fmp_cost_cat_perc_2.csv" dbms=csv replace; /*#14 input file*/
+
+
+/*** Profit Results- (Boxplots Produced in R)***/
+/*Identify Sparse Groupings*/
+data gear_counts; set cost.final_dataset_2; gears=1; proc sort; by Gear;
+proc means noprint; by Gear;
+var gears;
+output out=gear_counts_2 sum=count_gear;
+data fleet.gear_counts; set gear_counts_2; drop _TYPE_ _FREQ_; proc sort; by Gear;
+data fleet.final_dataset_gear_counts; /*This is the final dataset with the number of observations per primary gear*/
+merge gear_counts fleet.gear_counts;
+by Gear;
+
+data fmp_counts; set cost.final_dataset_2; fmp=1; proc sort; by Fishery;
+proc means noprint; by Fishery;
+var fmp;
+output out=fmp_counts_2 sum=count_fmp;
+data fleet.fmp_counts; set fmp_counts_2; drop _TYPE_ _FREQ_; proc sort; by Fishery;
+data fleet.final_dataset_fmp_counts; /*This is the final dataset with the number of observations per primary fmp*/
+merge fmp_counts fleet.fmp_counts;
+by Fishery;
+
+data gear_fmp_counts; set cost.final_dataset_2; gear_fmp=1; proc sort; by Gear_Fishery;
+proc means noprint; by Gear_Fishery;
+var gear_fmp;
+output out=gear_fmp_counts_2 sum=count_gear_fmp;
+data fleet.gear_fmp_counts; set gear_fmp_counts_2; drop _TYPE_ _FREQ_; proc sort; by Gear_Fishery;
+data fleet.final_dataset_gear_fmp_counts; /*This is the final dataset with the number of observations per primary gear/fmp*/
+merge gear_fmp_counts fleet.gear_fmp_counts;
+by Gear_Fishery;
+
+/*Operating Profit*/
+data fleet.gear_boxplots; set fleet.final_dataset_gear_counts; if count_gear<3 then delete;
+proc export data=fleet.gear_boxplots outfile="gear_boxplots.csv" dbms=csv replace; /*#2 input file*/
+
+data fleet.fmp_boxplots; set fleet.final_dataset_fmp_counts; if count_fmp<3 then delete;
+proc export data=fleet.fmp_boxplots outfile="fmp_boxplots.csv" dbms=csv replace; /*#4 input file*/
+
+data fleet.gear_fmp_boxplots; set fleet.final_dataset_gear_fmp_counts; if count_gear_fmp<3 then delete;
+proc export data=fleet.gear_fmp_boxplots outfile="gear_fmp_boxplots.csv" dbms=csv replace; /*#6 input file*/
+
+
+/*** Profit Results- Summary Stats***/
+/*Operating Profit*/
+proc means noprint data=fleet.gear_boxplots; by Gear; var total_operating_profit; output out=summary_stats_op_gear n=Observations mean=mean_op median=med_op std=std_op;
+data profsm.summary_stats_op_gear; 
+merge summary_stats_op_gear (in=inone) gear_count_sf_2;
+by Gear; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_op=round(mean_op, 1);
+med_op=round(med_op, 1);
+std_op=round(std_op, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_op_gear outfile="summary_stats_op_gear.csv" dbms=csv replace; /*#16 input file*/
+
+proc means noprint data=fleet.fmp_boxplots; by Fishery; var total_operating_profit; output out=summary_stats_op_fmp n=Observations mean=mean_op median=med_op std=std_op;
+data profsm.summary_stats_op_fmp;
+merge summary_stats_op_fmp (in=inone) fmp_count_sf_2;
+by Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_op=round(mean_op, 1);
+med_op=round(med_op, 1);
+std_op=round(std_op, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_op_fmp outfile="summary_stats_op_fmp.csv" dbms=csv replace; /*#17 input file*/
+
+proc means noprint data=fleet.gear_fmp_boxplots; by Gear_Fishery; var total_operating_profit; output out=summary_stats_op_gear_fmp n=Observations mean=mean_op median=med_op std=std_op;
+data profsm.summary_stats_op_gear_fmp;
+merge summary_stats_op_gear_fmp (in=inone) gear_fmp_count_sf_2;
+by Gear_Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_op=round(mean_op, 1);
+med_op=round(med_op, 1);
+std_op=round(std_op, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_op_gear_fmp outfile="summary_stats_op_gear_fmp.csv" dbms=csv replace; /*#18 input file*/
+
+/*Total Profit*/
+proc means noprint data=fleet.gear_boxplots; by Gear; var total_profit; output out=summary_stats_tp_gear n=Observations mean=mean_tp median=med_tp std=std_tp;
+data profsm.summary_stats_tp_gear;
+merge summary_stats_tp_gear (in=inone) gear_count_sf_2;
+by Gear; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_tp=round(mean_tp, 1);
+med_tp=round(med_tp, 1);
+std_tp=round(std_tp, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_tp_gear outfile="summary_stats_tp_gear.csv" dbms=csv replace; /*#19 input file*/
+
+proc means noprint data=fleet.fmp_boxplots; by Fishery; var total_profit; output out=summary_stats_tp_fmp n=Observations mean=mean_tp median=med_tp std=std_tp;
+data profsm.summary_stats_tp_fmp; 
+merge summary_stats_tp_fmp (in=inone) fmp_count_sf_2;
+by Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_tp=round(mean_tp, 1);
+med_tp=round(med_tp, 1);
+std_tp=round(std_tp, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_tp_fmp outfile="summary_stats_tp_fmp.csv" dbms=csv replace; /*#20 input file*/
+
+proc means noprint data=fleet.gear_fmp_boxplots; by Gear_Fishery; var total_profit; output out=summary_stats_tp_gear_fmp n=Observations mean=mean_tp median=med_tp std=std_tp;
+data profsm.summary_stats_tp_gear_fmp;
+merge summary_stats_tp_gear_fmp (in=inone) gear_fmp_count_sf_2;
+by Gear_Fishery; 
+if inone=1; 
+if Observations<3 then delete;
+Response_Rate=round((Observations/Sampled)*100);
+mean_tp=round(mean_tp, 1);
+med_tp=round(med_tp, 1);
+std_tp=round(std_tp, 1);
+drop _TYPE_ _FREQ_;
+proc export data=profsm.summary_stats_tp_gear_fmp outfile="summary_stats_tp_gear_fmp.csv" dbms=csv replace; /*#21 input file*/
+
+
+/***Combine Revenue and Profit Summaries to show Profit Margins***/
+data profsm.gear_profit_margin;
+merge revsm.gear_revenue_no_conf profsm.summary_stats_op_gear profsm.summary_stats_tp_gear;
+by Gear;
+keep Gear med_rev med_op med_tp op_margin tp_margin;
+op_margin = round(med_op/med_rev, .001)*100;
+tp_margin = round(med_tp/med_rev, .001)*100;
+proc export data=profsm.gear_profit_margin outfile="gear_profit_margin.csv" dbms=csv replace; /*#22 input file*/
+
+data profsm.fmp_profit_margin;
+merge revsm.fmp_revenue_no_conf profsm.summary_stats_op_fmp profsm.summary_stats_tp_fmp;
+by Fishery;
+keep Fishery med_rev med_op med_tp op_margin tp_margin;
+op_margin = round(med_op/med_rev, .001)*100;
+tp_margin = round(med_tp/med_rev, .001)*100;
+proc export data=profsm.fmp_profit_margin outfile="fmp_profit_margin.csv" dbms=csv replace; /*#23 input file*/
+
+data profsm.gear_fmp_profit_margin;
+merge revsm.gear_fmp_revenue_no_conf profsm.summary_stats_op_gear_fmp profsm.summary_stats_tp_gear_fmp;
+by Gear_Fishery;
+keep Gear_Fishery med_rev med_op med_tp op_margin tp_margin;
+op_margin = round(med_op/med_rev, .001)*100;
+tp_margin = round(med_tp/med_rev, .001)*100;
+proc export data=profsm.gear_fmp_profit_margin outfile="gear_fmp_profit_margin.csv" dbms=csv replace; /*#24 input file*/

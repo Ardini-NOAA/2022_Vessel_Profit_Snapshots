@@ -1,4 +1,4 @@
-Fishery,Observations,mean_rev,med_rev,std_rev,Sampled,Response_Rate
+Fishery,Response,mean_rev,med_rev,std_rev,Sample,Response_Rate
 Dogfish,3,38783,39611,2099,25,12
 "Fluke, BSB, Scup",23,218322,30633,317400,136,17
 Groundfish,7,805092,509954,949835,52,13

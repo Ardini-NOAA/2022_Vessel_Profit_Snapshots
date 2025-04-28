@@ -23,7 +23,7 @@
 <meta name="author" content="Greg Ardini, Samantha Werner, Elizabeth Conley" />
 
 
-<meta name="date" content="2025-03-12" />
+<meta name="date" content="2025-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -106,13 +106,14 @@
 <li class="chapter" data-level="6" data-path="cost-summary.html"><a href="cost-summary.html"><i class="fa fa-check"></i><b>6</b> Cost Summary</a></li>
 <li class="chapter" data-level="7" data-path="operating-profit.html"><a href="operating-profit.html"><i class="fa fa-check"></i><b>7</b> Operating Profit</a></li>
 <li class="chapter" data-level="8" data-path="total-profit.html"><a href="total-profit.html"><i class="fa fa-check"></i><b>8</b> Total Profit</a></li>
-<li class="chapter" data-level="9" data-path="summmary.html"><a href="summmary.html"><i class="fa fa-check"></i><b>9</b> Summmary</a></li>
-<li class="chapter" data-level="10" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>10</b> Discussion</a>
+<li class="chapter" data-level="9" data-path="profit-margins.html"><a href="profit-margins.html"><i class="fa fa-check"></i><b>9</b> Profit Margins</a></li>
+<li class="chapter" data-level="10" data-path="summmary.html"><a href="summmary.html"><i class="fa fa-check"></i><b>10</b> Summmary</a></li>
+<li class="chapter" data-level="11" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>11</b> Discussion</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="discussion.html"><a href="discussion.html#applications"><i class="fa fa-check"></i><b>10.1</b> Applications</a></li>
-<li class="chapter" data-level="10.2" data-path="discussion.html"><a href="discussion.html#limitations-and-future-work"><i class="fa fa-check"></i><b>10.2</b> Limitations and Future Work</a></li>
+<li class="chapter" data-level="11.1" data-path="discussion.html"><a href="discussion.html#applications"><i class="fa fa-check"></i><b>11.1</b> Applications</a></li>
+<li class="chapter" data-level="11.2" data-path="discussion.html"><a href="discussion.html#data-limitations-and-future-work"><i class="fa fa-check"></i><b>11.2</b> Data Limitations and Future Work</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -134,21 +135,21 @@
             <section class="normal" id="section-">
 <div id="operating-profit" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">7</span> Operating Profit<a href="operating-profit.html#operating-profit" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table>
+<table style="width:100%;">
 <colgroup>
+<col width="20%" />
+<col width="12%" />
+<col width="9%" />
 <col width="18%" />
-<col width="16%" />
-<col width="10%" />
-<col width="17%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Gear</th>
-<th align="right">Observations</th>
-<th align="right">Sampled</th>
+<th align="right">Response</th>
+<th align="right">Sample</th>
 <th align="left">Response_Perc</th>
 <th align="left">Mean</th>
 <th align="left">Median</th>
@@ -161,82 +162,82 @@
 <td align="right">29</td>
 <td align="right">219</td>
 <td align="left">13 %</td>
-<td align="left">$ 528,494</td>
-<td align="left">$ 496,487</td>
-<td align="left">$ 445,621</td>
+<td align="left">$ 466,570</td>
+<td align="left">$ 404,967</td>
+<td align="left">$ 402,093</td>
 </tr>
 <tr class="even">
 <td align="left">Gillnet</td>
 <td align="right">10</td>
 <td align="right">89</td>
 <td align="left">11 %</td>
-<td align="left">$ 40,318</td>
-<td align="left">$ 22,337</td>
-<td align="left">$ 72,891</td>
+<td align="left">$ 32,959</td>
+<td align="left">$ 12,869</td>
+<td align="left">$ 75,048</td>
 </tr>
 <tr class="odd">
 <td align="left">Handgear</td>
 <td align="right">59</td>
 <td align="right">356</td>
 <td align="left">17 %</td>
-<td align="left">$ 6,837</td>
-<td align="left">$ 2,536</td>
-<td align="left">$ 58,744</td>
+<td align="left">$ 951</td>
+<td align="left">$ 2,266</td>
+<td align="left">$ 64,371</td>
 </tr>
 <tr class="even">
 <td align="left">Longline</td>
 <td align="right">4</td>
 <td align="right">23</td>
 <td align="left">17 %</td>
-<td align="left">$ 131,331</td>
-<td align="left">$ 135,674</td>
-<td align="left">$ 186,141</td>
+<td align="left">$ 98,500</td>
+<td align="left">$ 114,894</td>
+<td align="left">$ 167,493</td>
 </tr>
 <tr class="odd">
 <td align="left">Pot/Trap</td>
 <td align="right">160</td>
 <td align="right">1345</td>
 <td align="left">12 %</td>
-<td align="left">$ 91,876</td>
-<td align="left">$ 58,795</td>
-<td align="left">$ 158,034</td>
+<td align="left">$ 80,961</td>
+<td align="left">$ 54,841</td>
+<td align="left">$ 132,961</td>
 </tr>
 <tr class="even">
 <td align="left">Seine</td>
 <td align="right">3</td>
 <td align="right">19</td>
 <td align="left">16 %</td>
-<td align="left">$ 656,754</td>
-<td align="left">$ 274,049</td>
-<td align="left">$ 880,844</td>
+<td align="left">$ 640,707</td>
+<td align="left">$ 251,147</td>
+<td align="left">$ 871,445</td>
 </tr>
 <tr class="odd">
 <td align="left">Trawl</td>
 <td align="right">29</td>
 <td align="right">188</td>
 <td align="left">15 %</td>
-<td align="left">$ 367,073</td>
-<td align="left">$ 265,336</td>
-<td align="left">$ 445,661</td>
+<td align="left">$ 281,293</td>
+<td align="left">$ 203,192</td>
+<td align="left">$ 365,399</td>
 </tr>
 </tbody>
 </table>
 <p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <table>
 <colgroup>
-<col width="30%" />
-<col width="13%" />
-<col width="8%" />
+<col width="31%" />
+<col width="10%" />
+<col width="7%" />
 <col width="15%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Fishery</th>
-<th align="right">Observations</th>
-<th align="right">Sampled</th>
+<th align="right">Response</th>
+<th align="right">Sample</th>
 <th align="left">Response_Perc</th>
 <th align="left">Mean</th>
 <th align="left">Median</th>
@@ -249,108 +250,108 @@
 <td align="right">3</td>
 <td align="right">25</td>
 <td align="left">12 %</td>
-<td align="left">$ -1,882</td>
-<td align="left">$ 18,446</td>
-<td align="left">$ 40,927</td>
+<td align="left">$ -7,281</td>
+<td align="left">$ 18,541</td>
+<td align="left">$ 50,332</td>
 </tr>
 <tr class="even">
 <td align="left">Fluke, BSB, Scup</td>
 <td align="right">23</td>
 <td align="right">136</td>
 <td align="left">17 %</td>
-<td align="left">$ 134,987</td>
-<td align="left">$ 12,567</td>
-<td align="left">$ 237,657</td>
+<td align="left">$ 116,666</td>
+<td align="left">$ 11,827</td>
+<td align="left">$ 217,573</td>
 </tr>
 <tr class="odd">
 <td align="left">Groundfish</td>
 <td align="right">7</td>
 <td align="right">52</td>
 <td align="left">13 %</td>
-<td align="left">$ 438,165</td>
+<td align="left">$ 347,154</td>
 <td align="left">$ 203,192</td>
-<td align="left">$ 558,260</td>
+<td align="left">$ 412,108</td>
 </tr>
 <tr class="even">
 <td align="left">Herring</td>
 <td align="right">4</td>
 <td align="right">5</td>
 <td align="left">80 %</td>
-<td align="left">$ 306,647</td>
-<td align="left">$ 355,763</td>
-<td align="left">$ 203,910</td>
+<td align="left">$ 281,912</td>
+<td align="left">$ 331,096</td>
+<td align="left">$ 185,335</td>
 </tr>
 <tr class="odd">
 <td align="left">Highly Migratory Species</td>
 <td align="right">34</td>
 <td align="right">193</td>
 <td align="left">18 %</td>
-<td align="left">$ 23,052</td>
-<td align="left">$ 968</td>
-<td align="left">$ 100,784</td>
+<td align="left">$ 11,562</td>
+<td align="left">$ 417</td>
+<td align="left">$ 98,849</td>
 </tr>
 <tr class="even">
 <td align="left">Lobster</td>
 <td align="right">152</td>
 <td align="right">1272</td>
 <td align="left">12 %</td>
-<td align="left">$ 88,573</td>
-<td align="left">$ 61,500</td>
-<td align="left">$ 148,683</td>
+<td align="left">$ 79,197</td>
+<td align="left">$ 55,914</td>
+<td align="left">$ 130,278</td>
 </tr>
 <tr class="odd">
 <td align="left">Monkfish</td>
 <td align="right">3</td>
 <td align="right">19</td>
 <td align="left">16 %</td>
-<td align="left">$ -4,947</td>
-<td align="left">$ -12,870</td>
-<td align="left">$ 21,863</td>
+<td align="left">$ -4,949</td>
+<td align="left">$ -12,873</td>
+<td align="left">$ 21,864</td>
 </tr>
 <tr class="even">
 <td align="left">Other</td>
 <td align="right">17</td>
 <td align="right">140</td>
 <td align="left">12 %</td>
-<td align="left">$ 139,069</td>
-<td align="left">$ 2,592</td>
-<td align="left">$ 445,727</td>
+<td align="left">$ 109,455</td>
+<td align="left">$ 12</td>
+<td align="left">$ 417,375</td>
 </tr>
 <tr class="odd">
 <td align="left">Scallop</td>
 <td align="right">28</td>
 <td align="right">229</td>
 <td align="left">12 %</td>
-<td align="left">$ 550,482</td>
-<td align="left">$ 525,741</td>
-<td align="left">$ 437,484</td>
+<td align="left">$ 486,347</td>
+<td align="left">$ 454,375</td>
+<td align="left">$ 394,848</td>
 </tr>
 <tr class="even">
 <td align="left">Squid, Mackerel, Butterfish</td>
 <td align="right">9</td>
 <td align="right">59</td>
 <td align="left">15 %</td>
-<td align="left">$ 471,288</td>
-<td align="left">$ 321,619</td>
-<td align="left">$ 534,144</td>
+<td align="left">$ 350,122</td>
+<td align="left">$ 254,814</td>
+<td align="left">$ 427,806</td>
 </tr>
 <tr class="odd">
 <td align="left">Striped Bass</td>
 <td align="right">12</td>
 <td align="right">66</td>
 <td align="left">18 %</td>
-<td align="left">$ 10,618</td>
-<td align="left">$ 4,353</td>
-<td align="left">$ 25,286</td>
+<td align="left">$ 10,422</td>
+<td align="left">$ 4,116</td>
+<td align="left">$ 25,314</td>
 </tr>
 </tbody>
 </table>
 <p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <table>
 <colgroup>
-<col width="34%" />
-<col width="13%" />
-<col width="8%" />
+<col width="36%" />
+<col width="9%" />
+<col width="7%" />
 <col width="14%" />
 <col width="10%" />
 <col width="10%" />
@@ -359,8 +360,8 @@
 <thead>
 <tr class="header">
 <th align="left">Gear_Fishery</th>
-<th align="right">Observations</th>
-<th align="right">Sampled</th>
+<th align="right">Response</th>
+<th align="right">Sample</th>
 <th align="left">Response_Perc</th>
 <th align="left">Mean</th>
 <th align="left">Median</th>
@@ -373,54 +374,54 @@
 <td align="right">28</td>
 <td align="right">216</td>
 <td align="left">13 %</td>
-<td align="left">$ 550,482</td>
-<td align="left">$ 525,741</td>
-<td align="left">$ 437,484</td>
+<td align="left">$ 486,347</td>
+<td align="left">$ 454,375</td>
+<td align="left">$ 394,848</td>
 </tr>
 <tr class="even">
 <td align="left">Gillnet-Monkfish</td>
 <td align="right">3</td>
 <td align="right">19</td>
 <td align="left">16 %</td>
-<td align="left">$ -4,947</td>
-<td align="left">$ -12,870</td>
-<td align="left">$ 21,863</td>
+<td align="left">$ -4,949</td>
+<td align="left">$ -12,873</td>
+<td align="left">$ 21,864</td>
 </tr>
 <tr class="odd">
 <td align="left">Gillnet-Other</td>
 <td align="right">7</td>
 <td align="right">70</td>
 <td align="left">10 %</td>
-<td align="left">$ 59,718</td>
-<td align="left">$ 26,404</td>
-<td align="left">$ 79,666</td>
+<td align="left">$ 49,205</td>
+<td align="left">$ 24,899</td>
+<td align="left">$ 85,221</td>
 </tr>
 <tr class="even">
 <td align="left">Handgear-Fluke, BSB, Scup</td>
 <td align="right">8</td>
 <td align="right">56</td>
 <td align="left">14 %</td>
-<td align="left">$ 9,299</td>
-<td align="left">$ 8,169</td>
-<td align="left">$ 23,319</td>
+<td align="left">$ 7,377</td>
+<td align="left">$ 8,142</td>
+<td align="left">$ 19,320</td>
 </tr>
 <tr class="odd">
 <td align="left">Handgear-Highly Migratory Species</td>
 <td align="right">31</td>
 <td align="right">181</td>
 <td align="left">17 %</td>
-<td align="left">$ 8,932</td>
-<td align="left">$ 636</td>
-<td align="left">$ 77,070</td>
+<td align="left">$ 569</td>
+<td align="left">$ 198</td>
+<td align="left">$ 82,534</td>
 </tr>
 <tr class="even">
 <td align="left">Handgear-Other</td>
 <td align="right">10</td>
 <td align="right">63</td>
 <td align="left">16 %</td>
-<td align="left">$ 2,183</td>
-<td align="left">$ 4,375</td>
-<td align="left">$ 43,803</td>
+<td align="left">$ -5,083</td>
+<td align="left">$ 4,306</td>
+<td align="left">$ 59,897</td>
 </tr>
 <tr class="odd">
 <td align="left">Handgear-Striped Bass</td>
@@ -436,72 +437,72 @@
 <td align="right">3</td>
 <td align="right">8</td>
 <td align="left">38 %</td>
-<td align="left">$ 168,960</td>
-<td align="left">$ 252,903</td>
-<td align="left">$ 208,512</td>
+<td align="left">$ 125,153</td>
+<td align="left">$ 211,247</td>
+<td align="left">$ 194,470</td>
 </tr>
 <tr class="odd">
 <td align="left">Pot/Trap-Fluke, BSB, Scup</td>
 <td align="right">6</td>
 <td align="right">23</td>
 <td align="left">26 %</td>
-<td align="left">$ 90,529</td>
-<td align="left">$ 37,125</td>
-<td align="left">$ 119,821</td>
+<td align="left">$ 87,846</td>
+<td align="left">$ 30,625</td>
+<td align="left">$ 119,795</td>
 </tr>
 <tr class="even">
 <td align="left">Pot/Trap-Lobster</td>
 <td align="right">150</td>
 <td align="right">1265</td>
 <td align="left">12 %</td>
-<td align="left">$ 88,165</td>
-<td align="left">$ 60,196</td>
-<td align="left">$ 149,485</td>
+<td align="left">$ 78,880</td>
+<td align="left">$ 55,914</td>
+<td align="left">$ 130,840</td>
 </tr>
 <tr class="odd">
 <td align="left">Pot/Trap-Other</td>
 <td align="right">4</td>
 <td align="right">57</td>
 <td align="left">7 %</td>
-<td align="left">$ 233,043</td>
+<td align="left">$ 148,668</td>
 <td align="left">$ 62,355</td>
-<td align="left">$ 403,270</td>
+<td align="left">$ 237,423</td>
 </tr>
 <tr class="even">
 <td align="left">Trawl-Fluke, BSB, Scup</td>
 <td align="right">9</td>
 <td align="right">57</td>
 <td align="left">16 %</td>
-<td align="left">$ 276,347</td>
-<td align="left">$ 91,373</td>
-<td align="left">$ 325,750</td>
+<td align="left">$ 233,026</td>
+<td align="left">$ 52,876</td>
+<td align="left">$ 305,098</td>
 </tr>
 <tr class="odd">
 <td align="left">Trawl-Groundfish</td>
 <td align="right">5</td>
 <td align="right">41</td>
 <td align="left">12 %</td>
-<td align="left">$ 578,955</td>
+<td align="left">$ 456,544</td>
 <td align="left">$ 270,521</td>
-<td align="left">$ 615,811</td>
+<td align="left">$ 448,284</td>
 </tr>
 <tr class="even">
 <td align="left">Trawl-Other</td>
 <td align="right">7</td>
 <td align="right">38</td>
 <td align="left">18 %</td>
-<td align="left">$ 146,971</td>
-<td align="left">$ 61,430</td>
-<td align="left">$ 226,213</td>
+<td align="left">$ 90,517</td>
+<td align="left">$ 2,143</td>
+<td align="left">$ 234,166</td>
 </tr>
 <tr class="odd">
 <td align="left">Trawl-Squid, Mackerel, Butterfish</td>
 <td align="right">8</td>
 <td align="right">52</td>
 <td align="left">15 %</td>
-<td align="left">$ 529,303</td>
-<td align="left">$ 322,467</td>
-<td align="left">$ 539,860</td>
+<td align="left">$ 392,992</td>
+<td align="left">$ 259,710</td>
+<td align="left">$ 436,189</td>
 </tr>
 </tbody>
 </table>

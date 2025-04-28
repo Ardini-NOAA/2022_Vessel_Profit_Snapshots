@@ -1,0 +1,711 @@
+libname input '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Dataset';
+libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Survey_Costs';
+
+/*ICF CODES (from Google Doc: Unique Numeric Values for Radio Buttons/Skip Logic). Do not want to include any negative numbers in profit calculations*/
+
+/*Multiple Question Codes
+-222222222: No Cost
+-333333333: Total Cost for selected vessel
+-444444444: Total Cost for all owned vessels
+-888888888 (or fewer 8s): Skip
+-959595959: Average Cost per trip
+-969696969: Question not presented
+-979797979: Question in grid row not selected*/
+
+/*Q2
+-919191919: This vessel was inactive for all of 2022.
+-111111111: This vessel did not take any commercial fishing/shellfishing trips in 2022, but did take recreational or other types of trips.*/
+
+/*Q11
+-555555555: I did not provide benefits to crew or a hired captain in 2022*/
+
+/*Q15-Q16
+-666666666: I don't know
+-777777777: I prefer not to answer
+
+/*Q17
+-999999999: No cost in 2022 from leasing in quota or DAS
+-929292929: Select here if quota leasing costs cannot be attributed solely to the selected vessel*/
+
+/*Q19
+-939393939: No revenue received in 2022 from leasing out quota or DAS from permits associated with the selected vessel*/
+
+/*Q20
+-949494949: No quota monitoring costs incurred by the selected vessel in 2022*/
+
+
+/***ALL RESPONSES***/
+data cost.all_responses; set input.final_dataset_hullid; 
+
+/*rmui (q3)- do not need to incorporate the allves columns as no completed survey used them*/
+rmui_engine_exp_1 = input(rmui_engine_exp, 9.);
+if rmui_engine_exp_1>=0 then rmui_engine_exp_final=rmui_engine_exp_1;
+if rmui_engine_exp_1 <0 then rmui_engine_exp_final=0;
+
+rmui_seine_skiff_exp_1 = input(rmui_seine_skiff_exp, 9.);
+if rmui_seine_skiff_exp_1>=0 then rmui_seine_skiff_exp_final=rmui_seine_skiff_exp_1;
+if rmui_seine_skiff_exp_1 <0 then rmui_seine_skiff_exp_final=0;
+
+rmui_deck_eqpt_exp_1 = input(rmui_deck_eqpt_exp, 9.);
+if rmui_deck_eqpt_exp_1>=0 then rmui_deck_eqpt_exp_final=rmui_deck_eqpt_exp_1;
+if rmui_deck_eqpt_exp_1 <0 then rmui_deck_eqpt_exp_final=0;
+
+rmui_haulout_cost_1 = input(rmui_haulout_cost, 9.);
+if rmui_haulout_cost_1>=0 then rmui_haulout_cost_final=rmui_haulout_cost_1;
+if rmui_haulout_cost_1 <0 then rmui_haulout_cost_final=0;
+
+rmui_hull_exp_1 = input(rmui_hull_exp, 9.);
+if rmui_hull_exp_1>=0 then rmui_hull_exp_final=rmui_hull_exp_1;
+if rmui_hull_exp_1 <0 then rmui_hull_exp_final=0;
+
+rmui_fishing_gear_exp_1 = input(rmui_fishing_gear_exp, 9.);
+if rmui_fishing_gear_exp_1>=0 then rmui_fishing_gear_exp_final=rmui_fishing_gear_exp_1;
+if rmui_fishing_gear_exp_1 <0 then rmui_fishing_gear_exp_final=0;
+
+rmui_wheel_electronics_exp_1 = input(rmui_wheel_electronics_exp, 9.);
+if rmui_wheel_electronics_exp_1>=0 then rmui_wheel_electronics_exp_final=rmui_wheel_electronics_exp_1;
+if rmui_wheel_electronics_exp_1 <0 then rmui_wheel_electronics_exp_final=0;
+
+rmui_process_refrig_exp_1 = input(rmui_process_refrig_exp, 9.);
+if rmui_process_refrig_exp_1>=0 then rmui_process_refrig_exp_final=rmui_process_refrig_exp_1;
+if rmui_process_refrig_exp_1 <0 then rmui_process_refrig_exp_final=0;
+
+rmui_safety_eqpt_exp_1 = input(rmui_safety_eqpt_exp, 9.);
+if rmui_safety_eqpt_exp_1>=0 then rmui_safety_eqpt_exp_final=rmui_safety_eqpt_exp_1;
+if rmui_safety_eqpt_exp_1 <0 then rmui_safety_eqpt_exp_final=0;
+
+
+/*vessel costs (q4)- do not need to incorporate the allves columns as no completed survey used them*/
+mooring_fees_1 = input(mooring_fees, 9.);
+if mooring_fees_1>=0 then mooring_fees_final=mooring_fees_1;
+if mooring_fees_1 <0 then mooring_fees_final=0;
+
+ifq_recovery_cost_1 = input(ifq_recovery_cost, 9.);
+if ifq_recovery_cost_1>=0 then ifq_recovery_cost_final=ifq_recovery_cost_1;
+if ifq_recovery_cost_1 <0 then ifq_recovery_cost_final=0;
+
+vessel_or_permit_pymt_1 = input(vessel_or_permit_pymt, 9.);
+if vessel_or_permit_pymt_1>=0 then vessel_or_permit_pymt_final=vessel_or_permit_pymt_1;
+if vessel_or_permit_pymt_1 <0 then vessel_or_permit_pymt_final=0;
+
+permit_fees_1 = input(permit_fees, 9.);
+if permit_fees_1>=0 then permit_fees_final=permit_fees_1;
+if permit_fees_1 <0 then permit_fees_final=0;
+
+trailer_launch_fees_1 = input(trailer_launch_fees, 9.);
+if trailer_launch_fees_1>=0 then trailer_launch_fees_final=trailer_launch_fees_1;
+if trailer_launch_fees_1 <0 then trailer_launch_fees_final=0;
+
+vessel_insurance_cost_1 = input(vessel_insurance_cost, 9.);
+if vessel_insurance_cost_1>=0 then vessel_insurance_cost_final=vessel_insurance_cost_1;
+if vessel_insurance_cost_1 <0 then vessel_insurance_cost_final=0;
+
+
+/*trip expenses (q5)*/
+fuel_cost_1 = input(fuel_cost, 9.);
+fuel_avg_trip_cost_1 = input(fuel_avg_trip_cost, 9.);
+if fuel_cost_1>=0 then fuel_cost_2=fuel_cost_1; 
+if fuel_cost_1<0 then do;
+if fuel_avg_trip_cost_1>=0 then fuel_cost_2=(fuel_avg_trip_cost_1*comm_trips_num);
+if fuel_avg_trip_cost_1 <0 then fuel_cost_2=0; end;
+
+bait_cost_1 = input(bait_cost, 9.);
+bait_avg_trip_cost_1 = input(bait_avg_trip_cost, 9.);
+if bait_cost_1>=0 then bait_cost_2=bait_cost_1;
+if bait_cost_1<0 then do;
+if bait_avg_trip_cost_1>=0 then bait_cost_2=(bait_avg_trip_cost_1*comm_trips_num);
+if bait_avg_trip_cost_1 <0 then bait_cost_2=0; end;
+
+food_cost_1 = input(food_cost, 9.);
+food_avg_trip_cost_1 = input(food_avg_trip_cost, 9.);
+if food_cost_1>=0 then food_cost_2=food_cost_1;
+if food_cost_1<0 then do;
+if food_avg_trip_cost_1>=0 then food_cost_2=(food_avg_trip_cost_1*comm_trips_num);
+if food_avg_trip_cost_1 <0 then food_cost_2=0; end;
+
+ice_cost_1 = input(ice_cost, 9.);
+ice_avg_trip_cost_1 = input(ice_avg_trip_cost, 9.);
+if ice_cost_1>=0 then ice_cost_2=ice_cost_1;
+if ice_cost_1<0 then do;
+if ice_avg_trip_cost_1>=0 then ice_cost_2=(ice_avg_trip_cost_1*comm_trips_num);
+if ice_avg_trip_cost_1 <0 then ice_cost_2=0; end;
+
+catch_handling_cost_1 = input(catch_handling_cost, 9.);
+catch_handling_avg_trip_cost_1 = input(catch_handling_avg_trip_cost, 9.);
+if catch_handling_cost_1>=0 then catch_handling_cost_2=catch_handling_cost_1;
+if catch_handling_cost_1<0 then do;
+if catch_handling_avg_trip_cost_1>=0 then catch_handling_cost_2=(catch_handling_avg_trip_cost_1*comm_trips_num);
+if catch_handling_avg_trip_cost_1 <0 then catch_handling_cost_2=0; end;
+
+at_sea_processing_cost_1 = input(at_sea_processing_cost, 9.);
+at_sea_processing_avg_trip_cost = input(packing_avg_trip_cost, 9.);
+if at_sea_processing_cost_1>=0 then at_sea_processing_cost_2=at_sea_processing_cost_1;
+if at_sea_processing_cost_1<0 then do;
+if at_sea_processing_avg_trip_cost>=0 then at_sea_processing_cost_2=(at_sea_processing_avg_trip_cost*comm_trips_num);
+if at_sea_processing_avg_trip_cost <0 then at_sea_processing_cost_2=0; end;
+
+paralytic_testing_1 = input(paralytic_testing, 9.);
+paralytic_avg_trip_cost_1 = input(paralytic_avg_trip_cost, 9.);
+if paralytic_testing_1>=0 then paralytic_testing_2= paralytic_testing_1; 
+if paralytic_testing_1 <0 then do;
+if paralytic_avg_trip_cost_1>=0 then paralytic_testing_2=(paralytic_avg_trip_cost_1*comm_trips_num);
+if paralytic_avg_trip_cost_1 <0 then paralytic_testing_2=0; end;
+
+
+/*allocate trip expenses (q6)*/
+
+/*New Method: All of the trip expenses listed in Q5 are subtracted off gross revenues. This is because the trip expenses paid by crew have already been subtracted from their pay (Q10)*/
+fuel_cost_final=fuel_cost_2;
+bait_cost_final=bait_cost_2;
+food_cost_final=food_cost_2;
+ice_cost_final=ice_cost_2;
+catch_handling_cost_final=catch_handling_cost_2;
+at_sea_processing_cost_final=at_sea_processing_cost_2;
+paralytic_testing_final=paralytic_testing_2;
+
+/*Old Method (no longer used): Trip expenses were allocated to the vessel owner depending on how Q6 was answered. 
+The issue is that trip expenses paid by crew were being double counted. This amount was being subtracted from Q5 and Q10 can be assumed to have already subtracted off trip expenses when paying crew.
+trip_cost_owner_paid_pct_1 = input(trip_cost_owner_paid_pct, 9.);
+if trip_costs_shares not in ('OWNER') then do;
+if trip_cost_owner_paid_pct_1>=0 then trip_cost_owner_paid_pct_final=(trip_cost_owner_paid_pct_1/100); /*Convert to a percentage*
+if trip_cost_owner_paid_pct_1 <0 then trip_cost_owner_paid_pct_final=0;end;
+if trip_costs_shares = ('OWNER') then trip_cost_owner_paid_pct_final=1;
+
+if trip_cost_shares = ('CREW') then do; /*Important caveat that if crew is paying for these expenses, the reduction in their income will not be captured anywhere if we are only focused on vessel-level profits*
+fuel_cost_final=0;
+bait_cost_final=0;
+food_cost_final=0;
+ice_cost_final=0;
+catch_handling_cost_final=0;
+at_sea_processing_cost_final=0;
+paralytic_testing_final=0; end;
+
+if trip_cost_shares = ('OWNER') then do;
+fuel_cost_final=fuel_cost_2;
+bait_cost_final=bait_cost_2;
+food_cost_final=food_cost_2;
+ice_cost_final=ice_cost_2;
+catch_handling_cost_final=catch_handling_cost_2;
+at_sea_processing_cost_final=at_sea_processing_cost_2;
+paralytic_testing_final=paralytic_testing_2; end;
+
+if trip_cost_shares in ('SHARED', 'OTHER', '-888') then do; 
+if ICF_MASTER_ID in ('25819462L') then fuel_cost_final=fuel_cost_2*(fuel_cost_owner_paid_pct/100); /*One specific case where owner pays for fuel but not for other trip expenses*
+if ICF_MASTER_ID not in ('25819462L') then fuel_cost_final=fuel_cost_2*trip_cost_owner_paid_pct_final;
+bait_cost_final=bait_cost_2*trip_cost_owner_paid_pct_final;
+food_cost_final=food_cost_2*trip_cost_owner_paid_pct_final;
+ice_cost_final=ice_cost_2*trip_cost_owner_paid_pct_final;
+catch_handling_cost_final=catch_handling_cost_2*trip_cost_owner_paid_pct_final;
+at_sea_processing_cost_final=at_sea_processing_cost_2*trip_cost_owner_paid_pct_final;
+paralytic_testing_final=paralytic_testing_2*trip_cost_owner_paid_pct_final; end;
+
+if trip_cost_shares in ('-969696969') then do; /*If this question was not presented to the respondent, they had no trip expenses (whole survey section was not presented)*
+fuel_cost_final=0;
+bait_cost_final=0;
+food_cost_final=0;
+ice_cost_final=0;
+catch_handling_cost_final=0;
+at_sea_processing_cost_final=0;
+paralytic_testing_final=0; end;
+
+
+/*crew payments (q10, q11)*/
+crew_pymts_1 = input(crew_pymts, 9.);
+if crew_pymts_1>=0 then crew_pymts_final=crew_pymts_1;
+if crew_pymts_1 <0 then crew_pymts_final=0;
+
+captain_pymts_1 = input(captain_pymts, 9.);
+if captain_pymts_1>=0 then captain_pymts_final=captain_pymts_1;
+if captain_pymts_1 <0 then captain_pymts_final=0;
+
+crew_benefits_1 = input(crew_benefits, 9.);
+if crew_benefits_1>=0 then crew_benefits_final=crew_benefits_1;
+if crew_benefits_1 <0 then crew_benefits_final=0;
+
+
+/*overhead (q12)*/
+vehicle_usage_cost_1 = input(vehicle_usage_cost, 9.);
+vehicle_usage_cost_allves_1 = input(vehicle_usage_cost_allves, 9.);
+if vehicle_usage_cost_1>=0 then vehicle_usage_cost_final=vehicle_usage_cost_1; 
+if vehicle_usage_cost_1<0 then do;
+if vehicle_usage_cost_allves>=0 then vehicle_usage_cost_final=(vehicle_usage_cost_allves/vessels_owned_num);
+if vehicle_usage_cost_allves <0 then vehicle_usage_cost_final=0; end;
+
+business_travel_cost_1 = input(business_travel_cost, 9.);
+business_travel_cost_allves_1 = input(business_travel_cost_allves, 9.);
+if business_travel_cost_1>=0 then business_travel_cost_final=business_travel_cost_1; 
+if business_travel_cost_1<0 then do;
+if business_travel_cost_allves>=0 then business_travel_cost_final=(business_travel_cost_allves/vessels_owned_num);
+if business_travel_cost_allves <0 then business_travel_cost_final=0; end;
+
+association_fees_1 = input(association_fees, 9.);
+association_fees_allves_1 = input(association_fees_allves, 9.);
+if association_fees_1>=0 then association_fees_final=association_fees_1; 
+if association_fees_1<0 then do;
+if association_fees_allves>=0 then association_fees_final=(association_fees_allves/vessels_owned_num);
+if association_fees_allves <0 then association_fees_final=0; end;
+
+legal_fees_1 = input(legal_fees, 9.);
+legal_fees_allves_1 = input(legal_fees_allves, 9.);
+if legal_fees_1>=0 then legal_fees_final=legal_fees_1; 
+if legal_fees_1<0 then do;
+if legal_fees_allves>=0 then legal_fees_final=(legal_fees_allves/vessels_owned_num);
+if legal_fees_allves <0 then legal_fees_final=0; end;
+
+advertising_cost_1 = input(advertising_cost, 9.);
+advertising_cost_allves_1 = input(advertising_cost_allves, 9.);
+if advertising_cost_1>=0 then advertising_cost_final=advertising_cost_1; 
+if advertising_cost_1<0 then do;
+if advertising_cost_allves>=0 then advertising_cost_final=(advertising_cost_allves/vessels_owned_num);
+if advertising_cost_allves <0 then advertising_cost_final=0; end;
+
+communication_cost_1 = input(communication_cost, 9.);
+communication_cost_allves_1 = input(communication_cost_allves, 9.);
+if communication_cost_1>=0 then communication_cost_final=communication_cost_1; 
+if communication_cost_1<0 then do;
+if communication_cost_allves>=0 then communication_cost_final=(communication_cost_allves/vessels_owned_num);
+if communication_cost_allves <0 then communication_cost_final=0; end;
+
+office_expenses_1 = input(office_expenses, 9.);
+office_expenses_allves_1 = input(office_expenses_allves, 9.);
+if office_expenses_1>=0 then office_expenses_final=office_expenses_1; 
+if office_expenses_1<0 then do;
+if office_expenses_allves>=0 then office_expenses_final=(office_expenses_allves/vessels_owned_num);
+if office_expenses_allves <0 then office_expenses_final=0; end;
+
+noncrew_labor_cost_1 = input(noncrew_labor_cost, 9.);
+noncrew_labor_cost_allves_1 = input(noncrew_labor_cost_allves, 9.);
+if noncrew_labor_cost_1>=0 then noncrew_labor_cost_final=noncrew_labor_cost_1; 
+if noncrew_labor_cost_1<0 then do;
+if noncrew_labor_cost_allves>=0 then noncrew_labor_cost_final=(noncrew_labor_cost_allves/vessels_owned_num);
+if noncrew_labor_cost_allves <0 then noncrew_labor_cost_final=0; end;
+
+spotter_plane_cost_1 = input(spotter_plane_cost, 9.);
+spotter_plane_cost_allves_1 = input(spotter_plane_cost_allves, 9.);
+if spotter_plane_cost_1>=0 then spotter_plane_cost_final=spotter_plane_cost_1; 
+if spotter_plane_cost_1<0 then do;
+if spotter_plane_cost_allves>=0 then spotter_plane_cost_final=(spotter_plane_cost_allves/vessels_owned_num);
+if spotter_plane_cost_allves <0 then spotter_plane_cost_final=0; end;
+
+
+/*quota leasing costs (q17)*/
+quota_das_payments_1 = input(quota_das_payments, 9.);
+if quota_das_payments_1>=0 then quota_das_payments_2=quota_das_payments_1;
+if quota_das_payments_1 <0 then quota_das_payments_2=0;
+
+quota_das_payments_mult_ves_1 = input(quota_das_payments_mult_ves, 9.);
+if quota_das_payments_mult_ves_1>=0 then quota_das_payments_mult_ves_2=quota_das_payments_mult_ves_1;
+if quota_das_payments_mult_ves_1 <0 then quota_das_payments_mult_ves_2=0;
+
+if quota_das_pymt_ves_num<0 then quota_das_payments_3 = quota_das_payments_2;
+if quota_das_pymt_ves_num>0 then quota_das_payments_3 = (quota_das_payments_mult_ves_2/quota_das_pymt_ves_num);
+
+
+/*allocate quota leasing costs (q18)*/
+
+/*New Method: All of the quota leasing costs listed in Q17 are subtracted off gross revenues. This is because quota leasing costs paid by crew have already been subtracted from their pay (Q10)*/
+quota_das_payments_final=quota_das_payments_3;
+
+/*Old Method (no longer used): Quota leasing costs were allocated to the vessel owner depending on how Q18 was answered. 
+The issue is that quota leasing costs paid by crew were being double counted. This amount was being subtracted from Q17 and Q10 can be assumed to have already subtracted off trip expenses when paying crew.
+quota_pymt_sys_boat_pct_1 = input(quota_pymt_sys_boat_pct, 9.);
+if quota_pymt_sys_boat_pct_1>=0 then quota_pymt_sys_boat_pct_final=(quota_pymt_sys_boat_pct_1/100); /*Convert to a percentage*
+if quota_pymt_sys_boat_pct_1 <0 then quota_pymt_sys_boat_pct_final=0;
+
+if quota_pymt_sys = ('CREW') then quota_das_payments_final=0;
+
+if quota_pymt_sys = ('OWNER') then quota_das_payments_final=quota_das_payments_3; 
+
+if quota_pymt_sys in ('SHARED', 'OTHER', '-888') then quota_das_payments_final=quota_das_payments_3*quota_pymt_sys_boat_pct_final;
+
+if quota_pymt_sys in ('-969696969') then quota_das_payments_final=0; /*If this question was not presented to the respondent, they had no quota costs*/
+
+
+/*quota leasing revenue (q19)*/
+leasing_quota_revenue_1 = input(leasing_quota_revenue, 9.);
+if leasing_quota_revenue_1>=0 then leasing_quota_revenue_final=leasing_quota_revenue_1;
+if leasing_quota_revenue_1 <0 then leasing_quota_revenue_final=0;
+
+
+/*quota monitoring (q20)*/
+quota_monitoring_cost_1 = input(quota_monitoring_cost, 9.);
+if quota_monitoring_cost_1>=0 then quota_monitoring_cost_final=quota_monitoring_cost_1;
+if quota_monitoring_cost_1 <0 then quota_monitoring_cost_final=0;
+
+
+/***AGGREGATE COSTS***/
+operating_cost_1 = fuel_cost_final + bait_cost_final + food_cost_final + ice_cost_final + catch_handling_cost_final + at_sea_processing_cost_final + paralytic_testing_final; /*q5*/
+
+crew_captain_survey_cost_1 = crew_pymts_final + captain_pymts_final + crew_benefits_final; /*q10,q11*/
+
+non_operating_cost_1 = 
+/*q3*/
+rmui_engine_exp_final + rmui_seine_skiff_exp_final + rmui_deck_eqpt_exp_final + rmui_haulout_cost_final + rmui_hull_exp_final + rmui_fishing_gear_exp_final + rmui_wheel_electronics_exp_final + 
+rmui_process_refrig_exp_final + rmui_safety_eqpt_exp_final + 
+/*q4*/
+mooring_fees_final + ifq_recovery_cost_final + vessel_or_permit_pymt_final + permit_fees_final + trailer_launch_fees_final + vessel_insurance_cost_final + 
+/*q12*/
+vehicle_usage_cost_final + business_travel_cost_final + association_fees_final + legal_fees_final + advertising_cost_final + communication_cost_final + office_expenses_final 
++ noncrew_labor_cost_final + spotter_plane_cost_final + 
+/*q17*/
+quota_das_payments_final +
+/*q20*/
+quota_monitoring_cost_final
+/*q19*/
+-leasing_quota_revenue_final;
+
+operating_survey_cost=round(operating_cost_1); /*Round to nearest dollar*/
+crew_captain_survey_cost=round(crew_captain_survey_cost_1); /*Round to nearest dollar*/
+non_operating_survey_cost=round(non_operating_cost_1); /*Round to nearest dollar*/
+
+
+/***FINAL DATASETS***/
+data cost.final_survey_costs; 
+retain icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost;
+set cost.all_responses;
+keep icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost;
+
+data cost.final_survey_cost_variables; 
+retain 
+ICF_MASTER_ID
+DATE_RECEIVED
+DATE_RECEIVED_NUMERIC
+SURVEY_DURATION_MINS
+LAST_QUESTION_FILLED
+NUM_CONNECTIONS
+DEVICE
+DEVICE_OS
+DEVICE_OS_VERSION
+META_USER_AGENT
+SURVEY_VERSION
+PERMIT
+HULL_ID
+VESNAME
+REFUSAL_INELIGIBLE_PARTIAL
+Complete_1
+Complete_2
+survey_mode
+access_mode
+year_acquired
+comm_trips_num
+vessel_activity
+rmui_engine_exp
+rmui_engine_exp_final
+rmui_seine_skiff_exp
+rmui_seine_skiff_exp_final
+rmui_deck_eqpt_exp
+rmui_deck_eqpt_exp_final
+rmui_haulout_cost
+rmui_haulout_cost_final
+rmui_hull_exp
+rmui_hull_exp_final
+rmui_fishing_gear_exp
+rmui_fishing_gear_exp_final
+rmui_wheel_electronics_exp
+rmui_wheel_electronics_exp_final
+rmui_process_refrig_exp
+rmui_process_refrig_exp_final
+rmui_safety_eqpt_exp
+rmui_safety_eqpt_exp_final
+rmui_engine_exp_allves
+rmui_deck_eqpt_exp_allves
+rmui_hull_exp_allves
+rmui_gear_exp_allves
+rmui_electronics_exp_allves
+rmui_proc_refrig_exp_allves
+rmui_safety_eqpt_exp_allves
+haulout_cost_allves
+mooring_fees
+mooring_fees_final
+ifq_recovery_cost
+ifq_recovery_cost_final
+vessel_or_permit_pymt
+vessel_or_permit_pymt_final
+permit_fees
+permit_fees_final
+trailer_launch_fees
+trailer_launch_fees_final
+vessel_insurance_cost
+vessel_insurance_cost_final
+ves_insured_months
+ves_insured_laid_up_months
+mooring_fees_allves
+ves_or_permit_pymts_allves
+permit_fees_all_vessels
+vessel_insura_cost_allves
+num_months_insured_all_vessels
+ves_insured_laidup_mths_allves
+fuel_cost
+fuel_cost_final
+bait_cost
+bait_cost_final
+food_cost
+food_cost_final
+ice_cost
+ice_cost_final
+catch_handling_cost
+catch_handling_cost_final
+at_sea_processing_cost
+at_sea_processing_cost_final
+paralytic_testing
+paralytic_testing_final
+fuel_avg_trip_cost
+bait_avg_trip_cost
+food_avg_trip_cost
+ice_avg_trip_cost
+catch_handling_avg_trip_cost
+packing_avg_trip_cost
+paralytic_avg_trip_cost
+trip_cost_shares
+trip_cost_owner_paid_pct
+fuel_cost_owner_paid_pct
+trip_cost_shares_other_descr
+trip_cost_pymt_sys
+trip_cost_pymt_sys_other_descr
+crew_captain_present
+captain_status
+crew_pymt_sys
+crew_pymt_sys_other_descr
+dollar_per_bushel_crew
+dollar_per_bushel_capt
+pymts_made_to_crew_or_capt
+crew_pymts
+crew_pymts_final
+captain_pymts
+captain_pymts_final
+crew_benefits
+crew_benefits_final
+vehicle_usage_cost
+vehicle_usage_cost_final
+business_travel_cost
+business_travel_cost_final
+association_fees
+association_fees_final
+legal_fees
+legal_fees_final
+advertising_cost
+advertising_cost_final
+communication_cost
+communication_cost_final
+office_expenses
+office_expenses_final
+noncrew_labor_cost
+noncrew_labor_cost_final
+spotter_plane_cost
+spotter_plane_cost_final
+vehicle_usage_cost_allves
+business_travel_cost_allves
+association_fees_allves
+legal_fees_allves
+advertising_cost_allves
+communication_cost_allves
+office_expenses_allves
+noncrew_labor_cost_allves
+spotter_plane_cost_allves
+vessels_owned_num
+act_comm_vessels_owned_num
+vessel_val
+vessel_val_known
+permits_val
+permits_val_known
+lease_quota_das_y_or_n
+quota_das_payments
+quota_das_payments_final
+quota_das_payments_mult_ves
+quota_das_pymt_ves_num
+quota_pymt_sys
+quota_pymt_sys_boat_pct
+quota_pymt_sys_other_descr
+leasing_quota_revenue
+leasing_quota_revenue_final
+quota_monitoring_cost
+quota_monitoring_cost_final
+other_costs_yes_no
+other_costs_val_1
+other_costs_descr_1
+other_costs_val_2
+other_costs_descr_2
+costs_source
+contact_permission
+respondent_name
+respondent_phone
+respondent_email
+contact_preference
+resp_survey_comments_descr
+Entry_notes1
+operating_survey_cost
+crew_captain_survey_cost
+non_operating_survey_cost;
+
+set cost.all_responses;
+keep
+ICF_MASTER_ID
+DATE_RECEIVED
+DATE_RECEIVED_NUMERIC
+SURVEY_DURATION_MINS
+LAST_QUESTION_FILLED
+NUM_CONNECTIONS
+DEVICE
+DEVICE_OS
+DEVICE_OS_VERSION
+META_USER_AGENT
+SURVEY_VERSION
+PERMIT
+HULL_ID
+VESNAME
+REFUSAL_INELIGIBLE_PARTIAL
+Complete_1
+Complete_2
+survey_mode
+access_mode
+year_acquired
+comm_trips_num
+vessel_activity
+rmui_engine_exp
+rmui_engine_exp_final
+rmui_seine_skiff_exp
+rmui_seine_skiff_exp_final
+rmui_deck_eqpt_exp
+rmui_deck_eqpt_exp_final
+rmui_haulout_cost
+rmui_haulout_cost_final
+rmui_hull_exp
+rmui_hull_exp_final
+rmui_fishing_gear_exp
+rmui_fishing_gear_exp_final
+rmui_wheel_electronics_exp
+rmui_wheel_electronics_exp_final
+rmui_process_refrig_exp
+rmui_process_refrig_exp_final
+rmui_safety_eqpt_exp
+rmui_safety_eqpt_exp_final
+rmui_engine_exp_allves
+rmui_deck_eqpt_exp_allves
+rmui_hull_exp_allves
+rmui_gear_exp_allves
+rmui_electronics_exp_allves
+rmui_proc_refrig_exp_allves
+rmui_safety_eqpt_exp_allves
+haulout_cost_allves
+mooring_fees
+mooring_fees_final
+ifq_recovery_cost
+ifq_recovery_cost_final
+vessel_or_permit_pymt
+vessel_or_permit_pymt_final
+permit_fees
+permit_fees_final
+trailer_launch_fees
+trailer_launch_fees_final
+vessel_insurance_cost
+vessel_insurance_cost_final
+ves_insured_months
+ves_insured_laid_up_months
+mooring_fees_allves
+ves_or_permit_pymts_allves
+permit_fees_all_vessels
+vessel_insura_cost_allves
+num_months_insured_all_vessels
+ves_insured_laidup_mths_allves
+fuel_cost
+fuel_cost_final
+bait_cost
+bait_cost_final
+food_cost
+food_cost_final
+ice_cost
+ice_cost_final
+catch_handling_cost
+catch_handling_cost_final
+at_sea_processing_cost
+at_sea_processing_cost_final
+paralytic_testing
+paralytic_testing_final
+fuel_avg_trip_cost
+bait_avg_trip_cost
+food_avg_trip_cost
+ice_avg_trip_cost
+catch_handling_avg_trip_cost
+packing_avg_trip_cost
+paralytic_avg_trip_cost
+trip_cost_shares
+trip_cost_owner_paid_pct
+fuel_cost_owner_paid_pct
+trip_cost_shares_other_descr
+trip_cost_pymt_sys
+trip_cost_pymt_sys_other_descr
+crew_captain_present
+captain_status
+crew_pymt_sys
+crew_pymt_sys_other_descr
+dollar_per_bushel_crew
+dollar_per_bushel_capt
+pymts_made_to_crew_or_capt
+crew_pymts
+crew_pymts_final
+captain_pymts
+captain_pymts_final
+crew_benefits
+crew_benefits_final
+vehicle_usage_cost
+vehicle_usage_cost_final
+business_travel_cost
+business_travel_cost_final
+association_fees
+association_fees_final
+legal_fees
+legal_fees_final
+advertising_cost
+advertising_cost_final
+communication_cost
+communication_cost_final
+office_expenses
+office_expenses_final
+noncrew_labor_cost
+noncrew_labor_cost_final
+spotter_plane_cost
+spotter_plane_cost_final
+vehicle_usage_cost_allves
+business_travel_cost_allves
+association_fees_allves
+legal_fees_allves
+advertising_cost_allves
+communication_cost_allves
+office_expenses_allves
+noncrew_labor_cost_allves
+spotter_plane_cost_allves
+vessels_owned_num
+act_comm_vessels_owned_num
+vessel_val
+vessel_val_known
+permits_val
+permits_val_known
+lease_quota_das_y_or_n
+quota_das_payments
+quota_das_payments_final
+quota_das_payments_mult_ves
+quota_das_pymt_ves_num
+quota_pymt_sys
+quota_pymt_sys_boat_pct
+quota_pymt_sys_other_descr
+leasing_quota_revenue
+leasing_quota_revenue_final
+quota_monitoring_cost
+quota_monitoring_cost_final
+other_costs_yes_no
+other_costs_val_1
+other_costs_descr_1
+other_costs_val_2
+other_costs_descr_2
+costs_source
+contact_permission
+respondent_name
+respondent_phone
+respondent_email
+contact_preference
+resp_survey_comments_descr
+Entry_notes1
+operating_survey_cost
+crew_captain_survey_cost
+non_operating_survey_cost;
+

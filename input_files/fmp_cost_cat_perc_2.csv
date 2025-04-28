@@ -1,56 +1,56 @@
 Fishery,Category,percent
-Dogfish,Repairs/Upgrades,0.205
-"Fluke, BSB, Scup",Repairs/Upgrades,0.295
-Groundfish,Repairs/Upgrades,0.207
-Herring,Repairs/Upgrades,0.211
-Highly Migratory Species,Repairs/Upgrades,0.454
-Lobster,Repairs/Upgrades,0.245
+Dogfish,Repairs/Upgrades,0.189
+"Fluke, BSB, Scup",Repairs/Upgrades,0.264
+Groundfish,Repairs/Upgrades,0.179
+Herring,Repairs/Upgrades,0.203
+Highly Migratory Species,Repairs/Upgrades,0.412
+Lobster,Repairs/Upgrades,0.235
 Monkfish,Repairs/Upgrades,0.163
-Other,Repairs/Upgrades,0.204
-Scallop,Repairs/Upgrades,0.168
-"Squid, Mackerel, Butterfish",Repairs/Upgrades,0.28
-Striped Bass,Repairs/Upgrades,0.283
-Dogfish,Vessel Costs,0.081
-"Fluke, BSB, Scup",Vessel Costs,0.107
-Groundfish,Vessel Costs,0.08
-Herring,Vessel Costs,0.291
-Highly Migratory Species,Vessel Costs,0.167
-Lobster,Vessel Costs,0.084
-Monkfish,Vessel Costs,0.045
-Other,Vessel Costs,0.083
-Scallop,Vessel Costs,0.202
-"Squid, Mackerel, Butterfish",Vessel Costs,0.121
-Striped Bass,Vessel Costs,0.273
-Dogfish,Trip Expenses,0.357
-"Fluke, BSB, Scup",Trip Expenses,0.211
-Groundfish,Trip Expenses,0.223
-Herring,Trip Expenses,0.087
-Highly Migratory Species,Trip Expenses,0.145
-Lobster,Trip Expenses,0.314
+Other,Repairs/Upgrades,0.182
+Scallop,Repairs/Upgrades,0.153
+"Squid, Mackerel, Butterfish",Repairs/Upgrades,0.241
+Striped Bass,Repairs/Upgrades,0.281
+Dogfish,Vessel Costs,
+"Fluke, BSB, Scup",Vessel Costs,
+Groundfish,Vessel Costs,
+Herring,Vessel Costs,
+Highly Migratory Species,Vessel Costs,
+Lobster,Vessel Costs,
+Monkfish,Vessel Costs,
+Other,Vessel Costs,
+Scallop,Vessel Costs,
+"Squid, Mackerel, Butterfish",Vessel Costs,
+Striped Bass,Vessel Costs,
+Dogfish,Trip Expenses,0.406
+"Fluke, BSB, Scup",Trip Expenses,0.294
+Groundfish,Trip Expenses,0.328
+Herring,Trip Expenses,0.123
+Highly Migratory Species,Trip Expenses,0.225
+Lobster,Trip Expenses,0.342
 Monkfish,Trip Expenses,0.502
-Other,Trip Expenses,0.183
-Scallop,Trip Expenses,0.088
-"Squid, Mackerel, Butterfish",Trip Expenses,0.133
-Striped Bass,Trip Expenses,0.233
-Dogfish,Crew Payments,0.253
-"Fluke, BSB, Scup",Crew Payments,0.319
-Groundfish,Crew Payments,0.409
-Herring,Crew Payments,0.337
-Highly Migratory Species,Crew Payments,0.166
-Lobster,Crew Payments,0.258
+Other,Trip Expenses,0.274
+Scallop,Trip Expenses,0.173
+"Squid, Mackerel, Butterfish",Trip Expenses,0.252
+Striped Bass,Trip Expenses,0.239
+Dogfish,Crew Payments,0.234
+"Fluke, BSB, Scup",Crew Payments,0.286
+Groundfish,Crew Payments,0.353
+Herring,Crew Payments,0.324
+Highly Migratory Species,Crew Payments,0.15
+Lobster,Crew Payments,0.248
 Monkfish,Crew Payments,0.205
-Other,Crew Payments,0.481
-Scallop,Crew Payments,0.469
-"Squid, Mackerel, Butterfish",Crew Payments,0.415
+Other,Crew Payments,0.428
+Scallop,Crew Payments,0.425
+"Squid, Mackerel, Butterfish",Crew Payments,0.357
 Striped Bass,Crew Payments,0.081
-Dogfish,Overhead,0.104
-"Fluke, BSB, Scup",Overhead,0.068
-Groundfish,Overhead,0.081
-Herring,Overhead,0.073
-Highly Migratory Species,Overhead,0.067
-Lobster,Overhead,0.098
+Dogfish,Overhead,0.096
+"Fluke, BSB, Scup",Overhead,0.061
+Groundfish,Overhead,0.07
+Herring,Overhead,0.07
+Highly Migratory Species,Overhead,0.061
+Lobster,Overhead,0.094
 Monkfish,Overhead,0.085
-Other,Overhead,0.049
-Scallop,Overhead,0.073
-"Squid, Mackerel, Butterfish",Overhead,0.052
-Striped Bass,Overhead,0.129
+Other,Overhead,0.044
+Scallop,Overhead,0.066
+"Squid, Mackerel, Butterfish",Overhead,0.045
+Striped Bass,Overhead,0.128

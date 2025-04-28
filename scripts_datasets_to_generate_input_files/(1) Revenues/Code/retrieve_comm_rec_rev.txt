@@ -1,0 +1,527 @@
+libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
+libname cost_1 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Commercial';
+libname cost_2 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/For_Hire';
+libname cost_3 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Primary_Gear';
+libname cost_4 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Primary_FMP';
+libname perm '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Permit/Commercial';
+
+%let orausername1 = "gardini";
+%let orapassword1 = "XXXXXXXXXXXX";
+
+data hullid_permit_link; set cost.hullid_permit_link; /*File used to get hullid for each permit number in the sampling frame and response datasets*/
+proc sort; by permit;
+
+data final_sampling_frame; set cost.final_sampling_frame; /*This is the final sampling frame*/
+keep permit;
+proc sort; by permit;
+
+data cost.sampling_frame_2022;
+merge final_sampling_frame (in=inone) hullid_permit_link;
+by permit; if inone=1;
+hullid_1 = strip(put(hull_id, 10.));
+proc sort; by hullid_1;
+
+data final_response_dataset; set cost.final_response_dataset_02_06; /*This is the final cleaned dataset (ICFnoaa2023vessel_final_CLEAN_02.06.2024_FINAL)*/
+keep icf_master_id permit hullnum; 
+proc sort; by permit;
+
+data cost.response_2022;
+merge final_response_dataset (in=inone) hullid_permit_link;
+by permit; if inone=1;
+hullid_1 = strip(put(hull_id, 10.));
+permit_1 = strip(put(permit, 6.)); /*Need to keep permit as well to link to recreational revenue and observer costs*/
+proc sort; by hullid_1;
+
+
+/***Commercial Revenue***/
+proc sql noexec;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries commercial revenue by vessel and species for 2022*/
+create table cost_1.cams_1 as select * from connection to oracle
+(select year, hullid, itis_group1, sum(value) as commercial_revenue from cams_garfo.cams_land
+where year=2022
+group by year, hullid, itis_group1);
+
+disconnect from oracle;
+quit;
+
+data cams_records; set cost_1.cams_1;
+hullid_1 = strip(put(hullid, 10.)); drop hullid; 
+if itis_group1 in ('TUNABLUEFIN') then bluefin_accsp=0; /*do not want CAMS bluefin tuna revenue*/
+keep hullid_1 itis_group1 commercial_revenue bluefin_accsp;
+
+/*Bring in SAFIS data for bluefin tuna revenue*/
+data safis_bluefin_records; set cost.safis_bluefin_all_landings;
+hullid_1 = strip(put(hullid, 10.)); drop hullid;
+year = input(unload_year,4.);
+itis_group1 = "TUNABLUEFIN";
+bluefin_accsp=1;
+commercial_revenue = dollars;
+proc sort; by year hullid_1 itis_group1;
+
+proc means noprint;
+by year hullid_1 itis_group1;
+var commercial_revenue;
+output out = safis_bluefin_records_2 sum=;
+id bluefin_accsp;
+data cost_1.safis_vessel_bluefin; set safis_bluefin_records_2; 
+keep hullid_1 itis_group1 commercial_revenue bluefin_accsp;
+
+data cost_1.cams_accsp_records;
+set cams_records  cost_1.safis_vessel_bluefin;
+if bluefin_accsp=0 then delete;
+proc sort; by hullid_1;
+
+proc means noprint;
+by hullid_1;
+var commercial_revenue;
+output out=cost_1.all_vessels_commercial_revenue sum=commercial_revenue; /*This dataset is used to assess mean/median revenue for all vessels, not just the ones who completed the cost survey*/
+
+/*Merge to response dataset*/
+data cost_1.response_cams_revenue;
+merge cost.response_2022 (in=inone) cost_1.cams_accsp_records (in=intwo);
+by hullid_1; if inone=1;
+drop permit_1;
+proc sort; by hullid_1;
+
+proc means noprint;
+by hullid_1;
+var commercial_revenue;
+id icf_master_id;
+output out=cost_1.response_commercial_revenue sum=commercial_revenue;
+
+
+/***Recreational Revenue***/
+proc sql noexec;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries all party/charter trips for 2022*/
+create table cost_2.rec_2022_vtr as select * from connection to oracle 
+(select a.permit, a.tripid, a.state1, a.state2, a.nanglers, b.gearcode 
+from vtr.veslog2022t a, vtr.veslog2022g b
+where tripcatg in (2, 3)
+and a.tripid=b.tripid);
+
+disconnect from oracle;
+quit;
+
+data bbb; set cost_2.rec_2022_vtr;
+permit_1=strip(put(permit,6.)); drop permit;
+proc sort; by permit_1;
+
+/*Merge to response dataset*/
+data response_2022_a; set cost.response_2022; 
+keep permit_1;
+proc sort; by permit_1;
+
+data cost_2.response_with_rec_trips;
+merge response_2022_a (in=inone) bbb (in=intwo);
+by permit_1; if inone=1; if intwo=1;
+
+data cost_2.response_with_rec_trips_2; set cost_2.response_with_rec_trips;
+proc sort nodupkey; by permit_1 tripid; /*Removes 7 duplicate records, in which multiple VTRs are recorded on the same trip. Since gearcode remains unchanged, delete duplicate trip records*/
+
+data cost_2.response_with_rec_trips_3; set cost_2.response_with_rec_trips_2;
+/*13 trips out of 782 with no state listed. All of these cases are by vessels that only landed in one state throughout the year. Assign landing state for the 13 cases based on the other vessel rec trips*/
+if permit_1 in ('210255') then state1 = "NY"; /*1 trip*/
+if permit_1 in ('212260') then state1 = "ME"; /*1 trip*/
+if permit_1 in ('215142') then state1 = "MA"; /*5 trips*/
+if permit_1 in ('220355') then state1 = "RI"; /*2 trips*/
+if permit_1 in ('223718') then state1 = "RI"; /*2 trips*/
+if permit_1 in ('233764') then state1 = "MA"; /*1 trip*/
+if permit_1 in ('251920') then state1 = "RI"; /*1 trip*/
+proc sort; by state1;
+
+proc freq data=cost_2.response_with_rec_trips_3;
+tables state1; /*1 obs for state outside the Northeast (Florida). Delete this observation (done in dataset cost_2.response_with_rec_trips_rev)*/
+
+/*Bring in dataset of average angler cost per trip by state*/
+data ccc; set cost_2.trip_avgs_northeast_charter_fees;
+if State in ('Connecticut') then do; 
+state1="CT"; end;
+if State in ('Delaware') then do; 
+state1="DE"; end;
+if State in ('Maine') then do; 
+state1="ME"; end;
+if State in ('Maryland') then do; 
+state1="MD"; end;
+if State in ('Massachusetts') then do; 
+state1="MA"; end;
+if State in ('New Hampshire') then do; 
+state1="NH"; end;
+if State in ('New Jersey') then do; 
+state1="NJ"; end;
+if State in ('New York') then do; 
+state1="NY"; end;
+if State in ('North Carolina') then do; 
+state1="NC"; end;
+if State in ('Rhode Island') then do; 
+state1="RI"; end;
+if State in ('Virginia') then do; 
+state1="VA"; end;
+avg_angler_fee=mean;
+keep state state1 avg_angler_fee;
+proc sort; by state1;
+
+/*Merge party/charter trips by responding vessels with average angler cost per trip*/
+data cost_2.response_with_rec_trips_rev;
+merge cost_2.response_with_rec_trips_3 (in=inone) ccc (in=intwo);
+by state1; if inone=1;
+if state1 in ('FL') then delete; /*1 obs for state outside the Northeast (Florida). Delete this observation*/
+recreational_revenue=nanglers*avg_angler_fee;
+proc sort; by permit_1;
+
+/*Sum revenue by vessel*/
+proc means noprint;
+by permit_1;
+var recreational_revenue;
+output out=cost_2.response_recreational_revenue sum=;
+
+
+/***Define Primary Commercial Gear in 2022***/
+proc sql noexec;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries commercial revenue and variables to define commercial trips for 2022*/
+create table cost_3.cams_2 as select * from connection to oracle
+(select year, hullid, itis_group1, negear, docid, date_trip, value from cams_garfo.cams_land
+where year=2022);
+
+disconnect from oracle;
+quit;
+
+data gear_1; set cost_3.cams_2;
+if itis_group1 in ('TUNABLUEFIN') then delete; /*do not want CAMS bluefin tuna revenue*/
+hullid_1 = strip(put(hullid, 10.)); drop hullid; 
+negear_1 = input(negear, 12.); drop negear;
+date_1=datepart(date_trip); /*Use trip date as second way of defining trips, after DOCID*/
+year=year(date_1);
+month=month(date_1);
+day=day(date_1);
+
+/*Add in Bluefin Tuna*/
+data cost.safis_bluefin_records_2; set cost.safis_bluefin_all_landings;
+hullid_1 = strip(put(hullid, 10.)); drop hullid;
+docid=dealer_rpt_id;
+/*date_1=datepart(Landing_date); /*Use trip date as second way of defining trips, after DOCID*/
+year=year(Landing_date);
+month=month(Landing_date);
+day=day(Landing_date);
+
+value=dollars;
+
+if Gear_category in ('HOOK AND LINE') then negear='20'; /*Handgear*/
+if Gear_category in ('LONG LINES') then negear='40'; /*Longline*/
+if Gear_category not in ('HOOK AND LINE', 'LONG LINES') then negear='999'; /*Harpoon*/
+negear_1 = input(negear, 12.); drop negear;
+keep hullid_1 docid landing_date year month day value gear_category negear_1;
+
+data cost_3.gear_1; set gear_1 cost.safis_bluefin_records_2;
+proc sort; by negear_1;
+
+/*Merge to key for defining gear type in 2022 cost survey*/
+data gear_2;
+merge cost_3.gear_1 (in=inone) cost.gear_key; 
+by negear_1; if inone=1;
+if geargroupfor2022survey in ('Dredge_Hydraulic') then comm_gear_2022 = "Dredge_Hydraulic";
+if geargroupfor2022survey in ('Dredge_Scallop') then comm_gear_2022 = "Dredge_Scallop";
+if geargroupfor2022survey in ('Gillnet') then comm_gear_2022 = "Gillnet";
+if geargroupfor2022survey in ('Handgear') then comm_gear_2022 = "Handgear";
+if geargroupfor2022survey in ('Longline') then comm_gear_2022 = "Longline";
+if geargroupfor2022survey in ('Pot/Trap') then comm_gear_2022 = "Pot/Trap";
+if geargroupfor2022survey in ('Seine') then comm_gear_2022 = "Seine";
+if geargroupfor2022survey in ('Trawl_Bottom', 'Trawl_Midwater') then comm_gear_2022 = "Trawl";
+if geargroupfor2022survey in ('Unknown') then comm_gear_2022 = "Unknown";
+proc sort; by hullid_1 docid year month day;
+
+/*Sum revenue by trip, retaining gear*/
+proc means noprint data=gear_2;
+by hullid_1 docid year month day;
+var value;
+id comm_gear_2022;
+output out=trip_revenue_gear sum=commercial_revenue;
+data cost_3.trip_revenue_gear; set trip_revenue_gear; 
+proc sort; by hullid_1 comm_gear_2022;
+
+/*Sum revenue by vessel, gear*/
+proc means noprint;
+by hullid_1 comm_gear_2022;
+var commercial_revenue;
+output out = gear_3 sum=gear_revenue;
+
+data cost_3.gear_4; set gear_3; 
+if gear_revenue=. then delete; if gear_revenue=0 then delete; /*these would be inactive vessels and should not have a primary gear assigned*/
+proc sort; by hullid_1;
+
+/*Merge to response dataset*/
+data cost_3.response_survey_gear; 
+merge cost.response_2022 (in=inone) cost_3.gear_4;
+by hullid_1; if inone=1;
+drop permit_1;
+proc sort; by hullid_1 gear_revenue;
+
+/*For each responding vessel, retain the top earning gear type, as well as the amount of commercial revenue associated with that gear type*/
+data cost_3.response_top_survey_gear;
+set cost_3.response_survey_gear; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_gear_2022 = comm_gear_2022; drop comm_gear_2022;
+primary_gear_revenue = gear_revenue; drop gear_revenue;
+proc sort; by hullid_1;
+
+/*Merge to sampling frame dataset*/
+data cost_3.sampling_frame_survey_gear; 
+merge cost.sampling_frame_2022 (in=inone) cost_3.gear_4;
+by hullid_1; if inone=1;
+drop permit_1;
+proc sort; by hullid_1 gear_revenue;
+
+/*For each sampled vessel, retain the top earning gear type, as well as the amount of commercial revenue associated with that gear type*/
+data cost_3.sampling_frame_top_survey_gear;
+set cost_3.sampling_frame_survey_gear; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_gear_2022 = comm_gear_2022; drop comm_gear_2022;
+primary_gear_revenue = gear_revenue; drop gear_revenue;
+proc sort; by hullid_1;
+
+/*Merge to all vessels dataset*/
+data cost_3.all_vessels_survey_gear; 
+merge cost_1.all_vessels_commercial_revenue (in=inone) cost_3.gear_4;
+by hullid_1; if inone=1;
+proc sort; by hullid_1 gear_revenue;
+
+/*For all vessels, retain the top earning gear type*/
+data cost_3.all_vessels_top_survey_gear;
+set cost_3.all_vessels_survey_gear; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_gear_2022 = comm_gear_2022; drop comm_gear_2022;
+primary_gear_revenue = gear_revenue; drop gear_revenue;
+proc sort; by hullid_1;
+
+
+/***Define Primary Commercial FMP in 2022***/
+proc sql noexec;
+	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+
+/*Queries commercial revenue by vessel and species for 2022*/
+create table cost_4.cams_3 as select * from connection to oracle
+(select year, hullid, itis_group1, value as commercial_revenue from cams_garfo.cams_land
+where year=2022);
+
+disconnect from oracle;
+quit;
+
+data fmp_1; set cost_4.cams_3;
+if itis_group1 in ('TUNABLUEFIN') then delete; /*do not want CAMS bluefin tuna revenue*/
+
+/*Add in Bluefin Tuna*/
+data cost.safis_bluefin_records_3; set cost.safis_bluefin_all_landings;
+itis_group1 = "TUNABLUEFIN";
+commercial_revenue = dollars;
+year=year(Landing_date);
+keep year hullid ITIS_GROUP1 commercial_revenue;
+
+
+/*Define FMPs*/
+data cost_4.fmp_1; set fmp_1 cost.safis_bluefin_records_3;
+hullid_1 = strip(put(hullid, 10.)); drop hullid; 
+if ITIS_GROUP1 in ('COD', 'HADDOCK', 'POLLOCKATL', 'FLDWINTER', 'HAKEWHITE', 'FLDPLAICE', 'FLDYELLOWTAIL', 'FLDWITCH', 'REDFISHACADIAN', 'HALIBUTATL', 'POUTOCEAN', 'FLDWINDOWPANE', 'WOLFFISH') 
+then species_group = "Groundfish                              ";
+if ITIS_GROUP1 in ('SCALLOPSEA') then species_group = "Scallop"; 
+if ITIS_GROUP1 in ('MONKFISH') then species_group = "Monkfish";
+if ITIS_GROUP1 in ('HERRINGATL') then species_group = "Herring";
+if ITIS_GROUP1 in ('SKATE') then species_group = "Skate";
+if ITIS_GROUP1 in ('HAKESILVER', 'HAKE', 'HAKEOFFSHORE', 'HAKERED') then species_group = "Whiting";
+if ITIS_GROUP1 in ('CRABREDDEEPSEA') then species_group = "Red Crab";
+
+if ITIS_GROUP1 in ('FLDSUMMER', 'SEABASSBLACK', 'SCUP') then species_group = "Fluke, BSB, Scup";
+if ITIS_GROUP1 in ('SQUIDLOLIGO', 'SQUIDILLEX', 'MACKERELATL', 'MACKERELCHUB', 'BUTTERFISH') then species_group = "Squid, Mackerel, Butterfish";
+if ITIS_GROUP1 in ('CLAMSURF', 'CLAMARCTIC', 'CLAMOQUAHOG', 'CLAMNQUAHOG') then species_group = "Surf Clam, Ocean Quahog";
+if ITIS_GROUP1 in ('BLUEFISH') then species_group = "Bluefish";
+if ITIS_GROUP1 in ('TILEFISHBLUELINE', 'TILEFISHGOLDEN') then species_group = "Tilefish";
+if ITIS_GROUP1 in ('DOGFISH') then species_group = "Dogfish";
+
+if ITIS_GROUP1 in ('LOBSTERAMERICAN') then species_group = "Lobster"; 
+if ITIS_GROUP1 in ('BASSSTRIPED') then species_group = "Striped Bass"; 
+if ITIS_GROUP1 in ('TUNABLUEFIN', 'TUNABIGEYE', 'TUNAALBACORE', 'TUNAYELLOWFIN', 'TUNASKIPJACK', 'MARLINBLUE', 'MARLINWHITE', 'SPADEFISHROUNDSCALE', 'SAILFISH', 'SWORDFISH') then species_group = "Highly Migratory Species";  
+
+if species_group = "" then species_group = "Other";
+proc sort; by hullid_1 species_group;
+
+/*Sum revenue by vessel, FMP*/
+proc means noprint;
+by hullid_1 species_group;
+var commercial_revenue;
+output out = fmp_2 sum=fmp_revenue;
+
+data cost_4.fmp_3; set fmp_2; 
+if fmp_revenue=. then delete; if fmp_revenue=0 then delete; /*these would be inactive vessels and should not have a primary FMP assigned*/
+proc sort; by hullid_1;
+
+/*Merge to response dataset*/
+data cost_4.response_fmp; 
+merge cost.response_2022 (in=inone) cost_4.fmp_3;
+by hullid_1; if inone=1;
+drop permit_1;
+proc sort; by hullid_1 fmp_revenue;
+
+/*For each responding vessel, retain the top earning FMP, as well as the amount of commercial revenue associated with that FMP*/
+data cost_4.response_top_fmp;
+set cost_4.response_fmp; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_fmp_2022 = species_group; drop species_group;
+primary_fmp_revenue = fmp_revenue; drop fmp_revenue;
+proc sort; by hullid_1;
+
+/*Merge to sampling frame dataset*/
+data cost_4.sampling_frame_fmp; 
+merge cost.sampling_frame_2022 (in=inone) cost_4.fmp_3;
+by hullid_1; if inone=1;
+drop permit_1;
+proc sort; by hullid_1 fmp_revenue;
+
+/*For each sampled vessel, retain the top earning FMP, as well as the amount of commercial revenue associated with that FMP*/
+data cost_4.sampling_frame_top_fmp;
+set cost_4.sampling_frame_fmp; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_fmp_2022 = species_group; drop species_group;
+primary_fmp_revenue = fmp_revenue; drop fmp_revenue;
+proc sort; by hullid_1;
+
+/*Merge to all vessels dataset*/
+data cost_4.all_vessels_fmp; 
+merge cost_1.all_vessels_commercial_revenue (in=inone) cost_4.fmp_3;
+by hullid_1; if inone=1;
+proc sort; by hullid_1 fmp_revenue;
+
+/*For all vessels, retain the top earning gear type*/
+data cost_4.all_vessels_top_fmp;
+set cost_4.all_vessels_fmp; 
+by hullid_1;
+if last.hullid_1;
+primary_comm_fmp_2022 = species_group; drop species_group;
+primary_fmp_revenue = fmp_revenue; drop fmp_revenue;
+proc sort; by hullid_1;
+
+
+/***Merge Response Datasets***/
+data cost.semi_final_1;
+merge cost_1.response_commercial_revenue cost_3.response_top_survey_gear cost_4.response_top_fmp;
+by hullid_1;
+proc sort; by hullid_1;
+
+data semi_final_2; /*Merge back to response dataset to get permit number for linking to for-hire revenue*/
+merge cost.semi_final_1 (in=inone) cost.response_2022 (in=intwo);
+by hullid_1;
+proc sort; by permit_1;
+
+data cost.semi_final_2;
+merge semi_final_2 cost_2.response_recreational_revenue; 
+by permit_1;
+if commercial_revenue=. then commercial_revenue=0; /*Set blanks as zero in order to calculate total revenue*/
+if recreational_revenue=. then recreational_revenue=0; /*Set blanks as zero in order to calculate total revenue*/
+if recreational_revenue>0 then recreational_revenue=round(recreational_revenue); /*Set blanks as zero in order to calculate total revenue*/
+total_revenue = commercial_revenue + recreational_revenue;
+
+if primary_comm_gear_2022 in ('') then do; /*These are cases when no primary gear is merged since they was no commercial activity*/
+if recreational_revenue>0 then primary_comm_gear_2022 = "Recreational";
+if recreational_revenue=0 then primary_comm_gear_2022 = "No Revenue"; 
+primary_gear_revenue=0; end;
+
+if primary_comm_fmp_2022 in ('') then do; /*These are cases when no FMP is merged since they was no commercial activity*/
+if recreational_revenue>0 then primary_comm_fmp_2022 = "Recreational";
+if recreational_revenue=0 then primary_comm_fmp_2022 = "No Revenue"; 
+primary_fmp_revenue=0; end;
+
+hullid=hullid_1; 
+permit=permit_1; 
+
+data cost.final_revenue; 
+retain icf_master_id  permit  hullid  primary_comm_gear_2022  primary_gear_revenue  primary_comm_fmp_2022  primary_fmp_revenue  commercial_revenue  recreational_revenue  total_revenue;
+set cost.semi_final_2;
+keep   icf_master_id  permit  hullid  primary_comm_gear_2022  primary_gear_revenue  primary_comm_fmp_2022  primary_fmp_revenue  commercial_revenue  recreational_revenue  total_revenue;
+proc sort; by icf_master_id;
+
+
+/***Merge Sampling Frame Datasets***/
+data sf_1; set cost_3.sampling_frame_top_survey_gear;
+keep hull_id primary_comm_gear_2022;
+proc sort; by hull_id;
+
+data sf_2; set cost_4.sampling_frame_top_fmp;
+keep hull_id primary_comm_fmp_2022;
+proc sort; by hull_id;
+
+data sf_3; set cost_1.all_vessels_commercial_revenue;
+hull_id  = hullid_1;
+keep hull_id commercial_revenue;
+proc sort; by hull_id;
+
+data cost.final_sampling_frame_groups;
+merge sf_1 (in=inone) sf_2 (in=intwo) sf_3;
+by hull_id; if inone=1; if intwo=1;
+/*Build fleets combining primary gear and FMP*/
+if primary_comm_gear_2022 in ('Dredge_Scallop') then do;
+ if primary_comm_fmp_2022 in ('Scallop') then primary_gear_fmp_2022 = "Dredge_Scallop-Scallop             ";
+ else primary_gear_fmp_2022 = "Dredge_Scallop-Other";end;
+
+if primary_comm_gear_2022 in ('Dredge_Hydraulic') then do;
+ if primary_comm_fmp_2022 in ('Surf Clam, Ocean Quahog') then primary_gear_fmp_2022 = "Dredge_Hydraulic-SCOQ         ";
+ else primary_gear_fmp_2022 = "Dredge_Hydraulic-Other";end;
+
+if primary_comm_gear_2022 in ('Gillnet') then do;
+ if primary_comm_fmp_2022 in ('Monkfish') then primary_gear_fmp_2022 = "Gillnet-Monkfish             ";
+ else primary_gear_fmp_2022 = "Gillnet-Other";end;
+
+if primary_comm_gear_2022 in ('Handgear') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Handgear-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Highly Migratory Species') then primary_gear_fmp_2022 = "Handgear-Highly Migratory Species";
+ if primary_comm_fmp_2022 in ('Striped Bass') then primary_gear_fmp_2022 = "Handgear-Striped Bass";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Highly Migratory Species', 'Striped Bass') then primary_gear_fmp_2022 = "Handgear-Other";end;
+
+if primary_comm_gear_2022 in ('Longline') then do;
+ if primary_comm_fmp_2022 in ('Dogfish') then primary_gear_fmp_2022 = "Longline-Dogfish             ";
+ if primary_comm_fmp_2022 in ('Highly Migratory Species') then primary_gear_fmp_2022 = "Longline-Highly Migratory Species";
+ if primary_comm_fmp_2022 not in ('Dogfish', 'Highly Migratory Species') then primary_gear_fmp_2022 = "Longline-Other";end;
+
+if primary_comm_gear_2022 in ('Pot/Trap') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Pot/Trap-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Lobster";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
+
+if primary_comm_gear_2022 in ('Seine') then do;
+ if primary_comm_fmp_2022 in ('Herring') then primary_gear_fmp_2022 = "Seine-Herring             ";
+ else primary_gear_fmp_2022 = "Seine-Other";end;
+
+if primary_comm_gear_2022 in ('Trawl') then do;
+ if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Trawl-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Groundfish') then primary_gear_fmp_2022 = "Trawl-Groundfish";
+ if primary_comm_fmp_2022 in ('Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Squid, Mackerel, Butterfish";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Groundfish', 'Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Other";end;
+
+ if primary_comm_gear_2022 in ('Recreational') then primary_gear_fmp_2022 = "Recreational";
+ if primary_comm_gear_2022 in ('No Revenue') then primary_gear_fmp_2022 = "No Revenue";
+
+
+/***Check Hullid Revenues vs. Permit Dataset***/
+data revenue_by_hullid; set cost.final_revenue; 
+permit_1 = strip(put(permit, 6.)); drop permit;
+proc sort; by permit_1;
+
+data revenue_by_permit; set perm.response_commercial_revenue;
+commercial_revenue_permit=commercial_revenue;
+if commercial_revenue_permit=. then commercial_revenue_permit=0;
+/*permit_1 = strip(put(permit, 6.)); drop permit;*/
+keep permit_1 commercial_revenue_permit;
+proc sort; by permit_1;
+
+data cost.check_revenue;
+merge revenue_by_hullid revenue_by_permit;
+by permit_1;
+diff=commercial_revenue-commercial_revenue_permit;
+permit=permit_1; drop permit_1;

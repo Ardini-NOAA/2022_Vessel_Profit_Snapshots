@@ -1,16 +1,16 @@
-Gear_Fishery,Observations,mean_cost,med_cost,std_cost,Sampled,Response_Rate
-Dredge_Scallop-Scallop,28,615621,523855,506079,216,13
-Gillnet-Monkfish,3,141591,152922,98271,19,16
-Gillnet-Other,7,109937,108006,76253,70,10
-"Handgear-Fluke, BSB, Scup",8,38340,25672,38920,56,14
-Handgear-Highly Migratory Species,31,91558,40733,122662,181,17
-Handgear-Other,10,71469,46960,73601,63,16
-Handgear-Striped Bass,10,16649,13530,13145,56,18
-Longline-Highly Migratory Species,3,296689,247766,146292,8,38
-"Pot/Trap-Fluke, BSB, Scup",6,79618,86039,59836,23,26
-Pot/Trap-Lobster,150,214970,176423,229739,1265,12
-Pot/Trap-Other,4,356436,146950,510244,57,7
-"Trawl-Fluke, BSB, Scup",9,294239,321032,178237,57,16
-Trawl-Groundfish,5,778262,595534,533279,41,12
-Trawl-Other,7,393869,195462,408119,38,18
-"Trawl-Squid, Mackerel, Butterfish",8,668494,490242,769481,52,15
+Gear_Fishery,Response,mean_cost,med_cost,std_cost,Sample,Response_Rate
+Dredge_Scallop-Scallop,28,682679,606200,539029,216,13
+Gillnet-Monkfish,3,141697,153043,98179,19,16
+Gillnet-Other,7,122037,124358,84473,70,10
+"Handgear-Fluke, BSB, Scup",8,40427,31023,38187,56,14
+Handgear-Highly Migratory Species,31,100157,41281,140216,181,17
+Handgear-Other,10,78916,52511,88476,63,16
+Handgear-Striped Bass,10,16862,13735,13149,56,18
+Longline-Highly Migratory Species,3,352729,291883,151441,8,38
+"Pot/Trap-Fluke, BSB, Scup",6,84116,94844,61442,23,26
+Pot/Trap-Lobster,150,226923,181649,255974,1265,12
+Pot/Trap-Other,4,441593,147937,676313,57,7
+"Trawl-Fluke, BSB, Scup",9,338026,353508,206079,57,16
+Trawl-Groundfish,5,911804,672994,699336,41,12
+Trawl-Other,7,451284,196369,439678,38,18
+"Trawl-Squid, Mackerel, Butterfish",8,812419,670981,835726,52,15
