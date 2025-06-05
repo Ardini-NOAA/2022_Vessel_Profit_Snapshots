@@ -10,17 +10,17 @@ Other,Repairs/Upgrades,0.182
 Scallop,Repairs/Upgrades,0.153
 "Squid, Mackerel, Butterfish",Repairs/Upgrades,0.241
 Striped Bass,Repairs/Upgrades,0.281
-Dogfish,Vessel Costs,
-"Fluke, BSB, Scup",Vessel Costs,
-Groundfish,Vessel Costs,
-Herring,Vessel Costs,
-Highly Migratory Species,Vessel Costs,
-Lobster,Vessel Costs,
-Monkfish,Vessel Costs,
-Other,Vessel Costs,
-Scallop,Vessel Costs,
-"Squid, Mackerel, Butterfish",Vessel Costs,
-Striped Bass,Vessel Costs,
+Dogfish,Vessel Costs,0.075
+"Fluke, BSB, Scup",Vessel Costs,0.096
+Groundfish,Vessel Costs,0.069
+Herring,Vessel Costs,0.28
+Highly Migratory Species,Vessel Costs,0.151
+Lobster,Vessel Costs,0.081
+Monkfish,Vessel Costs,0.045
+Other,Vessel Costs,0.074
+Scallop,Vessel Costs,0.183
+"Squid, Mackerel, Butterfish",Vessel Costs,0.104
+Striped Bass,Vessel Costs,0.271
 Dogfish,Trip Expenses,0.406
 "Fluke, BSB, Scup",Trip Expenses,0.294
 Groundfish,Trip Expenses,0.328

@@ -23,7 +23,7 @@
 <meta name="author" content="Greg Ardini, Samantha Werner, Elizabeth Conley" />
 
 
-<meta name="date" content="2025-05-05" />
+<meta name="date" content="2025-06-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -135,93 +137,203 @@
             <section class="normal" id="section-">
 <div id="revenue-summary" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Revenue Summary<a href="revenue-summary.html#revenue-summary" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table>
-<colgroup>
-<col width="20%" />
-<col width="12%" />
-<col width="9%" />
-<col width="13%" />
-<col width="16%" />
-<col width="13%" />
-<col width="16%" />
-</colgroup>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">Gear</th>
-<th align="right">Response</th>
-<th align="right">Sample</th>
-<th align="left">Resp_Perc</th>
-<th align="left">Mean</th>
-<th align="left">Median</th>
-<th align="left">St.Dev</th>
+<tr>
+<th style="text-align:left;">
+Gear
+</th>
+<th style="text-align:right;">
+Response
+</th>
+<th style="text-align:right;">
+Sample
+</th>
+<th style="text-align:left;">
+Resp_Perc
+</th>
+<th style="text-align:left;">
+Mean
+</th>
+<th style="text-align:left;">
+Median
+</th>
+<th style="text-align:left;">
+St.Dev
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Dredge_Scallop</td>
-<td align="right">29</td>
-<td align="right">219</td>
-<td align="left">13 %</td>
-<td align="left">$ 868,517</td>
-<td align="left">$ 977,446</td>
-<td align="left">$ 702,022</td>
+<tr>
+<td style="text-align:left;">
+Dredge_Scallop
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+219
+</td>
+<td style="text-align:left;">
+13 %
+</td>
+<td style="text-align:left;">
+$ 868,517
+</td>
+<td style="text-align:left;">
+$ 977,446
+</td>
+<td style="text-align:left;">
+$ 702,022
+</td>
 </tr>
-<tr class="even">
-<td align="left">Gillnet</td>
-<td align="right">10</td>
-<td align="right">89</td>
-<td align="left">11 %</td>
-<td align="left">$ 118,901</td>
-<td align="left">$ 105,544</td>
-<td align="left">$ 99,740</td>
+<tr>
+<td style="text-align:left;">
+Gillnet
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:left;">
+11 %
+</td>
+<td style="text-align:left;">
+$ 118,901
+</td>
+<td style="text-align:left;">
+$ 105,544
+</td>
+<td style="text-align:left;">
+$ 99,740
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Handgear</td>
-<td align="right">59</td>
-<td align="right">356</td>
-<td align="left">17 %</td>
-<td align="left">$ 27,652</td>
-<td align="left">$ 11,883</td>
-<td align="left">$ 82,754</td>
+<tr>
+<td style="text-align:left;">
+Handgear
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+356
+</td>
+<td style="text-align:left;">
+17 %
+</td>
+<td style="text-align:left;">
+$ 27,652
+</td>
+<td style="text-align:left;">
+$ 11,883
+</td>
+<td style="text-align:left;">
+$ 82,754
+</td>
 </tr>
-<tr class="even">
-<td align="left">Longline</td>
-<td align="right">4</td>
-<td align="right">23</td>
-<td align="left">17 %</td>
-<td align="left">$ 209,393</td>
-<td align="left">$ 200,590</td>
-<td align="left">$ 218,211</td>
+<tr>
+<td style="text-align:left;">
+Longline
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+17 %
+</td>
+<td style="text-align:left;">
+$ 209,393
+</td>
+<td style="text-align:left;">
+$ 200,590
+</td>
+<td style="text-align:left;">
+$ 218,211
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pot/Trap</td>
-<td align="right">160</td>
-<td align="right">1345</td>
-<td align="left">12 %</td>
-<td align="left">$ 218,852</td>
-<td align="left">$ 146,016</td>
-<td align="left">$ 287,046</td>
+<tr>
+<td style="text-align:left;">
+Pot/Trap
+</td>
+<td style="text-align:right;">
+160
+</td>
+<td style="text-align:right;">
+1345
+</td>
+<td style="text-align:left;">
+12 %
+</td>
+<td style="text-align:left;">
+$ 218,852
+</td>
+<td style="text-align:left;">
+$ 146,016
+</td>
+<td style="text-align:left;">
+$ 287,046
+</td>
 </tr>
-<tr class="even">
-<td align="left">Seine</td>
-<td align="right">3</td>
-<td align="right">19</td>
-<td align="left">16 %</td>
-<td align="left">$ 1,152,627</td>
-<td align="left">$ 485,335</td>
-<td align="left">$ 1,451,201</td>
+<tr>
+<td style="text-align:left;">
+Seine
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+16 %
+</td>
+<td style="text-align:left;">
+$ 1,152,627
+</td>
+<td style="text-align:left;">
+$ 485,335
+</td>
+<td style="text-align:left;">
+$ 1,451,201
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Trawl</td>
-<td align="right">29</td>
-<td align="right">188</td>
-<td align="left">15 %</td>
-<td align="left">$ 682,953</td>
-<td align="left">$ 560,864</td>
-<td align="left">$ 737,145</td>
+<tr>
+<td style="text-align:left;">
+Trawl
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+188
+</td>
+<td style="text-align:left;">
+15 %
+</td>
+<td style="text-align:left;">
+$ 682,953
+</td>
+<td style="text-align:left;">
+$ 560,864
+</td>
+<td style="text-align:left;">
+$ 737,145
+</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <table>
 <colgroup>

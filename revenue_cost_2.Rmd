@@ -3,6 +3,7 @@
 suppressPackageStartupMessages(library(dplyr))
 library(dplyr)
 library(ggplot2)
+library(kableExtra)
 
 gear_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_revenue_no_conf.csv")
 gear_revenue_2 <- gear_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
