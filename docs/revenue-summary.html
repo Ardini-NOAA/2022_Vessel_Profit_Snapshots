@@ -23,7 +23,7 @@
 <meta name="author" content="Greg Ardini, Samantha Werner, Elizabeth Conley" />
 
 
-<meta name="date" content="2025-06-05" />
+<meta name="date" content="2025-07-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -137,210 +135,101 @@
             <section class="normal" id="section-">
 <div id="revenue-summary" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Revenue Summary<a href="revenue-summary.html#revenue-summary" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## 
-## Attaching package: &#39;kableExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     group_rows</code></pre>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<p>By primary gear, scallop dredge vessels have the highest mean and median revenues, followed by trawl vessels and longline vessels. These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024). Pot/trap has the fourth highest values, followed by gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues For scallop dredge, the distribution is slightly skewed to the left.</p>
+<table style="width:100%;">
+<caption><span id="tab:unnamed-chunk-1">Table 5.1: </span>Revenue by Primary Gear</caption>
+<colgroup>
+<col width="22%" />
+<col width="13%" />
+<col width="10%" />
+<col width="14%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Gear
-</th>
-<th style="text-align:right;">
-Response
-</th>
-<th style="text-align:right;">
-Sample
-</th>
-<th style="text-align:left;">
-Resp_Perc
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Median
-</th>
-<th style="text-align:left;">
-St.Dev
-</th>
+<tr class="header">
+<th align="left">Gear</th>
+<th align="right">Response</th>
+<th align="right">Sample</th>
+<th align="left">Resp_Perc</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">St.Dev</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Dredge_Scallop
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-219
-</td>
-<td style="text-align:left;">
-13 %
-</td>
-<td style="text-align:left;">
-$ 868,517
-</td>
-<td style="text-align:left;">
-$ 977,446
-</td>
-<td style="text-align:left;">
-$ 702,022
-</td>
+<tr class="odd">
+<td align="left">Dredge_Scallop</td>
+<td align="right">28</td>
+<td align="right">218</td>
+<td align="left">13%</td>
+<td align="left">$905,982</td>
+<td align="left">$993,348</td>
+<td align="left">$704,579</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Gillnet
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-89
-</td>
-<td style="text-align:left;">
-11 %
-</td>
-<td style="text-align:left;">
-$ 118,901
-</td>
-<td style="text-align:left;">
-$ 105,544
-</td>
-<td style="text-align:left;">
-$ 99,740
-</td>
+<tr class="even">
+<td align="left">Gillnet</td>
+<td align="right">9</td>
+<td align="right">89</td>
+<td align="left">10%</td>
+<td align="left">$125,915</td>
+<td align="left">$111,515</td>
+<td align="left">$103,932</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Handgear
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-356
-</td>
-<td style="text-align:left;">
-17 %
-</td>
-<td style="text-align:left;">
-$ 27,652
-</td>
-<td style="text-align:left;">
-$ 11,883
-</td>
-<td style="text-align:left;">
-$ 82,754
-</td>
+<tr class="odd">
+<td align="left">Handgear</td>
+<td align="right">53</td>
+<td align="right">365</td>
+<td align="left">15%</td>
+<td align="left">$30,947</td>
+<td align="left">$12,789</td>
+<td align="left">$86,192</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Longline
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:left;">
-17 %
-</td>
-<td style="text-align:left;">
-$ 209,393
-</td>
-<td style="text-align:left;">
-$ 200,590
-</td>
-<td style="text-align:left;">
-$ 218,211
-</td>
+<tr class="even">
+<td align="left">Longline</td>
+<td align="right">4</td>
+<td align="right">24</td>
+<td align="left">17%</td>
+<td align="left">$229,915</td>
+<td align="left">$222,887</td>
+<td align="left">$169,396</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Pot/Trap
-</td>
-<td style="text-align:right;">
-160
-</td>
-<td style="text-align:right;">
-1345
-</td>
-<td style="text-align:left;">
-12 %
-</td>
-<td style="text-align:left;">
-$ 218,852
-</td>
-<td style="text-align:left;">
-$ 146,016
-</td>
-<td style="text-align:left;">
-$ 287,046
-</td>
+<tr class="odd">
+<td align="left">Pot/Trap</td>
+<td align="right">158</td>
+<td align="right">1348</td>
+<td align="left">12%</td>
+<td align="left">$209,817</td>
+<td align="left">$144,308</td>
+<td align="left">$266,813</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Seine
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:left;">
-16 %
-</td>
-<td style="text-align:left;">
-$ 1,152,627
-</td>
-<td style="text-align:left;">
-$ 485,335
-</td>
-<td style="text-align:left;">
-$ 1,451,201
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Trawl
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-188
-</td>
-<td style="text-align:left;">
-15 %
-</td>
-<td style="text-align:left;">
-$ 682,953
-</td>
-<td style="text-align:left;">
-$ 560,864
-</td>
-<td style="text-align:left;">
-$ 737,145
-</td>
+<tr class="even">
+<td align="left">Trawl</td>
+<td align="right">26</td>
+<td align="right">190</td>
+<td align="left">14%</td>
+<td align="left">$762,512</td>
+<td align="left">$636,913</td>
+<td align="left">$745,241</td>
 </tr>
 </tbody>
 </table>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-1-1.png" alt="Distribution of Revenue by Primary Gear" width="672" />
+<p class="caption">
+Figure 5.1: Distribution of Revenue by Primary Gear
+</p>
 </div>
-<p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><br></p>
+<p>By FMP; scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, which is most likely driven by the number of lobster fleet vessels which is considerably more vessels than the scallop fleet.</p>
 <table>
+<caption><span id="tab:unnamed-chunk-2">Table 5.2: </span>Revenue by Primary Fishery</caption>
 <colgroup>
-<col width="33%" />
-<col width="10%" />
-<col width="8%" />
+<col width="34%" />
 <col width="11%" />
+<col width="8%" />
+<col width="12%" />
 <col width="11%" />
 <col width="11%" />
 <col width="11%" />
@@ -358,115 +247,123 @@ $ 737,145
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Dogfish</td>
+<td align="left">Channeled Whelk</td>
 <td align="right">3</td>
-<td align="right">25</td>
-<td align="left">12 %</td>
-<td align="left">$ 38,783</td>
-<td align="left">$ 39,611</td>
-<td align="left">$ 2,099</td>
+<td align="right">23</td>
+<td align="left">13%</td>
+<td align="left">$90,499</td>
+<td align="left">$36,683</td>
+<td align="left">$119,585</td>
 </tr>
 <tr class="even">
-<td align="left">Fluke, BSB, Scup</td>
-<td align="right">23</td>
-<td align="right">136</td>
-<td align="left">17 %</td>
-<td align="left">$ 218,322</td>
-<td align="left">$ 30,633</td>
-<td align="left">$ 317,400</td>
+<td align="left">Dogfish</td>
+<td align="right">3</td>
+<td align="right">22</td>
+<td align="left">14%</td>
+<td align="left">$48,828</td>
+<td align="left">$50,376</td>
+<td align="left">$5,497</td>
 </tr>
 <tr class="odd">
+<td align="left">Fluke, BSB, Scup</td>
+<td align="right">24</td>
+<td align="right">135</td>
+<td align="left">18%</td>
+<td align="left">$212,722</td>
+<td align="left">$30,484</td>
+<td align="left">$319,612</td>
+</tr>
+<tr class="even">
 <td align="left">Groundfish</td>
 <td align="right">7</td>
 <td align="right">52</td>
-<td align="left">13 %</td>
-<td align="left">$ 805,092</td>
-<td align="left">$ 509,954</td>
-<td align="left">$ 949,835</td>
+<td align="left">13%</td>
+<td align="left">$806,754</td>
+<td align="left">$513,837</td>
+<td align="left">$949,888</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Herring</td>
 <td align="right">4</td>
-<td align="right">5</td>
-<td align="left">80 %</td>
-<td align="left">$ 566,151</td>
-<td align="left">$ 628,427</td>
-<td align="left">$ 316,097</td>
+<td align="right">6</td>
+<td align="left">67%</td>
+<td align="left">$566,354</td>
+<td align="left">$628,833</td>
+<td align="left">$316,273</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Highly Migratory Species</td>
 <td align="right">34</td>
-<td align="right">193</td>
-<td align="left">18 %</td>
-<td align="left">$ 57,812</td>
-<td align="left">$ 11,674</td>
-<td align="left">$ 138,027</td>
-</tr>
-<tr class="even">
-<td align="left">Lobster</td>
-<td align="right">152</td>
-<td align="right">1272</td>
-<td align="left">12 %</td>
-<td align="left">$ 215,807</td>
-<td align="left">$ 149,120</td>
-<td align="left">$ 269,714</td>
+<td align="right">196</td>
+<td align="left">17%</td>
+<td align="left">$62,369</td>
+<td align="left">$14,186</td>
+<td align="left">$133,100</td>
 </tr>
 <tr class="odd">
-<td align="left">Monkfish</td>
-<td align="right">3</td>
-<td align="right">19</td>
-<td align="left">16 %</td>
-<td align="left">$ 97,708</td>
-<td align="left">$ 103,366</td>
-<td align="left">$ 63,527</td>
+<td align="left">Lobster</td>
+<td align="right">151</td>
+<td align="right">1274</td>
+<td align="left">12%</td>
+<td align="left">$215,461</td>
+<td align="left">$146,156</td>
+<td align="left">$270,461</td>
 </tr>
 <tr class="even">
-<td align="left">Other</td>
-<td align="right">17</td>
-<td align="right">140</td>
-<td align="left">12 %</td>
-<td align="left">$ 296,188</td>
-<td align="left">$ 17,370</td>
-<td align="left">$ 752,970</td>
+<td align="left">Monkfish</td>
+<td align="right">3</td>
+<td align="right">20</td>
+<td align="left">15%</td>
+<td align="left">$103,156</td>
+<td align="left">$111,515</td>
+<td align="left">$59,864</td>
 </tr>
 <tr class="odd">
 <td align="left">Scallop</td>
 <td align="right">28</td>
-<td align="right">229</td>
-<td align="left">12 %</td>
-<td align="left">$ 898,935</td>
-<td align="left">$ 993,348</td>
-<td align="left">$ 695,170</td>
+<td align="right">227</td>
+<td align="left">12%</td>
+<td align="left">$905,982</td>
+<td align="left">$993,348</td>
+<td align="left">$704,579</td>
 </tr>
 <tr class="even">
 <td align="left">Squid, Mackerel, Butterfish</td>
 <td align="right">9</td>
-<td align="right">59</td>
-<td align="left">15 %</td>
-<td align="left">$ 886,601</td>
-<td align="left">$ 655,814</td>
-<td align="left">$ 938,121</td>
+<td align="right">60</td>
+<td align="left">15%</td>
+<td align="left">$895,101</td>
+<td align="left">$655,878</td>
+<td align="left">$936,872</td>
 </tr>
 <tr class="odd">
 <td align="left">Striped Bass</td>
 <td align="right">12</td>
-<td align="right">66</td>
-<td align="left">18 %</td>
-<td align="left">$ 17,665</td>
-<td align="left">$ 5,852</td>
-<td align="left">$ 35,578</td>
+<td align="right">65</td>
+<td align="left">18%</td>
+<td align="left">$17,744</td>
+<td align="left">$5,853</td>
+<td align="left">$35,688</td>
 </tr>
 </tbody>
 </table>
-<p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-2-1.png" alt="Distribution of Revenue by Primary Fishery" width="672" />
+<p class="caption">
+Figure 5.2: Distribution of Revenue by Primary Fishery
+</p>
+</div>
+<p><br></p>
+<p>When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue per vessel, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.</p>
 <table>
+<caption><span id="tab:unnamed-chunk-3">Table 5.3: </span>Revenue by Primary Gear/Fishery</caption>
 <colgroup>
-<col width="36%" />
+<col width="37%" />
 <col width="9%" />
 <col width="7%" />
 <col width="10%" />
 <col width="12%" />
-<col width="10%" />
+<col width="9%" />
 <col width="12%" />
 </colgroup>
 <thead>
@@ -484,145 +381,148 @@ $ 737,145
 <tr class="odd">
 <td align="left">Dredge_Scallop-Scallop</td>
 <td align="right">28</td>
-<td align="right">216</td>
-<td align="left">13 %</td>
-<td align="left">$ 898,935</td>
-<td align="left">$ 993,348</td>
-<td align="left">$ 695,170</td>
+<td align="right">214</td>
+<td align="left">13%</td>
+<td align="left">$905,982</td>
+<td align="left">$993,348</td>
+<td align="left">$704,579</td>
 </tr>
 <tr class="even">
 <td align="left">Gillnet-Monkfish</td>
 <td align="right">3</td>
-<td align="right">19</td>
-<td align="left">16 %</td>
-<td align="left">$ 97,708</td>
-<td align="left">$ 103,366</td>
-<td align="left">$ 63,527</td>
+<td align="right">20</td>
+<td align="left">15%</td>
+<td align="left">$103,156</td>
+<td align="left">$111,515</td>
+<td align="left">$59,864</td>
 </tr>
 <tr class="odd">
 <td align="left">Gillnet-Other</td>
-<td align="right">7</td>
-<td align="right">70</td>
-<td align="left">10 %</td>
-<td align="left">$ 127,983</td>
-<td align="left">$ 107,722</td>
-<td align="left">$ 115,135</td>
+<td align="right">6</td>
+<td align="right">69</td>
+<td align="left">9%</td>
+<td align="left">$137,295</td>
+<td align="left">$90,949</td>
+<td align="left">$124,029</td>
 </tr>
 <tr class="even">
 <td align="left">Handgear-Fluke, BSB, Scup</td>
-<td align="right">8</td>
+<td align="right">9</td>
 <td align="right">56</td>
-<td align="left">14 %</td>
-<td align="left">$ 22,181</td>
-<td align="left">$ 18,744</td>
-<td align="left">$ 15,391</td>
+<td align="left">16%</td>
+<td align="left">$20,946</td>
+<td align="left">$20,731</td>
+<td align="left">$16,248</td>
 </tr>
 <tr class="odd">
 <td align="left">Handgear-Highly Migratory Species</td>
 <td align="right">31</td>
-<td align="right">181</td>
-<td align="left">17 %</td>
-<td align="left">$ 37,666</td>
-<td align="left">$ 10,439</td>
-<td align="left">$ 112,796</td>
+<td align="right">184</td>
+<td align="left">17%</td>
+<td align="left">$40,117</td>
+<td align="left">$12,910</td>
+<td align="left">$111,247</td>
 </tr>
 <tr class="even">
 <td align="left">Handgear-Other</td>
-<td align="right">10</td>
-<td align="right">63</td>
-<td align="left">16 %</td>
-<td align="left">$ 21,511</td>
-<td align="left">$ 12,972</td>
-<td align="left">$ 24,292</td>
+<td align="right">3</td>
+<td align="right">71</td>
+<td align="left">4%</td>
+<td align="left">$45,417</td>
+<td align="left">$46,574</td>
+<td align="left">$35,654</td>
 </tr>
 <tr class="odd">
 <td align="left">Handgear-Striped Bass</td>
 <td align="right">10</td>
-<td align="right">56</td>
-<td align="left">18 %</td>
-<td align="left">$ 7,129</td>
-<td align="left">$ 3,099</td>
-<td align="left">$ 8,178</td>
+<td align="right">54</td>
+<td align="left">19%</td>
+<td align="left">$7,178</td>
+<td align="left">$3,099</td>
+<td align="left">$8,146</td>
 </tr>
 <tr class="even">
 <td align="left">Longline-Highly Migratory Species</td>
 <td align="right">3</td>
-<td align="right">8</td>
-<td align="left">38 %</td>
-<td align="left">$ 265,987</td>
-<td align="left">$ 361,570</td>
-<td align="left">$ 228,487</td>
+<td align="right">10</td>
+<td align="left">30%</td>
+<td align="left">$292,312</td>
+<td align="left">$295,154</td>
+<td align="left">$140,293</td>
 </tr>
 <tr class="odd">
 <td align="left">Pot/Trap-Fluke, BSB, Scup</td>
 <td align="right">6</td>
 <td align="right">23</td>
-<td align="left">26 %</td>
-<td align="left">$ 126,138</td>
-<td align="left">$ 71,851</td>
-<td align="left">$ 145,188</td>
+<td align="left">26%</td>
+<td align="left">$126,222</td>
+<td align="left">$72,044</td>
+<td align="left">$145,203</td>
 </tr>
 <tr class="even">
 <td align="left">Pot/Trap-Lobster</td>
-<td align="right">150</td>
-<td align="right">1265</td>
-<td align="left">12 %</td>
-<td align="left">$ 215,997</td>
-<td align="left">$ 149,120</td>
-<td align="left">$ 271,294</td>
+<td align="right">149</td>
+<td align="right">1268</td>
+<td align="left">12%</td>
+<td align="left">$215,586</td>
+<td align="left">$146,156</td>
+<td align="left">$272,043</td>
 </tr>
 <tr class="odd">
-<td align="left">Pot/Trap-Other</td>
-<td align="right">4</td>
-<td align="right">57</td>
-<td align="left">7 %</td>
-<td align="left">$ 464,969</td>
-<td align="left">$ 128,301</td>
-<td align="left">$ 760,246</td>
+<td align="left">Pot/Trap-Whelk</td>
+<td align="right">3</td>
+<td align="right">23</td>
+<td align="left">13%</td>
+<td align="left">$90,499</td>
+<td align="left">$36,683</td>
+<td align="left">$119,585</td>
 </tr>
 <tr class="even">
 <td align="left">Trawl-Fluke, BSB, Scup</td>
 <td align="right">9</td>
-<td align="right">57</td>
-<td align="left">16 %</td>
-<td align="left">$ 454,125</td>
-<td align="left">$ 301,830</td>
-<td align="left">$ 395,301</td>
+<td align="right">56</td>
+<td align="left">16%</td>
+<td align="left">$462,166</td>
+<td align="left">$305,512</td>
+<td align="left">$404,053</td>
 </tr>
 <tr class="odd">
 <td align="left">Trawl-Groundfish</td>
 <td align="right">5</td>
 <td align="right">41</td>
-<td align="left">12 %</td>
-<td align="left">$ 1,063,085</td>
-<td align="left">$ 560,864</td>
-<td align="left">$ 1,027,362</td>
+<td align="left">12%</td>
+<td align="left">$1,065,128</td>
+<td align="left">$563,972</td>
+<td align="left">$1,027,055</td>
 </tr>
 <tr class="even">
 <td align="left">Trawl-Other</td>
-<td align="right">7</td>
-<td align="right">38</td>
-<td align="left">18 %</td>
-<td align="left">$ 347,505</td>
-<td align="left">$ 107,355</td>
-<td align="left">$ 365,575</td>
+<td align="right">4</td>
+<td align="right">40</td>
+<td align="left">10%</td>
+<td align="left">$573,364</td>
+<td align="left">$666,096</td>
+<td align="left">$333,547</td>
 </tr>
 <tr class="odd">
 <td align="left">Trawl-Squid, Mackerel, Butterfish</td>
 <td align="right">8</td>
-<td align="right">52</td>
-<td align="left">15 %</td>
-<td align="left">$ 996,320</td>
-<td align="left">$ 729,249</td>
-<td align="left">$ 939,135</td>
+<td align="right">53</td>
+<td align="left">15%</td>
+<td align="left">$1,005,839</td>
+<td align="left">$744,547</td>
+<td align="left">$936,475</td>
 </tr>
 </tbody>
 </table>
-<p><img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
-<p>By primary gear, seine vessels have the highest mean revenue, noting the presence of only three observations. Scallop dredge, trawl, and seine vessels have the highest median revenue, more than twice the value of those for other gear types. These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024). Longline has the fourth highest median values, followed by pot/trap, gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues For scallop dredge, the distribution is slightly skewed to the left.</p>
-<p>By FMP; scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues- all in the $800K-$900K range. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, which is most likely driven by the number of lobster fleet vessels which is considerably more vessels than the scallop fleet.</p>
-<p>When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue per vessel, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.</p>
-<p>Of note, revenues are available for all commercial fishing vessels in the Northeast region, not only for those which responded to the Cost Survey. When comparing revenues for responding vessels to the entire survey sampling frame, similar trends are apparent by fishing fleet. For example, scallop dredge, trawl, and seine vessels have the highest mean vessel-level revenues across the entire sampling frame. By fishery, squid/mackerel/butterfish, scallop, and groundfish have the highest mean vessel-level revenues. Additionally details on other sources of data are included in the Discussion chapter.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="SSB_Profit_Profiles_files/figure-html/unnamed-chunk-3-1.png" alt="Distribution of Revenue by Primary Gear/Fishery" width="672" />
+<p class="caption">
+Figure 5.3: Distribution of Revenue by Primary Gear/Fishery
+</p>
+</div>
+<p><br></p>
+<p>Of note, revenues are available for all commercial fishing vessels in the Northeast region, not only for those which responded to the Cost Survey. When comparing revenues for responding vessels to the entire survey sampling frame, similar trends are apparent by fishing fleet. For example, scallop dredge and trawl, and vessels have the highest mean vessel-level revenues across the entire sampling frame. By fishery, scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues. Additionally details on other sources of data are included in the Discussion chapter.</p>
 </div>
             </section>
 
