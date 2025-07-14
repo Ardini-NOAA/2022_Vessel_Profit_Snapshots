@@ -9,14 +9,15 @@ Using data primarily collected from the most recent cost survey, this site prese
 Starting in 2007, the Social Sciences Branch (SSB) of the Northeast Fisheries Science Center (NEFSC) has intermittently collected commercial fishing cost information from vessel owners through a voluntary survey. The most recent survey, formally known as the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 (hereafter 2022 cost survey), was fielded in March-August 2023 to collect costs incurred by vessel owners during calendar year 2022. The 2022 cost survey was split up into the following sections:
 
   1. General Information
-  2. New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
-  3. Trip Expenses for the Selected Vessel
-  4. Crew Payment System for the Selected Vessel
-  5. Overhead Costs
-  6. The Value of the Selected Vessel
-  7. Quota Costs and Revenues for the Selected Vessel
-  8. Completeness of Cost Information
-  9. Survey Follow-up Questions
+  2. New/Replacement, Repair/Maintenance, and Upgrade Costs for the Selected Vessel
+  3. Vessel Costs for the Selected Vessel
+  4. Trip Expenses for the Selected Vessel
+  5. Crew Payment System for the Selected Vessel
+  6. Overhead Costs
+  7. The Value of the Selected Vessel
+  8. Quota Costs and Revenues for the Selected Vessel
+  9. Completeness of Cost Information
+  10. Survey Follow-up Questions
 
 Each owner of a federally permitted commercial fishing vessel that was active in either calendar year 2021 or 2022 received a survey. A total of 2,495 individuals were sent the 2022 cost survey with 422 surveys returned. After accounting for incomplete returned surveys and ineligibles within the sampling frame, the final response rate was 14.8% (367/2,477). For further details on the implementation of the 2022 cost survey see Werner et al. (in review). For more information on early iterations of the cost survey, see Das (2015) and Ardini et al. (2022). An overview of survey data collected, as well as applications for cost data, can be found on the [Cost Survey Landing Page](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey). Additionally, the [Cost Data Visualization Tool](https://apps-nefsc.fisheries.noaa.gov/cost-data/) presents distributions for the various costs provided by survey respondents.
 
@@ -24,17 +25,17 @@ Each owner of a federally permitted commercial fishing vessel that was active in
 # Metrics
 There are a number of different metrics to measure net returns to commercial fishing businesses as detailed in Kitts et al. (2022). For example a cash flow statement typically shows returns over time and can help inform the need to acquire cash reserves through loans. An income statement is somewhat similar to a cash flow statement and focuses on gross revenues and costs associated with operating a fishing business. An economic profit statement includes opportunity costs, such as physical capital costs and the vessel owner’s time. A vessel may yield a positive accounting profit but a negative economic profit after accounting for opportunity costs.
 
-This page provides modified income statements looking at both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
+This page provides modified income statements with a few changes from the methods outlined in Kitts et al. (2022). For revenues, the only alteration in methods is the exclusion of direct subsidies, as this information is not available. For costs, there are a few categories not included, also due to a lack of available information. These categories include taxes (both ad Valorem and income), interest expenses (due to interest not being separable from principal), and gain/loss on the sale of capital assets. Using available revenues and costs, this page examines both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
 
 ## Operating Profits
-Operating profit refers to gross revenues minus operating costs (variable costs). Within the 2022 cost survey, two sections in particular cover operating costs. The trip expenses section (#3) collects information on fuel, bait, ice, and food. The crew payment section (#4) includes the total amount paid to crew and hired captains, as well as any benefits paid out. Outside of the survey, a few costs collected by at-sea observers, fresh water and crew supplies, are also included in the operating profit calculation.
+Operating profit refers to gross revenues minus operating costs (variable costs). Within the 2022 cost survey, two sections in particular cover operating costs. The trip expenses section (#4) collects information on fuel, bait, ice, and food. The crew payment section (#5) includes the total amount paid to crew and hired captains, as well as any benefits paid out. Outside of the survey, a few costs collected by at-sea observers, fresh water and crew supplies, are also included in the operating profit calculation.
 
 EQUATION 1: Gross Revenue - (Trip Expenses + Crew Payments)
 
 ## Total Profits
-Total profit refers to operating profit minus non-operating costs (fixed and quasi-fixed costs). Within the 2022 cost survey, a few different sections include non-operating costs. The vessel repairs, upgrades, and other costs section (#2) includes the amount spent on various vessel components including the engine, hull, fishing gear, electronics, and safety equipment. Other vessel costs such as mooring fees, permit fees, and vessel insurance are also included. The overhead section (#5) includes, among other costs, business vehicle expenses, association fees, non-crew labor payments, and office/storage expenses. The quota costs and revenue section (#7) is also included as a component of non-operating costs.
+Total profit refers to operating profit minus non-operating costs (fixed and quasi-fixed costs). Within the 2022 cost survey, a few different sections include non-operating costs. The vessel repairs and, upgrades section (#2) includes the amount spent on various vessel components including the engine, hull, fishing gear, electronics, and safety equipment. The vessel costs section (#3) factors in mooring fees, permit fees, and vessel insurance. The overhead section (#6) includes, among other costs, business vehicle expenses, association fees, non-crew labor payments, and office/storage expenses. The quota costs and revenue section (#8) is also included as a component of non-operating costs. Lastly, depreciation is estimated from the vessel values section (#7).
 
-EQUATION 2: Operating Profit - (RMUI/other Vessel Costs  + Overhead + Quota Leasing)
+EQUATION 2: Operating Profit - (RMUI/other + Vessel Costs  + Overhead + Quota Leasing + Depreciation)
 
 
 # Respondent Pool
@@ -43,7 +44,7 @@ A total of 422 surveys were returned to the Social Sciences Branch at the conclu
 ## Filtering of Observations
 The first filtering step specified that all surveys must have answered at least one cost-related question. This step eliminated 55 observations, bringing the total number to 367. The second filtering step specified that the responding vessel must be commercially active (revenues >$0) during 2022. A further 46 observations were dropped, bringing the total to 321.
 
-Following completion of the initial filtering, a few other steps were performed. The 2022 cost survey included the nine sections listed under Cost Survey Background. For each response, the number of survey sections skipped were counted, where a skipped section was any case in which all questions within the section were left blank. For this exercise, five survey sections were evaluated. Sections 3-5 were evaluated in entirety while section 2 was divided into sub-sections of vessel repair/maintenance/upgrade/improvement (RMUI) questions and vessel fees/insurance questions. If a survey skipped multiple sections, it was removed from the dataset. A total of 17 observations skipped multiple survey sections, bringing the total to 304. An additional 12 observations out of the remaining 304 skipped one survey section. These cases were further evaluated to look at the specific section skipped. Four out of the 12 only skipped the crew payment section. Since these were all small vessels with relatively low costs and operating profit, assuming there was no crew on board was deemed appropriate. The other 8 observations that skipped one survey section were dropped. Finally, 1 additional observation was dropped due to extreme costs in a number of different categories, resulting in a final dataset of 295 observations. Out of a possible 31 questions answered, these observations provided responses to 28 questions on average, with a range of 20-31 questions answered. 
+Following completion of the initial filtering, a few other steps were performed. The 2022 cost survey included the ten sections listed under Cost Survey Background. For each response, the number of survey sections skipped were counted, where a skipped section was any case in which all questions within the section were left blank. For this exercise, five survey sections were evaluated. If a survey skipped multiple sections, it was removed from the dataset. A total of 17 observations skipped multiple survey sections, bringing the total to 304. An additional 12 observations out of the remaining 304 skipped one survey section. These cases were further evaluated to look at the specific section skipped. Four out of the 12 only skipped the crew payment section. Since these were all small vessels with relatively low costs and operating profit, assuming there was no crew on board was deemed appropriate. The other 8 observations that skipped one survey section were dropped. An additional 14 observations that belonged to a fishery with fewer than three observations were dropped. Finally, 1 additional observation was dropped due to extreme costs in a number of different categories, resulting in a final dataset of 281 observations. Out of a possible 31 questions answered, these observations provided responses to 28 questions on average, with a range of 20-31 questions answered. 
 
 
 # Profit Calculation Methods
@@ -55,7 +56,7 @@ All individuals that were sampled for the 2022 cost survey were owners of federa
 Vessel primary gear is defined according to the largest contributor to total commercial vessel revenue during 2022. Fishing gears, primarily from Vessel Trip Reports (VTRs) were grouped into the same categories as used for the 2022 cost survey sampling frame. For example, bottom trawl and midwater trawl were grouped into a broader trawl category. The resulting primary gear groups are as follows: gillnet, handgear, hydraulic dredge, longline, pot/trap, scallop dredge, seine, trawl, and unknown. Due to low response levels for some primary gear groups, results are unable to be presented.
 
 ### Primary Fishery
-Vessel primary fishery is also defined as the largest contributor to total commercial vessel revenue during 2022. Species were grouped into Fishery Management Plans (FMPs) as managed by the New England and Mid-Atlantic Fishery Management Councils, as well as American lobster, managed by the Atlantic States Marine Fisheries Commission. All other fisheries are grouped into “Other”, which covers a variety of primary species/fisheries including barracuda, bay scallop, cancer crab, eastern oyster, horseshoe crab, cutlassfish, king mackerel, menhaden, ribbonfish, shrimp, tautog, and whelk. Due to low response levels for some primary fisheries, results are unable to be presented.
+Vessel primary fishery is also defined as the largest contributor to total commercial vessel revenue during 2022. Species were grouped into Fishery Management Plans (FMPs) as managed by the New England and Mid-Atlantic Fishery Management Councils, as well as American lobster, managed by the Atlantic States Marine Fisheries Commission. A few other fisheries (channeled whelk, highly migratory species, striped bass) are also included due to sufficient response. Other fisheries received low response levels and results are unable to be presented.
 
 ### Primary Gear/Fishery
 Vessel primary gear (4.1.1) and primary fishery (4.1.2) were also combined to examine differences within more specific fleets. For most gear types, multiple fisheries are represented. However, scallop dredge gear, for example, is represented by only one fishery (sea scallop). Due to low response levels for some primary gear/fisheries, results are unable to be presented.
@@ -68,31 +69,35 @@ All 2022 party/charter trips, and the number of anglers per trip, were first pul
 ## Survey Costs
 The vast majority of cost information used in the calculation of vessel profits came directly from the 2022 cost survey. Survey data was used from the following categories within sections highlighted in Chapter 1.1 Cost Survey Background:
 
-1. New/Replacement, Repair/Maintenance, Upgrade and Other Costs for the Selected Vessel
+1. New/Replacement, Repair/Maintenance, and Upgrade Costs for the Selected Vessel
     a. Propulsion Engine
-    b. Deck Equipment / Other Machinery
-    c. Haul-out Costs
-    d. Hull
-    e. Fishing Gear
-    f. Wheelhouse Electronics
-    g. Processing / Refrigeration
-    h. Safety Equipment
-    i. Mooring/Docking Fees
-    j. State and Federal Permits and/or License Renewal Fees
-    k. Vessel or Permit Payments/Financing
-    l. Annual Vessel Insurance Premium
-2. Trip Expenses for the Selected Vessel
+    b. Seine Skiff (Seine survey version only)
+    c. Deck Equipment / Other Machinery
+    d. Haul-out Costs
+    e. Hull
+    f. Fishing Gear
+    g. Wheelhouse Electronics
+    h. Processing / Refrigeration
+    i. Safety Equipment
+2. Vessel Costs for the Selected Vessel
+    a. Mooring/Docking Fees
+    b. IFQ Cost Recovery Fees (Scallop Dredge survey version only)
+    c. State and Federal Permits and/or License Renewal Fees
+    d. Launch and Trailer Fees (Handgear survey version only)
+    e. Annual Vessel Insurance Premium
+3. Trip Expenses for the Selected Vessel
     a. Fuel 
     b. Bait
     c. Food for captain and crew
     d. Ice
     e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
     f. At-sea Processing At-sea Boxing/Packaging
-3. Crew Payment System for the Selected Vessel
+    g. Paralytic Shellfish Poison Testing (Hydraulic Dredge survey version only)
+4. Crew Payment System for the Selected Vessel
     a. Total Payments to Crew
     b. Total Payments to Hired Captain
     c. Benefits Paid to Crew and/or Hired Captain
-4. Overhead Costs
+5. Overhead Costs
     a. Business Vehicle Costs
     b. Business Travel Costs
     c. Association Fees 
@@ -101,11 +106,12 @@ The vast majority of cost information used in the calculation of vessel profits 
     f. Advertising Costs
     g. Communication Costs
     h. Office/Workshop/Storage Expenses
-5. Quota Costs and Revenues for the Selected Vessel
+    i. Spotter Planes, Drones or Other Aerial Search Expenses (Seine survey version only)
+6. Quota Costs and Revenues for the Selected Vessel
     a. Quota Leasing Costs
     b. Quota Leasing Revenue
     c. Quota Monitoring Costs
-6. Completeness of Cost Information
+7. Completeness of Cost Information
     a. Other Costs for the Selected Vessel
 
 From these various cost categories within the survey, some data manipulation was required to make costs usable at the vessel/annual level. These data manipulation steps are summarized below.

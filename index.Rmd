@@ -32,7 +32,7 @@ Each owner of a federally permitted commercial fishing vessel that was active in
 # Metrics
 There are a number of different metrics to measure net returns to commercial fishing businesses as detailed in Kitts et al. (2022). For example a cash flow statement typically shows returns over time and can help inform the need to acquire cash reserves through loans. An income statement is somewhat similar to a cash flow statement and focuses on gross revenues and costs associated with operating a fishing business. An economic profit statement includes opportunity costs, such as physical capital costs and the vessel owner’s time. A vessel may yield a positive accounting profit but a negative economic profit after accounting for opportunity costs.
 
-This page provides modified income statements looking at both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
+This page provides modified income statements with a few changes from the methods outlined in Kitts et al. (2022). For revenues, the only alteration in methods is the exclusion of direct subsidies, as this information is not available. For costs, there are a few categories not included, also due to a lack of available information. These categories include taxes (both ad Valorem and income), interest expenses (due to interest not being separable from principal), and gain/loss on the sale of capital assets. Using available revenues and costs, this page examines both operating profit and total profit. Operating profit can help inform the immediate viability of a fishing business- if trip expenses cannot be covered, economic theory suggests that the vessel will cease operations. Total profit measured over an extended time period informs the long-term viability of a fishing business. Measured for 2022, this metric can be used to calculate profit margin, the ratio of profit to gross revenues. However, a negative total profit for 2022 does not necessarily translate into a fishing business that is not viable as some costs, such as vessel repairs, are expected to fluctuate from year to year.
 
 ## Operating Profits
 Operating profit refers to gross revenues minus operating costs (variable costs). Within the 2022 cost survey, two sections in particular cover operating costs. The trip expenses section (#4) collects information on fuel, bait, ice, and food. The crew payment section (#5) includes the total amount paid to crew and hired captains, as well as any benefits paid out. Outside of the survey, a few costs collected by at-sea observers, fresh water and crew supplies, are also included in the operating profit calculation.
@@ -78,18 +78,19 @@ The vast majority of cost information used in the calculation of vessel profits 
 
 1. New/Replacement, Repair/Maintenance, and Upgrade Costs for the Selected Vessel
     a. Propulsion Engine
-    b. Deck Equipment / Other Machinery
-    c. Haul-out Costs
-    d. Hull
-    e. Fishing Gear
-    f. Wheelhouse Electronics
-    g. Processing / Refrigeration
-    h. Safety Equipment
+    b. Seine Skiff (Seine survey version only)
+    c. Deck Equipment / Other Machinery
+    d. Haul-out Costs
+    e. Hull
+    f. Fishing Gear
+    g. Wheelhouse Electronics
+    h. Processing / Refrigeration
+    i. Safety Equipment
 2. Vessel Costs for the Selected Vessel
     a. Mooring/Docking Fees
-    b. IFQ Cost Recovery Fees (Scallop vessels only)
+    b. IFQ Cost Recovery Fees (Scallop Dredge survey version only)
     c. State and Federal Permits and/or License Renewal Fees
-    d. Launch and Trailer Fees (Handgear vessels only)
+    d. Launch and Trailer Fees (Handgear survey version only)
     e. Annual Vessel Insurance Premium
 3. Trip Expenses for the Selected Vessel
     a. Fuel 
@@ -98,7 +99,7 @@ The vast majority of cost information used in the calculation of vessel profits 
     d. Ice
     e. Catch Handling- costs for auction, lumping, grading, shipping/trucking, and unloading. 
     f. At-sea Processing At-sea Boxing/Packaging
-    g. Paralytic Shellfish Poison Testing (Hydraulic Dredge vessels only)
+    g. Paralytic Shellfish Poison Testing (Hydraulic Dredge survey version only)
 4. Crew Payment System for the Selected Vessel
     a. Total Payments to Crew
     b. Total Payments to Hired Captain
@@ -112,7 +113,7 @@ The vast majority of cost information used in the calculation of vessel profits 
     f. Advertising Costs
     g. Communication Costs
     h. Office/Workshop/Storage Expenses
-    i. Spotter Planes, Drones or Other Aerial Search Expenses (Seine vessels only)
+    i. Spotter Planes, Drones or Other Aerial Search Expenses (Seine survey version only)
 6. Quota Costs and Revenues for the Selected Vessel
     a. Quota Leasing Costs
     b. Quota Leasing Revenue
@@ -160,16 +161,12 @@ gear_revenue_3 <- gear_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark
 gear_revenue_4 <- gear_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
 
 gear_revenue_4$Mean<-paste0("$",gear_revenue_4$Mean)
-#gear_revenue_4$Mean<- gsub("\\$ \\s*(\\d+)", "\\$\\1", gear_revenue_4$Mean)
 
 gear_revenue_4$Median<-paste0("$",gear_revenue_4$Median)
-#gear_revenue_4$Median<- gsub("\\$ \\s*(\\d+)", "\\$\\1", gear_revenue_4$Median)
 
 gear_revenue_4$St.Dev<-paste0("$",gear_revenue_4$St.Dev)
-#gear_revenue_4$St.Dev<- gsub("\\$ \\s*(\\d+)", "\\$\\1", gear_revenue_4$St.Dev)
 
 gear_revenue_4$Resp_Perc<-paste0(gear_revenue_4$Response_Rate,"%")
-#gear_revenue_4$Resp_Perc <- str_replace_all(gear_revenue_4$Resp_Perc, " ", "")
 
 gear_revenue_4 <- subset(gear_revenue_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_revenue_4, caption = "Revenue by Primary Gear") 
@@ -224,9 +221,6 @@ gear_fmp_revenue_4$Resp_Perc<-paste0(gear_fmp_revenue_4$Response_Rate,"%")
 gear_fmp_revenue_4<- subset(gear_fmp_revenue_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
 knitr::kable(gear_fmp_revenue_4, caption = "Revenue by Primary Gear/Fishery")
 
-#gear_fmp_revenue_5<- kable(gear_fmp_revenue_4, caption = "Revenue by Primary Gear/Fishery") %>% kable_styling(font_size = 16) %>% #kableExtra::scroll_box(width = "100%") %>% column_spec(1, width = "1in")
-#knitr::kable(gear_fmp_revenue_4, caption = "Revenue by Primary Gear/Fishery") %>% kable_styling(font_size = 16) %>% kableExtra::scroll_box(width = "100%") #%>% column_spec(1, width = "3in")
-
 gear_fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_revenue_plot_2 <- ggplot(gear_fmp_revenue_plot, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
@@ -243,6 +237,7 @@ By primary gear, magnitude of mean costs from highest to lowest follows a simila
 
 ```{r, echo=FALSE}
 library(scales)
+library(ggh4x)
 
 #Produce summary table
 gear_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_no_conf.csv")
@@ -269,20 +264,14 @@ gear_dist3a <- gear_dist3[order(gear_dist3$percent),]
 levels(gear_dist3a$Category)
 gear_dist3a$Category <- factor(gear_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-gear_dist4<- subset(gear_dist3a, Gear== "Dredge_Scallop" | Gear== "Gillnet" | Gear== "Handgear")
-ggplot(data=gear_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11), plot.margin = margin(t=0, r=0, b=0, l=0, unit ="pt")) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-gear_dist5<- subset(gear_dist3a, Gear== "Longline" | Gear== "Pot/Trap" | Gear== "Trawl")
-ggplot(data=gear_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11), plot.margin = margin(t=0, r=0, b=0, l=0, unit ="pt")) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
+ggplot(data=gear_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
 ```
 
 ```{r, echo=FALSE}
 gear_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_quota_percent_no_conf.csv")
 gear_quota$Quota_Percent_Total_Cost<-paste(gear_quota$Quota_Percent_Total_Cost,"%")
 gear_quota_2 <- subset(gear_quota, select=c(Gear, Quota_Percent_Total_Cost))
-knitr::kable(gear_quota_2)
+knitr::kable(gear_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear") 
 ```
 <br>
 
@@ -315,30 +304,14 @@ fmp_dist3a <- fmp_dist3[order(fmp_dist3$percent),]
 levels(fmp_dist3a$Category)
 fmp_dist3a$Category <- factor(fmp_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-fmp_dist4<- subset(fmp_dist3a, Fishery== "Channeled Whelk" | Fishery== "Dogfish" | Fishery== "Fluke, BSB, Scup")
-ggplot(data=fmp_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-fmp_dist5<- subset(fmp_dist3a, Fishery== "Groundfish" | Fishery== "Herring" | Fishery== "Highly Migratory Species")
-ggplot(data=fmp_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-fmp_dist6<- subset(fmp_dist3a, Fishery== "Lobster" | Fishery== "Monkfish" | Fishery== "Scallop")
-ggplot(data=fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-fmp_dist7<- subset(fmp_dist3a, Fishery== "Squid, Mackerel, Butterfish" | Fishery== "Striped Bass")
-ggplot(data=fmp_dist7, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3" ))
+ggplot(data=fmp_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3")) 
 ```
 
 ```{r, echo=FALSE}
 fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_quota_percent_no_conf.csv")
 fmp_quota$Quota_Percent_Total_Cost<-paste(fmp_quota$Quota_Percent_Total_Cost,"%")
 fmp_quota_2 <- subset(fmp_quota, select=c(Fishery, Quota_Percent_Total_Cost))
-knitr::kable(fmp_quota_2)
+knitr::kable(fmp_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Fishery") 
 ```
 <br>
 
@@ -371,35 +344,14 @@ gear_fmp_dist3a <- gear_fmp_dist3[order(gear_fmp_dist3$percent),]
 levels(gear_fmp_dist3a$Category)
 gear_fmp_dist3a$Category <- factor(gear_fmp_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-gear_fmp_dist4<- subset(gear_fmp_dist3a, Gear_Fishery== "Dredge_Scallop-Scallop" | Gear_Fishery== "Gillnet-Monkfish" | Gear_Fishery== "Gillnet-Other")
-ggplot(data=gear_fmp_dist4, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-gear_fmp_dist5<- subset(gear_fmp_dist3a, Gear_Fishery== "Handgear-Fluke, BSB, Scup" | Gear_Fishery== "Handgear-Highly Migratory Species" | Gear_Fishery== "Handgear-Other")
-ggplot(data=gear_fmp_dist5, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-gear_fmp_dist6<- subset(gear_fmp_dist3a, Gear_Fishery== "Handgear-Striped Bass" | Gear_Fishery== "Longline-Highly Migratory Species" | Gear_Fishery== "Pot/Trap-Fluke, BSB, Scup")
-ggplot(data=gear_fmp_dist6, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-gear_fmp_dist7<- subset(gear_fmp_dist3a, Gear_Fishery== "Pot/Trap-Lobster" | Gear_Fishery== "Pot/Trap-Whelk" | Gear_Fishery== "Trawl-Fluke, BSB, Scup")
-ggplot(data=gear_fmp_dist7, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
-```
-
-```{r, fig.width=8, fig.height=8, echo=FALSE, results='hide'}
-gear_fmp_dist8<- subset(gear_fmp_dist3a, Gear_Fishery== "Trawl-Groundfish" | Gear_Fishery== "Trawl-Other" | Gear_Fishery== "Trawl-Squid, Mackerel, Butterfish")
-ggplot(data=gear_fmp_dist8, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_grid(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+ggplot(data=gear_fmp_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
 ```
 
 ```{r, echo=FALSE}
 gear_fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_quota_percent_no_conf.csv")
 gear_fmp_quota$Quota_Percent_Total_Cost<-paste(gear_fmp_quota$Quota_Percent_Total_Cost,"%")
 gear_fmp_quota_2 <- subset(gear_fmp_quota, select=c(Gear_Fishery, Quota_Percent_Total_Cost))
-knitr::kable(gear_fmp_quota_2)
+knitr::kable(gear_fmp_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear/Fishery") 
 ```
 
 
@@ -625,7 +577,7 @@ To interpret these results, $1.00 of ex-vessel revenue for scallop vessels trans
 # Summmary
 The Northeast U.S. is home to several economically important commercial fisheries, representing a variety of gear types. Vessels on this site are grouped by fishery and gear-type based on their highest source of revenue during calendar year 2022. Only vessels that provided a complete response to the Greater Atlantic Region Commercial Fishing Business Cost Survey for 2022 are included (see Chapter 3.1 for the definition of a complete survey response). All fisheries and gears are represented in Chapters 5-8 as allowed by data confidentiality rules (at least 3 vessels). Below is a brief summary of the results presented in Chapters 5-8. See Chapter 10 for ways in which these results can be used as well as data limitations.
 
-Chapter 5 provides a summary of fleet ex-vessel revenues. These values are queried from the Catch Accounting and Monitoring System (CAMS), a collaborative database developed by the Greater Atlantic Regional Fisheries Office (GARFO) and the Northeast Fisheries Science Center (NEFSC). Mean and median values show substantially higher vessel-level revenues for some gear groups (e.g. scallop dredge, trawl) than others (e.g. gillnet, handgear). Similarly, some fisheries (e.g. scallop, squid, mackerel, and butterfish) show substantially higher mean and median vessel revenues than others (e.g. fluke, black sea bass, and scup, lobster).
+Chapter 5 provides a summary of fleet ex-vessel revenues. These values are queried from the Catch Accounting and Monitoring System (CAMS), a collaborative database developed by the Greater Atlantic Regional Fisheries Office (GARFO) and the Northeast Fisheries Science Center (NEFSC). Mean and median values from responding vessels show substantially higher vessel-level revenues for some gear groups (e.g. scallop dredge, trawl) than others (e.g. gillnet, handgear). These revenue trends are similar to those observed across the entire survey sampling frame. Similarly, some fisheries (e.g. scallop, squid, mackerel, and butterfish) show substantially higher mean and median vessel revenues than others (e.g. fluke, black sea bass, and scup, lobster).
 
 Chapter 6 provides a summary of costs, which mainly are derived from the 2022 cost survey. A breakdown of costs into major categories shows important insight into the differences between fisheries and gear groups. For example, crew-intensive fisheries such as groundfish, scallop, and squid, mackerel, and butterfish show 41-47% of total costs being payments to crew and 9-22% being trip expenses. In contrast, lobster shows 26% of total costs as payments to crew 31% of total costs as trip expenses. Important similarities are present as well. For example, overhead costs represent between 6-10% of total costs for nearly all fisheries and gear groups.
 

@@ -1,102 +1,156 @@
 # Operating Profit
-```{r, echo=FALSE}
+By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Trawl has the second highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$400k for trawl. Gillnet longline, and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations may be explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed costs associated with activities that do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups. 
+
+```{r, fig.cap = "Distribution of Operating Profit by Primary Gear", fig.align='center', echo=FALSE}
 gear_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear.csv")
-gear_op_stats_2 <- gear_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
-gear_op_stats_3 <- gear_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+gear_op_stats$Mean2 = ifelse(gear_op_stats$mean_op>0, paste0("$",gear_op_stats$mean_op), paste0("-", dollar(abs(gear_op_stats$mean_op))))
+gear_op_stats$Median2 = ifelse(gear_op_stats$med_op>0, paste0("$",gear_op_stats$med_op), paste0("-", dollar(abs(gear_op_stats$med_op))))
+
+gear_op_stats_2 <- gear_op_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+gear_op_stats_3 <- gear_op_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 gear_op_stats_4 <- gear_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
-gear_op_stats_4$Mean<-paste("$",gear_op_stats_4$Mean)
-gear_op_stats_4$Median<-paste("$",gear_op_stats_4$Median)
-gear_op_stats_4$St.Dev<-paste("$",gear_op_stats_4$St.Dev)
-gear_op_stats_4$Response_Perc<-paste(gear_op_stats_4$Response_Rate,"%")
-gear_op_stats_4 <- subset(gear_op_stats_4, select=c(Gear, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_op_stats_4)
+
+gear_op_stats_4$St.Dev<-paste0("$",gear_op_stats_4$St.Dev)
+
+gear_op_stats_4$Resp_Perc<-paste0(gear_op_stats_4$Response_Rate,"%")
+
+gear_op_stats_4 <- subset(gear_op_stats_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(gear_op_stats_4, caption = "Operating Profit by Primary Gear") 
+
 gear_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
 gear_op <- ggplot(gear_profit, aes(x = Gear, y = total_operating_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000))
+```
+<br>
 
+By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations may be explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed costs associated with activities that do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
+
+```{r, fig.cap = "Distribution of Operating Profit by Primary Fishery", fig.align='center', echo=FALSE}
 fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_fmp.csv")
-fmp_op_stats_2 <- fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
-fmp_op_stats_3 <- fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+fmp_op_stats$Mean2 = ifelse(fmp_op_stats$mean_op>0, paste0("$",fmp_op_stats$mean_op), paste0("-", dollar(abs(fmp_op_stats$mean_op))))
+fmp_op_stats$Median2 = ifelse(fmp_op_stats$med_op>0, paste0("$",fmp_op_stats$med_op), paste0("-", dollar(abs(fmp_op_stats$med_op))))
+
+fmp_op_stats_2 <- fmp_op_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+fmp_op_stats_3 <- fmp_op_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 fmp_op_stats_4 <- fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
-fmp_op_stats_4$Mean<-paste("$",fmp_op_stats_4$Mean)
-fmp_op_stats_4$Median<-paste("$",fmp_op_stats_4$Median)
-fmp_op_stats_4$St.Dev<-paste("$",fmp_op_stats_4$St.Dev)
-fmp_op_stats_4$Response_Perc<-paste(fmp_op_stats_4$Response_Rate,"%")
-fmp_op_stats_4 <- subset(fmp_op_stats_4, select=c(Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(fmp_op_stats_4)
+
+fmp_op_stats_4$St.Dev<-paste0("$",fmp_op_stats_4$St.Dev)
+
+fmp_op_stats_4$Resp_Perc<-paste0(fmp_op_stats_4$Response_Rate,"%")
+
+fmp_op_stats_4 <- subset(fmp_op_stats_4, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(fmp_op_stats_4, caption = "Operating Profit by Primary Fishery") 
+
 fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
 fmp_op <- ggplot(fmp_profit, aes(x = Fishery, y = total_operating_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+```
+<br>
 
+When primary gear and FMP are combined, scallop dredge-scallop has the highest mean and median operating profit. Within primary gear types, a considerable difference in operating profit is found across fisheries. For example, the mean value for squid trawl vessels is substantially higher than the value for fluke, black sea bass, and scup trawl vessels. Within the pot/trap gear group, summer flounder, black sea bass, scup vessels have a higher mean value than for lobster but a lower median value. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations may be explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed costs associated with activities that do not generate revenue.
+
+```{r, fig.cap = "Distribution of Operating Profit by Primary Gear/Fishery", fig.align='center', echo=FALSE}
 gear_fmp_op_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_op_gear_fmp.csv")
-gear_fmp_op_stats_2 <- gear_fmp_op_stats %>% mutate(Mean = prettyNum(mean_op, big.mark = ',', scientific = FALSE))
-gear_fmp_op_stats_3 <- gear_fmp_op_stats_2 %>% mutate(Median = prettyNum(med_op, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+gear_fmp_op_stats$Mean2 = ifelse(gear_fmp_op_stats$mean_op>0, paste0("$",gear_fmp_op_stats$mean_op), paste0("-", dollar(abs(gear_fmp_op_stats$mean_op))))
+gear_fmp_op_stats$Median2 = ifelse(gear_fmp_op_stats$med_op>0, paste0("$",gear_fmp_op_stats$med_op), paste0("-", dollar(abs(gear_fmp_op_stats$med_op))))
+
+gear_fmp_op_stats_2 <- gear_fmp_op_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+gear_fmp_op_stats_3 <- gear_fmp_op_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 gear_fmp_op_stats_4 <- gear_fmp_op_stats_3 %>% mutate(St.Dev = prettyNum(std_op, big.mark = ',', scientific = FALSE))
-gear_fmp_op_stats_4$Mean<-paste("$",gear_fmp_op_stats_4$Mean)
-gear_fmp_op_stats_4$Median<-paste("$",gear_fmp_op_stats_4$Median)
-gear_fmp_op_stats_4$St.Dev<-paste("$",gear_fmp_op_stats_4$St.Dev)
-gear_fmp_op_stats_4$Response_Perc<-paste(gear_fmp_op_stats_4$Response_Rate,"%")
-gear_fmp_op_stats_4 <- subset(gear_fmp_op_stats_4, select=c(Gear_Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_fmp_op_stats_4)
+
+gear_fmp_op_stats_4$St.Dev<-paste0("$",gear_fmp_op_stats_4$St.Dev)
+
+gear_fmp_op_stats_4$Resp_Perc<-paste0(gear_fmp_op_stats_4$Response_Rate,"%")
+
+gear_fmp_op_stats_4 <- subset(gear_fmp_op_stats_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(gear_fmp_op_stats_4, caption = "Operating Profit by Primary Gear/Fishery") 
+
 gear_fmp_profit<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
 gear_fmp_op <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_operating_profit, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 
-By primary gear, scallop dredge has considerably higher median operating profit than other gear groups. Seine has the highest mean operating profit, noting the value represents only three vessels. Trawl has the third highest mean and median values, followed by longline, pot/trap, gillnet, and handgear. For most gear types, mean values greatly exceed median values, indicating skewness in the distribution to the right. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop dredge and ~$500k for trawl. Gillnet and pot/trap extend considerably less and handgear is close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the short-term shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. These vessels tend to belong to the handgear and pot/trap gear groups. 
-
-By FMP, scallop has higher mean and median operating profit than all other fisheries. Squid, mackerel, butterfish has the second highest mean values, while herring has the second highest median values. Groundfish has the third highest mean values. For a number of fisheries, mean values greatly exceed median values, indicating skewness in the distribution to the right. For scallop, the difference between mean and median values is relatively small. The boxplots emphasize the range of operating profit by gear group with the box extending past $750K for scallop and close to $500k for groundfish, herring, and squid, mackerel, butterfish. Lobster extends to ~100k and other fisheries are close to $0. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue. Many of these vessels belong to the Highly Migratory Species fishery.
-
-When primary gear and FMP are combined, trawl-groundfish has the highest mean operating profit, while scallop dredge-scallop has the highest median value. Within primary gear types, a considerable difference in operating profit is found across fisheries. For example, the mean value for squid trawl vessels is roughly twice that for fluke, black sea bass, and scup trawl vessels. Within the pot/trap gear group, summer flounder, black sea bass, scup vessels have a higher mean value than for lobster but a lower median value. A small number of observations exhibit negative operating profit, which generally is viewed as the shutdown point in which continuing operations is no longer economically viable. These observations are likely explained in part by other vessel uses outside of commercial fishing. For example, if a vessel is used for leisure activities, the vessel owner may have listed the costs of vessel maintenance and upkeep for activities which do not generate revenue.
-
 
 # Total Profit
-```{r, echo=FALSE}
+By primary gear, scallop dredge has considerably higher mean and median total profit than other gear groups. Trawl vessels show the second highest profits. All other gear groups show a negative mean profit. For scallop dredge and trawl gear, mean values greatly exceed median values. For gillnet and pot/trap vessels, mean and median values are similar. In terms of operating profit, mean and median values are relatively close for a number of gear types (longline, pot/trap, scallop dredge). However with total profits, a considerable range is evident in most gear groups. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+
+```{r, fig.cap = "Distribution of Total Profit by Primary Gear", fig.align='center', echo=FALSE}
 gear_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear.csv")
-gear_tp_stats_2 <- gear_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
-gear_tp_stats_3 <- gear_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+gear_tp_stats$Mean2 = ifelse(gear_tp_stats$mean_tp>0, paste0("$",gear_tp_stats$mean_tp), paste0("-", dollar(abs(gear_tp_stats$mean_tp))))
+gear_tp_stats$Median2 = ifelse(gear_tp_stats$med_tp>0, paste0("$",gear_tp_stats$med_tp), paste0("-", dollar(abs(gear_tp_stats$med_tp))))
+
+gear_tp_stats_2 <- gear_tp_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+gear_tp_stats_3 <- gear_tp_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 gear_tp_stats_4 <- gear_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
-gear_tp_stats_4$Mean<-paste("$",gear_tp_stats_4$Mean)
-gear_tp_stats_4$Median<-paste("$",gear_tp_stats_4$Median)
-gear_tp_stats_4$St.Dev<-paste("$",gear_tp_stats_4$St.Dev)
-gear_tp_stats_4$Response_Perc<-paste(gear_tp_stats_4$Response_Rate,"%")
-gear_tp_stats_4 <- subset(gear_tp_stats_4, select=c(Gear, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_tp_stats_4)
+
+gear_tp_stats_4$St.Dev<-paste0("$",gear_tp_stats_4$St.Dev)
+
+gear_tp_stats_4$Resp_Perc<-paste0(gear_tp_stats_4$Response_Rate,"%")
+
+gear_tp_stats_4 <- subset(gear_tp_stats_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(gear_tp_stats_4, caption = "Total Profit by Primary Gear") 
+
 gear_tp <- ggplot(gear_profit, aes(x = Gear, y = total_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000))
+```
+<br>
 
+By FMP, scallop and squid, mackerel, butterfish have the highest mean and median total profits. The difference in profits between these two fisheries and all other FMPs is considerable. Groundfish has the third highest mean and median values. The lobster fleet, representing over half of the total observations, shows slightly negative mean and median profits. The fluke, black sea bass, scup fishery shows positive mean profits but a negative median value. In terms of operating profit, mean and median values are relatively close for a number of fisheries (groundfish, herring, scallop, and squid, mackerel, butterfish). However with total profits, a considerable range is evident in all fisheries. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+
+```{r, fig.cap = "Distribution of Total Profit by Primary Fishery", fig.align='center', echo=FALSE}
 fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_fmp.csv")
-fmp_tp_stats_2 <- fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
-fmp_tp_stats_3 <- fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+fmp_tp_stats$Mean2 = ifelse(fmp_tp_stats$mean_tp>0, paste0("$",fmp_tp_stats$mean_tp), paste0("-", dollar(abs(fmp_tp_stats$mean_tp))))
+fmp_tp_stats$Median2 = ifelse(fmp_tp_stats$med_tp>0, paste0("$",fmp_tp_stats$med_tp), paste0("-", dollar(abs(fmp_tp_stats$med_tp))))
+
+fmp_tp_stats_2 <- fmp_tp_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+fmp_tp_stats_3 <- fmp_tp_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 fmp_tp_stats_4 <- fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
-fmp_tp_stats_4$Mean<-paste("$",fmp_tp_stats_4$Mean)
-fmp_tp_stats_4$Median<-paste("$",fmp_tp_stats_4$Median)
-fmp_tp_stats_4$St.Dev<-paste("$",fmp_tp_stats_4$St.Dev)
-fmp_tp_stats_4$Response_Perc<-paste(fmp_tp_stats_4$Response_Rate,"%")
-fmp_tp_stats_4 <- subset(fmp_tp_stats_4, select=c(Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(fmp_tp_stats_4)
+
+fmp_tp_stats_4$St.Dev<-paste0("$",fmp_tp_stats_4$St.Dev)
+
+fmp_tp_stats_4$Resp_Perc<-paste0(fmp_tp_stats_4$Response_Rate,"%")
+
+fmp_tp_stats_4 <- subset(fmp_tp_stats_4, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(fmp_tp_stats_4, caption = "Total Profit by Primary Fishery") 
+
 fmp_tp <- ggplot(fmp_profit, aes(x = Fishery, y = total_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+```
+<br>
 
+When primary gear and FMP are combined, scallop dredge-scallop, trawl-squid, mackerel, butterfish, and trawl-groundfish have the highest mean profits. Median values tell a different story, with trawl-groundfish showing profits more similar to trawl vessels in the summer flounder, black sea bass, scup fishery. Median profits are highest for trawl-squid, mackerel, butterfish, and scallop dredge-scallop. Within primary gear types, a considerable difference in total profit is found across fisheries. For example, within the pot/trap gear group, summer flounder, black sea bass, scup vessels have higher median profits compared to lobster. This is noteworthy as lobster vessels showed higher revenues than summer flounder, black sea bass, scup vessels within the pot/trap gear group. Within the trawl group- squid, mackerel, butterfish vessels show substantially higher median profits compared to groundfish or summer flounder, black sea bass, scup vessels. Wide ranges within Gear/FMP groupings are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
+
+```{r, fig.cap = "Distribution of Total Profit by Primary Gear/Fishery", fig.align='center', echo=FALSE}
 gear_fmp_tp_stats<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/summary_stats_tp_gear_fmp.csv")
-gear_fmp_tp_stats_2 <- gear_fmp_tp_stats %>% mutate(Mean = prettyNum(mean_tp, big.mark = ',', scientific = FALSE))
-gear_fmp_tp_stats_3 <- gear_fmp_tp_stats_2 %>% mutate(Median = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
+
+#Step to ensure negative values are displayed properly
+gear_fmp_tp_stats$Mean2 = ifelse(gear_fmp_tp_stats$mean_tp>0, paste0("$",gear_fmp_tp_stats$mean_tp), paste0("-", dollar(abs(gear_fmp_tp_stats$mean_tp))))
+gear_fmp_tp_stats$Median2 = ifelse(gear_fmp_tp_stats$med_tp>0, paste0("$",gear_fmp_tp_stats$med_tp), paste0("-", dollar(abs(gear_fmp_tp_stats$med_tp))))
+
+gear_fmp_tp_stats_2 <- gear_fmp_tp_stats %>% mutate(Mean = prettyNum(Mean2, big.mark = ',', scientific = FALSE))
+gear_fmp_tp_stats_3 <- gear_fmp_tp_stats_2 %>% mutate(Median = prettyNum(Median2, big.mark = ',', scientific = FALSE))
 gear_fmp_tp_stats_4 <- gear_fmp_tp_stats_3 %>% mutate(St.Dev = prettyNum(std_tp, big.mark = ',', scientific = FALSE))
-gear_fmp_tp_stats_4$Mean<-paste("$",gear_fmp_tp_stats_4$Mean)
-gear_fmp_tp_stats_4$Median<-paste("$",gear_fmp_tp_stats_4$Median)
-gear_fmp_tp_stats_4$St.Dev<-paste("$",gear_fmp_tp_stats_4$St.Dev)
-gear_fmp_tp_stats_4$Response_Perc<-paste(gear_fmp_tp_stats_4$Response_Rate,"%")
-gear_fmp_tp_stats_4 <- subset(gear_fmp_tp_stats_4, select=c(Gear_Fishery, Response, Sample, Response_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_fmp_tp_stats_4)
+
+gear_fmp_tp_stats_4$St.Dev<-paste0("$",gear_fmp_tp_stats_4$St.Dev)
+
+gear_fmp_tp_stats_4$Resp_Perc<-paste0(gear_fmp_tp_stats_4$Response_Rate,"%")
+
+gear_fmp_tp_stats_4 <- subset(gear_fmp_tp_stats_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+knitr::kable(gear_fmp_tp_stats_4, caption = "Total Profit by Primary Gear/Fishery") 
+
 gear_fmp_tp <- ggplot(gear_fmp_profit, aes(x = Gear_Fishery, y = total_profit, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_tp + coord_cartesian(ylim=c(-500000, 1000000)) + scale_y_continuous(breaks = seq(-500000, 1000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
-
-By primary gear, scallop dredge has considerably higher median total profit than other gear groups. Pot/trap, seine, and trawl show positive values for mean and median total profit. Gillnet, and handgear show negative mean and median values, while longline shows a positive median and negative mean. For scallop dredge, seine, and trawl gear, mean values greatly exceed median values. For pot/trap mean and median values are nearly identical. In terms of operating profit, mean and median values are relatively close for a number of gear types (longline, pot/trap, scallop dredge). However with total profits, a considerable range is evident in all gear groups. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
-
-By FMP, scallop and squid, mackerel, butterfish have the highest mean and median total profits. By median values, the difference between these two fisheries and all other FMPs is considerable. Groundfish has the third highest mean and median values. The lobster fleet, representing over half of the total observations, shows slightly positive mean and median profits. The fluke, black sea bass, scup fishery shows similar limited median profit as the lobster fishery. In terms of operating profit, mean and median values are relatively close for a number of fisheries (herring, lobster, scallop). However with total profits, a considerable range is evident in all fisheries. These wide ranges are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
-
-When primary gear and FMP are combined, trawl-squid, mackerel, butterfish, trawl-groundfish, and scallop dredge-scallop have the highest mean profits. Median values tell a different story, with trawl-groundfish showing profits more similar to trawl vessels in the summer flounder, black sea bass, scup fishery. Median profits are highest for trawl-squid, mackerel, butterfish, and scallop dredge-scallop. Within primary gear types, a considerable difference in total profit is found across fisheries. For example, within the pot/trap gear group, summer flounder, black sea bass, scup vessels have higher median profits compared to lobster. This is noteworthy as lobster vessels showed higher revenues than summer flounder, black sea bass, scup vessels within the pot/trap gear group. Within the trawl group- squid, mackerel, butterfish vessels show substantially higher median profits compared to groundfish or summer flounder, black sea bass, scup vessels. Wide ranges within Gear/FMP groupings are to be expected as some vessels have extensive repairs and/or upgrades during 2022 while other vessels may have incurred these costs in other years. If a vessel were to show negative total profit in the long run, vessel operations would not be economically viable. Since the cost survey is not conducted on an annual basis, the ability to assess long-term vessel profits is limited.
 
 
 # Profit Margins
@@ -104,39 +158,60 @@ Using median values from the previous chapters, fleet profit margins can be calc
 
 ```{r, echo=FALSE}
 gear_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_profit_margin.csv")
-gear_margins_2 <- gear_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
-gear_margins_3 <- gear_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
-gear_margins_4 <- gear_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
-gear_margins_4$Median_Revenue<-paste("$",gear_margins_4$Median_Revenue)
-gear_margins_4$Median_OP<-paste("$",gear_margins_4$Median_OP)
-gear_margins_4$Median_TP<-paste("$",gear_margins_4$Median_TP)
-gear_margins_4$OP_Margin<-paste(gear_margins_4$op_margin,"%")
-gear_margins_4$TP_Margin<-paste(gear_margins_4$tp_margin,"%")
+
+#Step to ensure negative values are displayed properly
+gear_margins$Rev2 = ifelse(gear_margins$med_rev>0, paste0("$",gear_margins$med_rev), paste0("-", dollar(abs(gear_margins$med_rev))))
+gear_margins$OP2 = ifelse(gear_margins$med_op>0, paste0("$",gear_margins$med_op), paste0("-", dollar(abs(gear_margins$med_op))))
+gear_margins$TP2 = ifelse(gear_margins$med_tp>0, paste0("$",gear_margins$med_tp), paste0("-", dollar(abs(gear_margins$med_tp))))
+
+gear_margins_2 <- gear_margins %>% mutate(Median_Revenue = prettyNum(Rev2, big.mark = ',', scientific = FALSE))
+gear_margins_3 <- gear_margins_2 %>% mutate(Median_OP = prettyNum(OP2, big.mark = ',', scientific = FALSE))
+gear_margins_4 <- gear_margins_3 %>% mutate(Median_TP = prettyNum(TP2, big.mark = ',', scientific = FALSE))
+
+gear_margins_4$OP_Margin<-paste0(gear_margins_4$op_margin,"%")
+gear_margins_4$TP_Margin<-paste0(gear_margins_4$tp_margin,"%")
+
 gear_margins_5 <- subset(gear_margins_4, select=c(Gear, Median_Revenue, Median_OP, Median_TP, OP_Margin, TP_Margin))
-knitr::kable(gear_margins_5)
-
-fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_profit_margin.csv")
-fmp_margins_2 <- fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
-fmp_margins_3 <- fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
-fmp_margins_4 <- fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
-fmp_margins_4$Median_Revenue<-paste("$",fmp_margins_4$Median_Revenue)
-fmp_margins_4$Median_OP<-paste("$",fmp_margins_4$Median_OP)
-fmp_margins_4$Median_TP<-paste("$",fmp_margins_4$Median_TP)
-fmp_margins_4$OP_Margin<-paste(fmp_margins_4$op_margin,"%")
-fmp_margins_4$TP_Margin<-paste(fmp_margins_4$tp_margin,"%")
-fmp_margins_5 <- subset(fmp_margins_4, select=c(Fishery, Median_Revenue, Median_OP, Median_TP, OP_Margin, TP_Margin))
-knitr::kable(fmp_margins_5)
-
-gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_profit_margin.csv")
-gear_fmp_margins_2 <- gear_fmp_margins %>% mutate(Median_Revenue = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
-gear_fmp_margins_3 <- gear_fmp_margins_2 %>% mutate(Median_OP = prettyNum(med_op, big.mark = ',', scientific = FALSE))
-gear_fmp_margins_4 <- gear_fmp_margins_3 %>% mutate(Median_TP = prettyNum(med_tp, big.mark = ',', scientific = FALSE))
-gear_fmp_margins_4$Median_Revenue<-paste("$",gear_fmp_margins_4$Median_Revenue)
-gear_fmp_margins_4$Median_OP<-paste("$",gear_fmp_margins_4$Median_OP)
-gear_fmp_margins_4$Median_TP<-paste("$",gear_fmp_margins_4$Median_TP)
-gear_fmp_margins_4$OP_Margin<-paste(gear_fmp_margins_4$op_margin,"%")
-gear_fmp_margins_4$TP_Margin<-paste(gear_fmp_margins_4$tp_margin,"%")
-gear_fmp_margins_5 <- subset(gear_fmp_margins_4, select=c(Gear_Fishery, Median_Revenue, Median_OP, Median_TP, OP_Margin, TP_Margin))
-knitr::kable(gear_fmp_margins_5)
+knitr::kable(gear_margins_5, caption = "Profit Margins by Primary Gear") 
 ```
+<br>
+```{r, echo=FALSE}
+fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_profit_margin.csv")
+
+#Step to ensure negative values are displayed properly
+fmp_margins$Rev2 = ifelse(fmp_margins$med_rev>0, paste0("$",fmp_margins$med_rev), paste0("-", dollar(abs(fmp_margins$med_rev))))
+fmp_margins$OP2 = ifelse(fmp_margins$med_op>0, paste0("$",fmp_margins$med_op), paste0("-", dollar(abs(fmp_margins$med_op))))
+fmp_margins$TP2 = ifelse(fmp_margins$med_tp>0, paste0("$",fmp_margins$med_tp), paste0("-", dollar(abs(fmp_margins$med_tp))))
+
+fmp_margins_2 <- fmp_margins %>% mutate(Median_Revenue = prettyNum(Rev2, big.mark = ',', scientific = FALSE))
+fmp_margins_3 <- fmp_margins_2 %>% mutate(Median_OP = prettyNum(OP2, big.mark = ',', scientific = FALSE))
+fmp_margins_4 <- fmp_margins_3 %>% mutate(Median_TP = prettyNum(TP2, big.mark = ',', scientific = FALSE))
+
+fmp_margins_4$OP_Margin<-paste0(fmp_margins_4$op_margin,"%")
+fmp_margins_4$TP_Margin<-paste0(fmp_margins_4$tp_margin,"%")
+
+fmp_margins_5 <- subset(fmp_margins_4, select=c(Fishery, Median_Revenue, Median_OP, Median_TP, OP_Margin, TP_Margin))
+knitr::kable(fmp_margins_5, caption = "Profit Margins by Primary Fishery")
+```
+<br>
+```{r, echo=FALSE}
+gear_fmp_margins<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_profit_margin.csv")
+
+#Step to ensure negative values are displayed properly
+gear_fmp_margins$Rev2 = ifelse(gear_fmp_margins$med_rev>0, paste0("$",gear_fmp_margins$med_rev), paste0("-", dollar(abs(gear_fmp_margins$med_rev))))
+gear_fmp_margins$OP2 = ifelse(gear_fmp_margins$med_op>0, paste0("$",gear_fmp_margins$med_op), paste0("-", dollar(abs(gear_fmp_margins$med_op))))
+gear_fmp_margins$TP2 = ifelse(gear_fmp_margins$med_tp>0, paste0("$",gear_fmp_margins$med_tp), paste0("-", dollar(abs(gear_fmp_margins$med_tp))))
+
+gear_fmp_margins_2 <- gear_fmp_margins %>% mutate(Median_Revenue = prettyNum(Rev2, big.mark = ',', scientific = FALSE))
+gear_fmp_margins_3 <- gear_fmp_margins_2 %>% mutate(Median_OP = prettyNum(OP2, big.mark = ',', scientific = FALSE))
+gear_fmp_margins_4 <- gear_fmp_margins_3 %>% mutate(Median_TP = prettyNum(TP2, big.mark = ',', scientific = FALSE))
+
+gear_fmp_margins_4$OP_Margin<-paste0(gear_fmp_margins_4$op_margin,"%")
+gear_fmp_margins_4$TP_Margin<-paste0(gear_fmp_margins_4$tp_margin,"%")
+
+gear_fmp_margins_5 <- subset(gear_fmp_margins_4, select=c(Gear_Fishery, Median_Revenue, Median_OP, Median_TP, OP_Margin, TP_Margin))
+knitr::kable(gear_fmp_margins_5, caption = "Profit Margins by Primary Gear/Fishery")
+```
+<br>
+
 To interpret these results, $1.00 of ex-vessel revenue for scallop vessels translates to $0.16 of profit for the vessel owner. For groundfish vessels, $1.00 of revenue translates to $0.08 of profit for the vessel owner. The combination of gear and fishery also highlights the differences in how fleets operate. For example, vessels in the scup, black sea bass, scup fishery have substantially different operations depending on whether they use pot/trap or trawl gear. Those vessels using pot/trap gear within the fishery show modest gross revenues but a relatively high total profit/revenue ratio of 23.5%. Those vessels using trawl gear have higher revenues and total profit but a lower total profit/revenue ratio of 18.1%. These total profit margins can provide critical insight into the state of fishing fleets beyond more commonly reported metrics such as gross revenue or operating profit. 
