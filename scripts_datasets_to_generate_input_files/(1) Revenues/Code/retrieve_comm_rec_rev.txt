@@ -1,77 +1,124 @@
-libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
-libname cost_1 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Commercial';
-libname cost_2 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/For_Hire';
-libname cost_3 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Primary_Gear';
-libname cost_4 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid/Primary_FMP';
-libname perm '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Permit/Commercial';
+libname input '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Dataset';
+libname bluefin '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/ACCSP';
+libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute';
+libname cost_1 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute/Commercial';
+libname cost_2 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute/For_Hire';
+libname cost_3 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute/Primary_Gear';
+libname cost_4 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute/Primary_FMP';
+libname old '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
 
 %let orausername1 = "gardini";
-%let orapassword1 = "XXXXXXXXXXXX";
+%let orapassword1 = "XXXXXXXXXXXXX";
 
-data hullid_permit_link; set cost.hullid_permit_link; /*File used to get hullid for each permit number in the sampling frame and response datasets*/
-proc sort; by permit;
+data cost.sampling_frame_2022; set input.final_sampling_frame_hullid;
+HULLID_1 = strip(put(hull_id, 10.));
+proc sort; by HULLID_1;
 
-data final_sampling_frame; set cost.final_sampling_frame; /*This is the final sampling frame*/
-keep permit;
-proc sort; by permit;
-
-data cost.sampling_frame_2022;
-merge final_sampling_frame (in=inone) hullid_permit_link;
-by permit; if inone=1;
-hullid_1 = strip(put(hull_id, 10.));
-proc sort; by hullid_1;
-
-data final_response_dataset; set cost.final_response_dataset_02_06; /*This is the final cleaned dataset (ICFnoaa2023vessel_final_CLEAN_02.06.2024_FINAL)*/
-keep icf_master_id permit hullnum; 
-proc sort; by permit;
-
-data cost.response_2022;
-merge final_response_dataset (in=inone) hullid_permit_link;
-by permit; if inone=1;
-hullid_1 = strip(put(hull_id, 10.));
-permit_1 = strip(put(permit, 6.)); /*Need to keep permit as well to link to recreational revenue and observer costs*/
-proc sort; by hullid_1;
+data cost.response_2022; set input.final_response_hullid;
+HULLID_1 = strip(put(hull_id, 10.));
+PERMIT_1 = strip(put(permit, 6.)); /*Need to keep permit as well to link to recreational revenue*/
+keep icf_master_id  hullid_1  permit_1;
+proc sort; by HULLID_1;
 
 
 /***Commercial Revenue***/
-proc sql noexec;
+/*CAMS*/
+proc sql;
 	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
 
-/*Queries commercial revenue by vessel and species for 2022*/
-create table cost_1.cams_1 as select * from connection to oracle
-(select year, hullid, itis_group1, sum(value) as commercial_revenue from cams_garfo.cams_land
+create table cost_1.cams_all_2022 as select * from connection to oracle
+(select a.camsid, a.date_trip, a.dlr_disp, a.docid, a.hullid, a.itis_group1, a.itis_tsn, a.livlb, a.lndlb, a.negear, a.permit_state_fed, a.status, a.value, a.year, 
+b.fmp, b.itis_name,
+c.negear_name, c.secgear_mapped 
+from cams_garfo.cams_land a, cams_garfo.cfg_itis b, cams_garfo.cfg_negear c
 where year=2022
-group by year, hullid, itis_group1);
+and a.rec=0 /*removes recreational landings*/
+and a.itis_tsn=b.itis_tsn /*ITIS_TSN is a unique identifier in CFG_ITIS*/
+and a.negear=c.negear); /*NEGEAR is a unique identifier in CFG_NEGEAR*/
 
 disconnect from oracle;
 quit;
 
-data cams_records; set cost_1.cams_1;
-hullid_1 = strip(put(hullid, 10.)); drop hullid; 
-if itis_group1 in ('TUNABLUEFIN') then bluefin_accsp=0; /*do not want CAMS bluefin tuna revenue*/
-keep hullid_1 itis_group1 commercial_revenue bluefin_accsp;
+data disp_codes_1; set cost_1.cams_all_2022; keep dlr_disp lndlb value;
+proc sort; by dlr_disp;
 
-/*Bring in SAFIS data for bluefin tuna revenue*/
-data safis_bluefin_records; set cost.safis_bluefin_all_landings;
-hullid_1 = strip(put(hullid, 10.)); drop hullid;
-year = input(unload_year,4.);
-itis_group1 = "TUNABLUEFIN";
-bluefin_accsp=1;
-commercial_revenue = dollars;
-proc sort; by year hullid_1 itis_group1;
+data disp_codes_2; set cost_1.NEFSC_GARFO_CFDBS_SFDISP;
+dlr_disp = DISPOSITION_CODE; proc sort; by dlr_disp; 
 
+data disp_codes_3;
+merge disp_codes_1 (in=inone) disp_codes_2 (in=intwo);
+by dlr_disp; if inone=1;
+count=1;
+proc sort; by dlr_disp;
 proc means noprint;
-by year hullid_1 itis_group1;
-var commercial_revenue;
-output out = safis_bluefin_records_2 sum=;
-id bluefin_accsp;
-data cost_1.safis_vessel_bluefin; set safis_bluefin_records_2; 
-keep hullid_1 itis_group1 commercial_revenue bluefin_accsp;
+by dlr_disp;
+var count;
+id disposition_desc;
+output out = dlr_disposition_frequency sum=;
+data cost_1.dlr_disposition_frequency; set dlr_disposition_frequency; drop _TYPE_ _FREQ_;
 
-data cost_1.cams_accsp_records;
-set cams_records  cost_1.safis_vessel_bluefin;
-if bluefin_accsp=0 then delete;
-proc sort; by hullid_1;
+data cost_1.disp_codes_1; set disp_codes_3; if dlr_disp in ('001') then delete;
+
+data cost_1.cams_1; set cost_1.cams_all_2022;
+if value>0 then IMPUTE=0;
+if value=0 then IMPUTE=1;
+if value=. then IMPUTE=1;
+if itis_tsn in ('172421') then delete; /*For bluefin tuna, use ACCSP data instead of CAMS*/
+proc sort; by itis_tsn;
+
+data cams_2; set cost_1.cams_1;
+if IMPUTE=0; /*Generating prices using observations that do have a value*/
+proc sort; by itis_tsn itis_name;
+proc means noprint;
+by itis_tsn itis_name;
+vars lndlb value;
+output out = cams_3 sum=;
+data cost_1.itis_tsn_2022_prices; set cams_3;
+total_value = value; drop value;
+total_lndlb = lndlb; drop lndlb;
+IMPUTE_PRICE = total_value/total_lndlb;
+drop _TYPE_ _FREQ_;
+proc sort; by itis_tsn;
+
+data cost_1.cams_all_2022_impute;
+merge cost_1.cams_1 (in=inone) cost_1.itis_tsn_2022_prices;
+by itis_tsn; if inone=1;
+
+if IMPUTE=0 then COMMERCIAL_REVENUE = value; /*Uses value if available*/
+if IMPUTE=1 then do;
+if dlr_disp in ('000', '002', '101', '229', '403', '602', '201') then COMMERCIAL_REVENUE = value; /*For these specific disposition codes, keep value as $0/null*/
+if dlr_disp not in ('000', '002', '101', '229', '403', '602', '201') then COMMERCIAL_REVENUE = round((lndlb*IMPUTE_PRICE),1); /*Uses landed pounds multiplied by price if value is not available*/
+/*else commercial_revenue = round((lndlb*impute_price),1); /*Uses landed pounds multiplied by price if value is not available*/
+end;
+HULLID_1 = strip(put(hullid, 10.)); drop hullid;
+
+SOURCE = "CAMS  ";
+
+drop total_value total_lndlb;
+proc sort; by HULLID_1;
+
+data dlr_disp_frequency; set cost_1.cams_1; proc sort; by dlr_disp; proc freq; tables dlr_disp;
+
+/*ACCSP*/
+data cost_1.accsp_1; set bluefin.raw_revised_2022_accsp_1  bluefin.raw_revised_2022_accsp_2;
+DOCID = strip(put(trip_id, 16.));
+HULLID_1 = strip(put(VESSEL_CG_OR_ST_REG, 10.));
+ITIS_TSN = species_itis; 
+ITIS_NAME = "TUNA,BLUEFIN";
+FMP = "Highly Migratory Species";
+NEGEAR = gear_code;
+LNDLB = landed_pounds;
+IMPUTE = 0;
+COMMERCIAL_REVENUE = dollars;
+SOURCE = "ACCSP";
+if itis_tsn in ('172421'); /*For bluefin tuna, use ACCSP data instead of CAMS. All observations have VALUE; no need to impute prices. $11.9M in value in this dataset compared to $6.9M in CAMS*/
+
+keep DOCID  HULLID_1  LANDING_DATE  ITIS_TSN  ITIS_NAME  FMP  NEGEAR  LNDLB  COMMERCIAL_REVENUE  IMPUTE  SOURCE;
+
+/*Combine CAMS and ACCSP*/
+data cost_1.cams_accsp_combined;
+set cost_1.cams_all_2022_impute  cost_1.accsp_1;
+proc sort; by HULLID_1;
 
 proc means noprint;
 by hullid_1;
@@ -79,8 +126,8 @@ var commercial_revenue;
 output out=cost_1.all_vessels_commercial_revenue sum=commercial_revenue; /*This dataset is used to assess mean/median revenue for all vessels, not just the ones who completed the cost survey*/
 
 /*Merge to response dataset*/
-data cost_1.response_cams_revenue;
-merge cost.response_2022 (in=inone) cost_1.cams_accsp_records (in=intwo);
+data cost_1.response_cams_accsp_revenue;
+merge cost.response_2022 (in=inone) cost_1.cams_accsp_combined (in=intwo);
 by hullid_1; if inone=1;
 drop permit_1;
 proc sort; by hullid_1;
@@ -89,7 +136,9 @@ proc means noprint;
 by hullid_1;
 var commercial_revenue;
 id icf_master_id;
-output out=cost_1.response_commercial_revenue sum=commercial_revenue;
+output out=cost_1.response_commercial_revenue sum=;
+
+data impute_frequency; set cost_1.response_cams_accsp_revenue; proc sort; by impute; proc freq; tables impute;
 
 
 /***Recreational Revenue***/
@@ -180,49 +229,20 @@ output out=cost_2.response_recreational_revenue sum=;
 
 
 /***Define Primary Commercial Gear in 2022***/
-proc sql noexec;
-	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
-
-/*Queries commercial revenue and variables to define commercial trips for 2022*/
-create table cost_3.cams_2 as select * from connection to oracle
-(select year, hullid, itis_group1, negear, docid, date_trip, value from cams_garfo.cams_land
-where year=2022);
-
-disconnect from oracle;
-quit;
-
-data gear_1; set cost_3.cams_2;
-if itis_group1 in ('TUNABLUEFIN') then delete; /*do not want CAMS bluefin tuna revenue*/
-hullid_1 = strip(put(hullid, 10.)); drop hullid; 
+data gear_1; set cost_1.cams_accsp_combined;
+if source in ('CAMS') then do;
 negear_1 = input(negear, 12.); drop negear;
 date_1=datepart(date_trip); /*Use trip date as second way of defining trips, after DOCID*/
 year=year(date_1);
 month=month(date_1);
-day=day(date_1);
+day=day(date_1);end;
 
-/*Add in Bluefin Tuna*/
-data cost.safis_bluefin_records_2; set cost.safis_bluefin_all_landings;
-hullid_1 = strip(put(hullid, 10.)); drop hullid;
-docid=dealer_rpt_id;
-/*date_1=datepart(Landing_date); /*Use trip date as second way of defining trips, after DOCID*/
-year=year(Landing_date);
-month=month(Landing_date);
-day=day(Landing_date);
-
-value=dollars;
-
-if Gear_category in ('HOOK AND LINE') then negear='20'; /*Handgear*/
-if Gear_category in ('LONG LINES') then negear='40'; /*Longline*/
-if Gear_category not in ('HOOK AND LINE', 'LONG LINES') then negear='999'; /*Harpoon*/
-negear_1 = input(negear, 12.); drop negear;
-keep hullid_1 docid landing_date year month day value gear_category negear_1;
-
-data cost_3.gear_1; set gear_1 cost.safis_bluefin_records_2;
+if source in ('ACCSP') then negear_1 = 30; /*Defining bluefin tuna as all handgear trips. The codes received from ACCSP are incorrect*/
 proc sort; by negear_1;
 
 /*Merge to key for defining gear type in 2022 cost survey*/
 data gear_2;
-merge cost_3.gear_1 (in=inone) cost.gear_key; 
+merge gear_1 (in=inone) cost.gear_key; 
 by negear_1; if inone=1;
 if geargroupfor2022survey in ('Dredge_Hydraulic') then comm_gear_2022 = "Dredge_Hydraulic";
 if geargroupfor2022survey in ('Dredge_Scallop') then comm_gear_2022 = "Dredge_Scallop";
@@ -238,9 +258,9 @@ proc sort; by hullid_1 docid year month day;
 /*Sum revenue by trip, retaining gear*/
 proc means noprint data=gear_2;
 by hullid_1 docid year month day;
-var value;
+var commercial_revenue;
 id comm_gear_2022;
-output out=trip_revenue_gear sum=commercial_revenue;
+output out=trip_revenue_gear sum=;
 data cost_3.trip_revenue_gear; set trip_revenue_gear; 
 proc sort; by hullid_1 comm_gear_2022;
 
@@ -303,50 +323,27 @@ proc sort; by hullid_1;
 
 
 /***Define Primary Commercial FMP in 2022***/
-proc sql noexec;
-	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
+data fmp_1; set cost_1.cams_accsp_combined;
+if ITIS_TSN in ('074096') then species_group = "Channeled Whelk                                                                  "; 
+if ITIS_TSN in ('097314') then species_group = "Lobster"; 
+if ITIS_TSN in ('167680') then species_group = "Striped Bass"; 
 
-/*Queries commercial revenue by vessel and species for 2022*/
-create table cost_4.cams_3 as select * from connection to oracle
-(select year, hullid, itis_group1, value as commercial_revenue from cams_garfo.cams_land
-where year=2022);
+if FMP in ('Northeast Multispecies') then species_group = "Groundfish";
+if FMP in ('Sea Scallop') then species_group = "Scallop"; 
+if FMP in ('Monkfish') then species_group = "Monkfish";
+if FMP in ('Atlantic Herring') then species_group = "Herring";
+if FMP in ('Skates') then species_group = "Skate";
+if FMP in ('Small-Mesh Multispecies') then species_group = "Whiting";
+if FMP in ('Atlantic Deep-Sea Red Crab') then species_group = "Red Crab";
 
-disconnect from oracle;
-quit;
+if FMP in ('Summer Flounder, Scup, Black Sea Bass') then species_group = "Fluke, BSB, Scup";
+if FMP in ('Mackerel, Squid, and Butterfish') then species_group = "Squid, Mackerel, Butterfish";
+if FMP in ('Surfclam, Ocean Quahog') then species_group = "Surf Clam, Ocean Quahog";
+if FMP in ('Bluefish') then species_group = "Bluefish";
+if FMP in ('Tilefish') then species_group = "Tilefish";
+if FMP in ('Spiny Dogfish') then species_group = "Dogfish";
 
-data fmp_1; set cost_4.cams_3;
-if itis_group1 in ('TUNABLUEFIN') then delete; /*do not want CAMS bluefin tuna revenue*/
-
-/*Add in Bluefin Tuna*/
-data cost.safis_bluefin_records_3; set cost.safis_bluefin_all_landings;
-itis_group1 = "TUNABLUEFIN";
-commercial_revenue = dollars;
-year=year(Landing_date);
-keep year hullid ITIS_GROUP1 commercial_revenue;
-
-
-/*Define FMPs*/
-data cost_4.fmp_1; set fmp_1 cost.safis_bluefin_records_3;
-hullid_1 = strip(put(hullid, 10.)); drop hullid; 
-if ITIS_GROUP1 in ('COD', 'HADDOCK', 'POLLOCKATL', 'FLDWINTER', 'HAKEWHITE', 'FLDPLAICE', 'FLDYELLOWTAIL', 'FLDWITCH', 'REDFISHACADIAN', 'HALIBUTATL', 'POUTOCEAN', 'FLDWINDOWPANE', 'WOLFFISH') 
-then species_group = "Groundfish                              ";
-if ITIS_GROUP1 in ('SCALLOPSEA') then species_group = "Scallop"; 
-if ITIS_GROUP1 in ('MONKFISH') then species_group = "Monkfish";
-if ITIS_GROUP1 in ('HERRINGATL') then species_group = "Herring";
-if ITIS_GROUP1 in ('SKATE') then species_group = "Skate";
-if ITIS_GROUP1 in ('HAKESILVER', 'HAKE', 'HAKEOFFSHORE', 'HAKERED') then species_group = "Whiting";
-if ITIS_GROUP1 in ('CRABREDDEEPSEA') then species_group = "Red Crab";
-
-if ITIS_GROUP1 in ('FLDSUMMER', 'SEABASSBLACK', 'SCUP') then species_group = "Fluke, BSB, Scup";
-if ITIS_GROUP1 in ('SQUIDLOLIGO', 'SQUIDILLEX', 'MACKERELATL', 'MACKERELCHUB', 'BUTTERFISH') then species_group = "Squid, Mackerel, Butterfish";
-if ITIS_GROUP1 in ('CLAMSURF', 'CLAMARCTIC', 'CLAMOQUAHOG', 'CLAMNQUAHOG') then species_group = "Surf Clam, Ocean Quahog";
-if ITIS_GROUP1 in ('BLUEFISH') then species_group = "Bluefish";
-if ITIS_GROUP1 in ('TILEFISHBLUELINE', 'TILEFISHGOLDEN') then species_group = "Tilefish";
-if ITIS_GROUP1 in ('DOGFISH') then species_group = "Dogfish";
-
-if ITIS_GROUP1 in ('LOBSTERAMERICAN') then species_group = "Lobster"; 
-if ITIS_GROUP1 in ('BASSSTRIPED') then species_group = "Striped Bass"; 
-if ITIS_GROUP1 in ('TUNABLUEFIN', 'TUNABIGEYE', 'TUNAALBACORE', 'TUNAYELLOWFIN', 'TUNASKIPJACK', 'MARLINBLUE', 'MARLINWHITE', 'SPADEFISHROUNDSCALE', 'SAILFISH', 'SWORDFISH') then species_group = "Highly Migratory Species";  
+if FMP in ('Highly Migratory Species') then species_group = "Highly Migratory Species";  
 
 if species_group = "" then species_group = "Other";
 proc sort; by hullid_1 species_group;
@@ -393,19 +390,83 @@ primary_comm_fmp_2022 = species_group; drop species_group;
 primary_fmp_revenue = fmp_revenue; drop fmp_revenue;
 proc sort; by hullid_1;
 
+/*Evaluate mean and median FMP revenues by sampling frame*/
+data sf_top_fmp_vessels; set cost_4.sampling_frame_top_fmp; 
+keep hullid_1 primary_comm_fmp_2022;
+proc sort; by hullid_1;
+
+data raw_revenue; set cost_1.cams_accsp_combined;
+keep hullid_1 commercial_revenue;
+proc sort; by hullid_1;
+
+data raw_revenue_sf;
+merge sf_top_fmp_vessels (in=inone) raw_revenue (in=intwo);
+by hullid_1;
+if inone=1; if intwo=1;
+proc means noprint;
+by hullid_1 primary_comm_fmp_2022;
+var commercial_revenue;
+output out = sf_vessel_revenues sum=;
+
+data cost_4.sf_vessel_revenues_2; set sf_vessel_revenues;
+drop _TYPE_ _FREQ_;
+proc sort; by primary_comm_fmp_2022;
+proc means noprint;
+by primary_comm_fmp_2022;
+var commercial_revenue;
+output out = cost_4.sf_mean_revenues mean=;
+
+proc means noprint data=cost_4.sf_vessel_revenues_2;
+by primary_comm_fmp_2022;
+var commercial_revenue;
+output out = cost_4.sf_median_revenues median=;
+
 /*Merge to all vessels dataset*/
 data cost_4.all_vessels_fmp; 
 merge cost_1.all_vessels_commercial_revenue (in=inone) cost_4.fmp_3;
 by hullid_1; if inone=1;
 proc sort; by hullid_1 fmp_revenue;
 
-/*For all vessels, retain the top earning gear type*/
+/*For all vessels, retain the top earning FMP*/
 data cost_4.all_vessels_top_fmp;
 set cost_4.all_vessels_fmp; 
 by hullid_1;
 if last.hullid_1;
 primary_comm_fmp_2022 = species_group; drop species_group;
 primary_fmp_revenue = fmp_revenue; drop fmp_revenue;
+proc sort; by hullid_1;
+
+/*For vessels in the "Other" FMP category, define the top revenue-generating species*/
+data other_fmp_vessels; set cost_4.response_top_fmp;
+if primary_comm_fmp_2022 in ('Other');
+keep icf_master_id hullid_1 primary_comm_fmp_2022;
+proc sort; by hullid_1;
+
+data cams_all_2022_impute_2; set cost_1.cams_all_2022_impute;
+proc sort; by hullid_1;
+
+data other_fmp_vessels_cams;
+merge other_fmp_vessels (in=inone) cams_all_2022_impute_2 (in=intwo);
+by hullid_1; 
+if inone=1; if intwo=1;
+proc sort; by hullid_1 itis_name;
+
+proc means noprint;
+by hullid_1 itis_name;
+vars commercial_revenue;
+id icf_master_id;
+output out = other_fmp_vessels_cams_2 sum=;
+
+data cost_4.other_fmp_vessels_species; 
+set other_fmp_vessels_cams_2;
+drop _TYPE_ _FREQ_;
+proc sort; by hullid_1 commercial_revenue;
+
+data cost_4.other_vessels_top_species;
+set cost_4.other_fmp_vessels_species;
+by hullid_1;
+if last.hullid_1;
+primary_species_revenue = commercial_revenue; drop commercial_revenue;
 proc sort; by hullid_1;
 
 
@@ -492,7 +553,8 @@ if primary_comm_gear_2022 in ('Longline') then do;
 if primary_comm_gear_2022 in ('Pot/Trap') then do;
  if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Pot/Trap-Fluke, BSB, Scup             ";
  if primary_comm_fmp_2022 in ('Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Lobster";
- if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
+ if primary_comm_fmp_2022 in ('Channeled Whelk') then primary_gear_fmp_2022 = "Pot/Trap-Whelk";
+ if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Lobster', 'Channeled Whelk') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
 
 if primary_comm_gear_2022 in ('Seine') then do;
  if primary_comm_fmp_2022 in ('Herring') then primary_gear_fmp_2022 = "Seine-Herring             ";
@@ -508,20 +570,18 @@ if primary_comm_gear_2022 in ('Trawl') then do;
  if primary_comm_gear_2022 in ('No Revenue') then primary_gear_fmp_2022 = "No Revenue";
 
 
-/***Check Hullid Revenues vs. Permit Dataset***/
-data revenue_by_hullid; set cost.final_revenue; 
-permit_1 = strip(put(permit, 6.)); drop permit;
-proc sort; by permit_1;
+ /***Compare with No Impute Dataset***/
+data new_revenue; set cost.final_revenue; proc sort; by icf_master_id;
 
-data revenue_by_permit; set perm.response_commercial_revenue;
-commercial_revenue_permit=commercial_revenue;
-if commercial_revenue_permit=. then commercial_revenue_permit=0;
-/*permit_1 = strip(put(permit, 6.)); drop permit;*/
-keep permit_1 commercial_revenue_permit;
-proc sort; by permit_1;
+data old_revenue; set old.final_revenue; 
+old_commercial_revenue = commercial_revenue;
+old_total_revenue = total_revenue;
+keep icf_master_id  old_commercial_revenue  old_total_revenue;
+proc sort; by icf_master_id;
 
-data cost.check_revenue;
-merge revenue_by_hullid revenue_by_permit;
-by permit_1;
-diff=commercial_revenue-commercial_revenue_permit;
-permit=permit_1; drop permit_1;
+data cost.revenue_comparison;
+merge new_revenue old_revenue;
+by icf_master_id;
+total_revenue_compare = total_revenue - old_total_revenue;
+percent_increase = total_revenue_compare/old_total_revenue;
+

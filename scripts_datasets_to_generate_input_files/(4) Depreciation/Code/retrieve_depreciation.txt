@@ -1,10 +1,10 @@
 libname input '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Dataset';
 libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Depreciation';
 libname surv '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Depreciation/Survey_Responses';
-libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
+libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute';
 
 %let orausername1 = "gardini";
-%let orapassword1 = "XXXXXXXXXXXX";
+%let orapassword1 = "XXXXXXXXXXXXX";
 
 
 /***Bring in survey years in which value of vessel was queried separately from permits (2015 and 2022)***/
@@ -106,14 +106,8 @@ merge vessel_char_2015 (in=inone) primary_gear_2015 (in=intwo);
 by hull_id; if inone=1;
 
 
-
-endsas;
-
-
-
-
 /**2022**/
-data surv_2022_a; set input.final_dataset_hullid; survey_year=2022; keep icf_master_id permit hull_id survey_year vessel_val permits_val; proc sort; by icf_master_id; 
+data surv_2022_a; set input.final_response_hullid; survey_year=2022; keep icf_master_id permit hull_id survey_year vessel_val permits_val; proc sort; by icf_master_id; 
 
 data surv_2022_b; set rev.final_revenue; /*Merge to revenue file to get primary gear*/
 primary_comm_gear=primary_comm_gear_2022;
@@ -137,22 +131,19 @@ vessel_value=input(vessel_val, 12.);
 permits_value=input(permits_val, 12.);
 
 if vessel_value>=0 then do;
-if permits_value=. then permits_value=0;end; /*Assigning a 0 value to permits in cases where vessel_val has a value, in order to add them together*
+if permits_value=. then permits_value=0;end; /*Assigning a 0 value to permits in cases where vessel_val has a value, in order to add them together*/
 
-if vessel_value<0 then vessel_value=.; /*Skips, question not presented*
-if permits_value<0 then permits_value=.; /*Skips, question not presented*
+if vessel_value<0 then vessel_value=.; /*Skips, question not presented*/
+if permits_value<0 then permits_value=.; /*Skips, question not presented*/
 vessel_and_permits_val=vessel_value+permits_value;
 
 data cost.surv_2022;
-retain icf_master_id permit hullnum survey_year last_year_active vessel_value permits_value vessel_and_permits_val len crew gtons vhp blt hold toc top vessel_age primary_comm_gear;
+retain icf_master_id permit hull_id survey_year last_year_active vessel_value permits_value vessel_and_permits_val len crew gtons vhp blt hold toc top vessel_age primary_comm_gear;
 set    surv_2022; 
-keep   icf_master_id permit hullnum survey_year last_year_active vessel_value permits_value vessel_and_permits_val len crew gtons vhp blt hold toc top vessel_age primary_comm_gear;
+keep   icf_master_id permit hull_id survey_year last_year_active vessel_value permits_value vessel_and_permits_val len crew gtons vhp blt hold toc top vessel_age primary_comm_gear;
 
 
-
-
-
-/***Bring in TOC and TOP for 2022 (these variables were not included in the sampling frame)***
+/***Bring in TOC and TOP for 2022 (these variables were not included in the sampling frame)***/
 proc sql;
 	connect to oracle (user =&orausername1  password =&orapassword1 path = NEFSC_USERS);
 
@@ -164,8 +155,8 @@ group by ap_year, hull_id));
 disconnect from oracle;
 quit;
 
-data vessel_char_2022; set cost.surv_2022; /*Survey responses with vessel characteristics*
-hull=strip(put(hullnum,12.)); 
+data vessel_char_2022; set cost.surv_2022; /*Survey responses with vessel characteristics*/
+hull=strip(put(hull_id,12.)); 
 proc sort; by hull last_year_active;
 
 data toc_top_2022_a; set toc_top_2022; 
@@ -180,16 +171,16 @@ by hull last_year_active; if inone=1;
 
 
 /***Set 2015 and 2022 datasets***/
-data cost.survey_response_char_gear; /*Named this survey_response_2015_char_gear previously. Keep this name as is*/
+data cost.survey_response_char_gear; /*When converting to Excel save as survey_response_2015_2022_char_gear. This file is needed to run the Ves_value_data_construct_01212025 R code*/
 set cost.surv_2015_final cost.surv_2022_final;
 drop last_year_active hull;
 if permit='' then delete;
-proc sort; by hullnum survey_year;
+proc sort; by hull_id survey_year;
 
 
 /***Use the parameter's estimated from R codes***/
 data cost.survey_response_char_gear_final;
-set  cost.survey_response_char_gear_2; 
+set  cost.survey_response_char_gear; 
 
 if TOC=1 then do; /*Wood*/
 AGE_Price=11.8129;
@@ -199,15 +190,15 @@ TONS_Price=8.04297;end;
 
 if TOC=2 then do; /*Fiberglass*/
 if primary_comm_gear in ('Handgear') then do; 
-AGE_Price=1058.273;
-HP_Price=10.33436;
-LEN_Price=748.4628;
-TONS_Price=0;end;
+AGE_Price=1035.489;
+HP_Price=2.297524;
+LEN_Price=838.9787;
+TONS_Price=237.5208;end;
 
 if primary_comm_gear in ('Pot/Trap') then do; 
-AGE_Price=3254.494;
+AGE_Price=2964.145;
 HP_Price=0;
-LEN_Price=397.4778;
+LEN_Price=883.9594;
 TONS_Price=0;end;
 
 if primary_comm_gear in ('Trawl') then do; 
@@ -217,9 +208,9 @@ LEN_Price=990.0364;
 TONS_Price=22.57865;end;
 
 if primary_comm_gear not in ('Handgear', 'Pot/Trap', 'Trawl') then do; 
-AGE_Price=2787.771;
-HP_Price=13.59262;
-LEN_Price=600.7154;
+AGE_Price=2607.459;
+HP_Price=38.79624;
+LEN_Price=957.586;
 TONS_Price=0;end;end;
 
 if TOC=3 then do; /*Steel*/
@@ -230,16 +221,16 @@ LEN_Price=1093.115;
 TONS_Price=124.3685;end;
 
 if primary_comm_gear in ('Trawl') then do; 
-AGE_Price=3701.162;
-HP_Price=57.09843;
-LEN_Price=4274.193;
-TONS_Price=139.4625;end;
+AGE_Price=5158.505;
+HP_Price=0;
+LEN_Price=3550.203;
+TONS_Price=173.9915;end;
 
 if primary_comm_gear not in ('Dredge', 'Trawl') then do; 
-AGE_Price=5283.377;
-HP_Price=429.9844;
-LEN_Price=6835.102;
-TONS_Price=332.4294;end;end;
+AGE_Price=4222.954;
+HP_Price=487.3172;
+LEN_Price=6560.56;
+TONS_Price=50.57342;end;end;
 
 if TOC=4 then do; /*Unknown: no parameter estimates available*/
 AGE_Price=.;
@@ -252,7 +243,7 @@ drop permit_1 comm_gear _TYPE_ _FREQ_ gear_revenue;
 data cost.survey_response_char_gear_2022; set cost.survey_response_char_gear_final;
 if survey_year=2022;
 
-data cost.semi_final_depreciation; /*417 out of 422 responses*/
+data cost.semi_final_depreciation; 
 set cost.survey_response_char_gear_2022;
 VHP_Value=VHP*HP_Price;
 AGE_Value=vessel_age*AGE_Price;
@@ -270,6 +261,8 @@ if depreciation_cost=. then delete;
 
 vessel_val_diff=round(vessel_val_est-vessel_value);
 vessel_val_diff_perc=(vessel_val_diff/vessel_value)*100;
+
+drop permit;
 proc sort nodupkey; by icf_master_id;
 
 /*A few observations are missing from cost.semi_final_depreciation due to missing vessel characteristics or rare types of vessel construction. Take median value by primary gear for these missing observations*/
@@ -290,8 +283,12 @@ data all_rev_response_2022; set rev.final_revenue;
 primary_comm_gear=primary_comm_gear_2022;
 keep icf_master_id permit primary_comm_gear; proc sort; by icf_master_id;
 
+data semi_final_depreciaton_2; set cost.semi_final_depreciation; 
+keep icf_master_id;
+proc sort; by icf_master_id;
+
 data cost.missing_depreciation_values;
-merge all_rev_response_2022 (in=inone) cost.semi_final_depreciation (in=intwo);
+merge all_rev_response_2022 (in=inone) semi_final_depreciaton_2 (in=intwo);
 by icf_master_id; 
 if inone=1; if intwo=0;
 proc sort; by primary_comm_gear;
@@ -304,6 +301,6 @@ if depreciation_cost=. then depreciation_cost=med_dep;
 
 /*Set the estimated depreciation dataset and the imputed values dataset*/
 data cost.final_depreciation; 
-retain icf_master_id  permit  vessel_value  vessel_val_est  vessel_val_diff  vessel_val_diff_perc  vessel_age  depreciation_cost;
+retain icf_master_id  hull_id  vessel_value  vessel_val_est  vessel_val_diff  vessel_val_diff_perc  vessel_age  depreciation_cost;
 set cost.semi_final_depreciation cost.imputed_depreciation_values; 
-keep   icf_master_id  permit  vessel_value  vessel_val_est  vessel_val_diff  vessel_val_diff_perc  vessel_age  depreciation_cost;
+keep   icf_master_id  hull_id  vessel_value  vessel_val_est  vessel_val_diff  vessel_val_diff_perc  vessel_age  depreciation_cost;

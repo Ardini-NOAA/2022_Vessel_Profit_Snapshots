@@ -3,7 +3,8 @@ libname drop_1 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profi
 libname drop_2 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Response_Inclusion_Exclusion/drop/process_2';
 libname count '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Response_Inclusion_Exclusion/count_question_responses';
 
-libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
+/*libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';*/
+libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute';
 
 data all; set cost.final_response_dataset_04_17; /*This dataset is the same as ICFnoaa2023vessel_final_CLEAN_04.17.2024_FINAL_PROFITS*/
 

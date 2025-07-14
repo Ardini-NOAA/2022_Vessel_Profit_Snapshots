@@ -35,7 +35,7 @@ libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profita
 
 
 /***ALL RESPONSES***/
-data cost.all_responses; set input.final_dataset_hullid; 
+data cost.all_responses; set input.final_response_hullid;
 
 /*rmui (q3)- do not need to incorporate the allves columns as no completed survey used them*/
 rmui_engine_exp_1 = input(rmui_engine_exp, 9.);
@@ -343,7 +343,7 @@ non_operating_cost_1 =
 rmui_engine_exp_final + rmui_seine_skiff_exp_final + rmui_deck_eqpt_exp_final + rmui_haulout_cost_final + rmui_hull_exp_final + rmui_fishing_gear_exp_final + rmui_wheel_electronics_exp_final + 
 rmui_process_refrig_exp_final + rmui_safety_eqpt_exp_final + 
 /*q4*/
-mooring_fees_final + ifq_recovery_cost_final + vessel_or_permit_pymt_final + permit_fees_final + trailer_launch_fees_final + vessel_insurance_cost_final + 
+mooring_fees_final + ifq_recovery_cost_final + permit_fees_final + trailer_launch_fees_final + vessel_insurance_cost_final + 
 /*q12*/
 vehicle_usage_cost_final + business_travel_cost_final + association_fees_final + legal_fees_final + advertising_cost_final + communication_cost_final + office_expenses_final 
 + noncrew_labor_cost_final + spotter_plane_cost_final + 
@@ -358,12 +358,16 @@ operating_survey_cost=round(operating_cost_1); /*Round to nearest dollar*/
 crew_captain_survey_cost=round(crew_captain_survey_cost_1); /*Round to nearest dollar*/
 non_operating_survey_cost=round(non_operating_cost_1); /*Round to nearest dollar*/
 
+non_operating_cost_2 = non_operating_survey_cost + vessel_or_permit_pymt_final; /*Leaving out vessel_or_permit_pymt in the primary calculation (non_operating_cost_1) since interest cannot be broken out from principal*/
+
+non_operating_survey_cost_2=round(non_operating_cost_2); 
+
 
 /***FINAL DATASETS***/
 data cost.final_survey_costs; 
-retain icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost;
+retain icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost non_operating_survey_cost_2;
 set cost.all_responses;
-keep icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost;
+keep icf_master_id permit hull_id complete_1 complete_2 operating_survey_cost crew_captain_survey_cost non_operating_survey_cost non_operating_survey_cost_2;
 
 data cost.final_survey_cost_variables; 
 retain 
