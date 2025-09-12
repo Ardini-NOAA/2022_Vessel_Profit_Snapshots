@@ -1,12 +1,12 @@
 Fishery,Response,mean_rev,med_rev,std_rev,Sample,Response_Rate
-Channeled Whelk,3,90499,36683,119585,23,13
-Dogfish,3,48828,50376,5497,22,14
-"Fluke, BSB, Scup",24,212722,30484,319612,135,18
+Channeled Whelk,3,90499,,,23,13
+Dogfish,3,48828,,,22,14
 Groundfish,7,806754,513837,949888,52,13
-Herring,4,566354,628833,316273,6,67
+Herring,4,566354,,,6,67
 Highly Migratory Species,34,62369,14186,133100,196,17
 Lobster,151,215461,146156,270461,1274,12
-Monkfish,3,103156,111515,59864,20,15
+Monkfish,3,103156,,,20,15
 Scallop,28,905982,993348,704579,227,12
 "Squid, Mackerel, Butterfish",9,895101,655878,936872,60,15
 Striped Bass,12,17744,5853,35688,65,18
+"Summer Flounder, Scup, Black Sea Bass",24,212722,30484,319612,135,18

@@ -1,76 +1,76 @@
 Gear_Fishery,Category,percent
-Dredge_Scallop-Scallop,Repairs/Upgrades,0.153
 Gillnet-Monkfish,Repairs/Upgrades,0.163
 Gillnet-Other,Repairs/Upgrades,0.177
-"Handgear-Fluke, BSB, Scup",Repairs/Upgrades,0.395
 Handgear-Highly Migratory Species,Repairs/Upgrades,0.464
 Handgear-Other,Repairs/Upgrades,0.586
 Handgear-Striped Bass,Repairs/Upgrades,0.298
+"Handgear-Summer Flounder, Scup, BSB",Repairs/Upgrades,0.395
 Longline-Highly Migratory Species,Repairs/Upgrades,0.355
-"Pot/Trap-Fluke, BSB, Scup",Repairs/Upgrades,0.363
 Pot/Trap-Lobster,Repairs/Upgrades,0.234
+"Pot/Trap-Summer Flounder, Scup, BSB",Repairs/Upgrades,0.363
 Pot/Trap-Whelk,Repairs/Upgrades,0.195
-"Trawl-Fluke, BSB, Scup",Repairs/Upgrades,0.231
+Scallop Dredge-Scallop,Repairs/Upgrades,0.153
 Trawl-Groundfish,Repairs/Upgrades,0.179
 Trawl-Other,Repairs/Upgrades,0.165
 "Trawl-Squid, Mackerel, Butterfish",Repairs/Upgrades,0.242
-Dredge_Scallop-Scallop,Vessel Costs,0.183
+"Trawl-Summer Flounder, Scup, BSB",Repairs/Upgrades,0.231
 Gillnet-Monkfish,Vessel Costs,0.045
 Gillnet-Other,Vessel Costs,0.088
-"Handgear-Fluke, BSB, Scup",Vessel Costs,0.205
 Handgear-Highly Migratory Species,Vessel Costs,0.119
 Handgear-Other,Vessel Costs,0.196
 Handgear-Striped Bass,Vessel Costs,0.333
+"Handgear-Summer Flounder, Scup, BSB",Vessel Costs,0.205
 Longline-Highly Migratory Species,Vessel Costs,0.163
-"Pot/Trap-Fluke, BSB, Scup",Vessel Costs,0.181
 Pot/Trap-Lobster,Vessel Costs,0.08
+"Pot/Trap-Summer Flounder, Scup, BSB",Vessel Costs,0.181
 Pot/Trap-Whelk,Vessel Costs,0.242
-"Trawl-Fluke, BSB, Scup",Vessel Costs,0.069
+Scallop Dredge-Scallop,Vessel Costs,0.183
 Trawl-Groundfish,Vessel Costs,0.064
 Trawl-Other,Vessel Costs,0.238
 "Trawl-Squid, Mackerel, Butterfish",Vessel Costs,0.104
-Dredge_Scallop-Scallop,Trip Expenses,0.173
+"Trawl-Summer Flounder, Scup, BSB",Vessel Costs,0.069
 Gillnet-Monkfish,Trip Expenses,0.502
 Gillnet-Other,Trip Expenses,0.286
-"Handgear-Fluke, BSB, Scup",Trip Expenses,0.33
 Handgear-Highly Migratory Species,Trip Expenses,0.189
 Handgear-Other,Trip Expenses,0.129
 Handgear-Striped Bass,Trip Expenses,0.191
+"Handgear-Summer Flounder, Scup, BSB",Trip Expenses,0.33
 Longline-Highly Migratory Species,Trip Expenses,0.264
-"Pot/Trap-Fluke, BSB, Scup",Trip Expenses,0.257
 Pot/Trap-Lobster,Trip Expenses,0.343
+"Pot/Trap-Summer Flounder, Scup, BSB",Trip Expenses,0.257
 Pot/Trap-Whelk,Trip Expenses,0.323
-"Trawl-Fluke, BSB, Scup",Trip Expenses,0.296
+Scallop Dredge-Scallop,Trip Expenses,0.173
 Trawl-Groundfish,Trip Expenses,0.335
 Trawl-Other,Trip Expenses,0.205
 "Trawl-Squid, Mackerel, Butterfish",Trip Expenses,0.252
-Dredge_Scallop-Scallop,Crew Payments,0.425
+"Trawl-Summer Flounder, Scup, BSB",Trip Expenses,0.296
 Gillnet-Monkfish,Crew Payments,0.205
 Gillnet-Other,Crew Payments,0.346
-"Handgear-Fluke, BSB, Scup",Crew Payments,0.016
 Handgear-Highly Migratory Species,Crew Payments,0.167
 Handgear-Other,Crew Payments,0.017
 Handgear-Striped Bass,Crew Payments,0.034
+"Handgear-Summer Flounder, Scup, BSB",Crew Payments,0.016
 Longline-Highly Migratory Species,Crew Payments,0.15
-"Pot/Trap-Fluke, BSB, Scup",Crew Payments,0.14
 Pot/Trap-Lobster,Crew Payments,0.249
+"Pot/Trap-Summer Flounder, Scup, BSB",Crew Payments,0.14
 Pot/Trap-Whelk,Crew Payments,0.173
-"Trawl-Fluke, BSB, Scup",Crew Payments,0.341
+Scallop Dredge-Scallop,Crew Payments,0.425
 Trawl-Groundfish,Crew Payments,0.353
 Trawl-Other,Crew Payments,0.34
 "Trawl-Squid, Mackerel, Butterfish",Crew Payments,0.358
-Dredge_Scallop-Scallop,Overhead,0.066
+"Trawl-Summer Flounder, Scup, BSB",Crew Payments,0.341
 Gillnet-Monkfish,Overhead,0.085
 Gillnet-Other,Overhead,0.103
-"Handgear-Fluke, BSB, Scup",Overhead,0.055
 Handgear-Highly Migratory Species,Overhead,0.061
 Handgear-Other,Overhead,0.073
 Handgear-Striped Bass,Overhead,0.144
+"Handgear-Summer Flounder, Scup, BSB",Overhead,0.055
 Longline-Highly Migratory Species,Overhead,0.068
-"Pot/Trap-Fluke, BSB, Scup",Overhead,0.059
 Pot/Trap-Lobster,Overhead,0.095
+"Pot/Trap-Summer Flounder, Scup, BSB",Overhead,0.059
 Pot/Trap-Whelk,Overhead,0.067
-"Trawl-Fluke, BSB, Scup",Overhead,0.062
+Scallop Dredge-Scallop,Overhead,0.066
 Trawl-Groundfish,Overhead,0.069
 Trawl-Other,Overhead,0.052
 "Trawl-Squid, Mackerel, Butterfish",Overhead,0.044
+"Trawl-Summer Flounder, Scup, BSB",Overhead,0.062

@@ -1,7 +1,6 @@
 Fishery,Quota_Percent,Quota_Percent_Total_Cost
 Channeled Whelk,0,0
 Dogfish,0,0
-"Fluke, BSB, Scup",-0.017122951,-1.7
 Groundfish,0.047966164,4.8
 Herring,0.0010558409,0.1
 Highly Migratory Species,0.0203929625,2
@@ -10,3 +9,4 @@ Monkfish,0,0
 Scallop,0.0158613858,1.6
 "Squid, Mackerel, Butterfish",-0.219955426,-22
 Striped Bass,0,0
+"Summer Flounder, Scup, Black Sea Bass",-0.017122951,-1.7

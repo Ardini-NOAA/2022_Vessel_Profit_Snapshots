@@ -1,0 +1,16 @@
+Gear_Fishery,Response,mean_rev,med_rev,std_rev,Sample,Response_Rate,mean_op,med_op,std_op,op_margin
+Gillnet-Monkfish,3,103156,,,20,15,498,,,
+Gillnet-Other,6,137295,90949,124029,69,9,65707,63616,85590,69.9
+Handgear-Highly Migratory Species,31,40117,12910,111247,184,17,7391,1308,76879,10.1
+Handgear-Other,3,45417,,,71,4,35549,,,
+Handgear-Striped Bass,10,7178,3099,8146,54,19,3077,1615,6043,52.1
+"Handgear-Summer Flounder, Scup, BSB",9,20946,20731,16248,56,16,7567,8899,18680,42.9
+Longline-Highly Migratory Species,3,292312,,,10,30,151477,,,
+Pot/Trap-Lobster,149,215586,146156,272043,1268,12,78230,55218,130676,37.8
+"Pot/Trap-Summer Flounder, Scup, BSB",6,126222,72044,145203,23,26,87930,30818,119800,42.8
+Pot/Trap-Whelk,3,90499,,,23,13,35976,,,
+Scallop Dredge-Scallop,28,905982,993348,704579,215,13,493407,454378,401097,45.7
+Trawl-Groundfish,5,1065128,563972,1027055,41,12,458601,273651,447936,48.5
+Trawl-Other,4,573364,,,40,10,190784,,,
+"Trawl-Squid, Mackerel, Butterfish",8,1005839,744547,936475,53,15,402767,279961,434339,37.6
+"Trawl-Summer Flounder, Scup, BSB",9,462166,305512,404053,56,16,240955,56052,314009,18.3

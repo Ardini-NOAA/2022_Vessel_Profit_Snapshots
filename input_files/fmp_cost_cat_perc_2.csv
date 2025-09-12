@@ -1,7 +1,6 @@
 Fishery,Category,percent
 Channeled Whelk,Repairs/Upgrades,0.195
 Dogfish,Repairs/Upgrades,0.189
-"Fluke, BSB, Scup",Repairs/Upgrades,0.264
 Groundfish,Repairs/Upgrades,0.179
 Herring,Repairs/Upgrades,0.203
 Highly Migratory Species,Repairs/Upgrades,0.435
@@ -10,9 +9,9 @@ Monkfish,Repairs/Upgrades,0.163
 Scallop,Repairs/Upgrades,0.153
 "Squid, Mackerel, Butterfish",Repairs/Upgrades,0.241
 Striped Bass,Repairs/Upgrades,0.281
+"Summer Flounder, Scup, Black Sea Bass",Repairs/Upgrades,0.264
 Channeled Whelk,Vessel Costs,0.242
 Dogfish,Vessel Costs,0.075
-"Fluke, BSB, Scup",Vessel Costs,0.097
 Groundfish,Vessel Costs,0.069
 Herring,Vessel Costs,0.28
 Highly Migratory Species,Vessel Costs,0.131
@@ -21,9 +20,9 @@ Monkfish,Vessel Costs,0.045
 Scallop,Vessel Costs,0.183
 "Squid, Mackerel, Butterfish",Vessel Costs,0.104
 Striped Bass,Vessel Costs,0.271
+"Summer Flounder, Scup, Black Sea Bass",Vessel Costs,0.097
 Channeled Whelk,Trip Expenses,0.323
 Dogfish,Trip Expenses,0.406
-"Fluke, BSB, Scup",Trip Expenses,0.293
 Groundfish,Trip Expenses,0.328
 Herring,Trip Expenses,0.123
 Highly Migratory Species,Trip Expenses,0.209
@@ -32,9 +31,9 @@ Monkfish,Trip Expenses,0.502
 Scallop,Trip Expenses,0.173
 "Squid, Mackerel, Butterfish",Trip Expenses,0.252
 Striped Bass,Trip Expenses,0.239
+"Summer Flounder, Scup, Black Sea Bass",Trip Expenses,0.293
 Channeled Whelk,Crew Payments,0.173
 Dogfish,Crew Payments,0.234
-"Fluke, BSB, Scup",Crew Payments,0.285
 Groundfish,Crew Payments,0.353
 Herring,Crew Payments,0.324
 Highly Migratory Species,Crew Payments,0.163
@@ -43,9 +42,9 @@ Monkfish,Crew Payments,0.205
 Scallop,Crew Payments,0.425
 "Squid, Mackerel, Butterfish",Crew Payments,0.358
 Striped Bass,Crew Payments,0.081
+"Summer Flounder, Scup, Black Sea Bass",Crew Payments,0.285
 Channeled Whelk,Overhead,0.067
 Dogfish,Overhead,0.096
-"Fluke, BSB, Scup",Overhead,0.061
 Groundfish,Overhead,0.07
 Herring,Overhead,0.07
 Highly Migratory Species,Overhead,0.063
@@ -54,3 +53,4 @@ Monkfish,Overhead,0.085
 Scallop,Overhead,0.066
 "Squid, Mackerel, Butterfish",Overhead,0.045
 Striped Bass,Overhead,0.128
+"Summer Flounder, Scup, Black Sea Bass",Overhead,0.061
