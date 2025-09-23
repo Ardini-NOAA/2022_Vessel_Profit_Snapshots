@@ -1,8 +1,8 @@
 book_filename: "SSB_Profit_Profiles"
 delete_merged_file: true
 output_dir: docs
-edit: https://github.com/Ardini-NOAA/SSB_Profit_Profiles/edit/main/%s
-view: https://github.com/Ardini-NOAA/SSB_Profit_Profiles/blob/main/%s
+edit: https://github.com/Ardini-NOAA/2022_Vessel_Profit_Snapshots/edit/main/%s
+view: https://github.com/Ardini-NOAA/2022_Vessel_Profit_Snapshots/blob/main/%s
 language:
   ui:
 rmd_files: ["index.Rmd"]
