@@ -1,7 +1,10 @@
 # Revenue Summary
-By primary gear, scallop dredge vessels have the highest mean and median revenues, followed by trawl vessels and longline vessels. These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024). Pot/trap has the fourth highest values, followed by gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
+By primary gear, scallop dredge vessels have the highest mean and median revenues, followed by trawl vessels and longline vessels (mean only). These gear types are utilized in many of the highest grossing fisheries in the Northeast region including sea scallops, squid, and groundfish (NMFS 2024).  Pot/trap has the fourth highest values, followed by gillnet and handgear. For a number of gear groups, mean values greatly exceed median values, indicating skewness in the distribution to the right. This skewness indicates that vessel revenues that are far from the median within a gear group are more associated with high revenues than low revenues  For scallop dredge, the distribution is slightly skewed to the left.
 
-```{r, fig.cap = "Distribution of Revenue by Primary Gear", fig.align='center', echo=FALSE}
+```{r, fig.align='center', echo=FALSE}
+
+options(knitr.kable.NA= "C*") #Confidential data indicator
+
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(kableExtra))
 library(dplyr)
@@ -11,201 +14,279 @@ library(magrittr)
 library(stringr)
 #library(gt)
 
-gear_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_revenue_no_conf.csv")
+gear_revenue<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_revenue_no_conf.csv")
 gear_revenue_2 <- gear_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 gear_revenue_3 <- gear_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_revenue_4 <- gear_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
 
 gear_revenue_4$Mean<-paste0("$",gear_revenue_4$Mean)
 
-gear_revenue_4$Median<-paste0("$",gear_revenue_4$Median)
-
-gear_revenue_4$St.Dev<-paste0("$",gear_revenue_4$St.Dev)
-
 gear_revenue_4$Resp_Perc<-paste0(gear_revenue_4$Response_Rate,"%")
 
-gear_revenue_4 <- subset(gear_revenue_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_revenue_4, caption = "Revenue by Primary Gear") 
+gear_revenue_5 <-subset(gear_revenue_4, Response>=5)
+gear_revenue_5$Median<-paste0("$",gear_revenue_5$Median)
+gear_revenue_5$St.Dev<-paste0("$",gear_revenue_5$St.Dev)
 
-gear_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
-gear_revenue_plot_2 <- ggplot(gear_revenue_plot, aes(x = Gear, y = total_revenue, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
-gear_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000))
+gear_revenue_5a <-subset(gear_revenue_4, Response<5, select = c(Gear, Response, Sample, Resp_Perc, Mean))
+
+gear_revenue_6 <-bind_rows(gear_revenue_5, gear_revenue_5a)
+gear_revenue_6 <-gear_revenue_6[order(gear_revenue_6$Gear),]
+
+gear_revenue_6 <- subset(gear_revenue_6, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(gear_revenue_6) <- c("Gear", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+
+#knitr::kable(gear_revenue_6, caption = "Revenue by Primary Gear", row.names = FALSE) 
+
+gear_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Gear", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+```
+
+```{r, fig.cap = "Distribution of Revenue by Primary Gear", fig.alt = "Boxplot by primary gear showing median, Q1, and Q3 revenue values with whiskers extended to the inter-quartile range (Q3-Q1) multiplied by 1.5. All gear groups with at least five responding vessels are included in the plot. Median, Q1, and Q3 values are highest for the scallop dredge group, followed by trawl, pot/trap, gillnet, and handgear.", fig.align='center', echo=FALSE}
+
+gear_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_boxplots.csv")
+gear_revenue_plot_2 <- subset(gear_revenue_plot, Gear!="Longline") #Eliminate Gear with n=3 or n=4
+gear_revenue_plot_3 <- ggplot(gear_revenue_plot_2, aes(x = Gear, y = total_revenue, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
+gear_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000))
 ```
 <br>
 
 By FMP; scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues. However the median value for scallop vessels is considerably higher than all other fisheries. The two highest revenue generating fisheries in the Northeast region during 2022 were lobster and scallop, though the vessel-level mean and medians highlight the differences in these fishing fleets. Median scallop vessel revenues are more than 6x lobster revenues, which is most likely driven by the number of  lobster fleet vessels which is considerably more vessels than the scallop fleet. 
 
-```{r, fig.cap = "Distribution of Revenue by Primary Fishery", fig.align='center', echo=FALSE}
-fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_revenue_no_conf.csv")
+```{r, fig.cap = "Distribution of Revenue by Primary Fishery", fig.alt = "Boxplot by primary fishery showing median, Q1, and Q3 revenue values with whiskers extended to the inter-quartile range (Q3-Q1) multiplied by 1.5. All fishery groups with at least five responding vessels are included in the plot. Fisheries with generally high values (median, Q1, Q3) include groundfish, scallop, and squid, mackerel, butterfish. The lowest values are present in the highly migratory species and striped bass fisheries, with intermediate values in the lobster and summer flounder, scup, black sea bass fisheries.", fig.align='center', echo=FALSE}
+
+fmp_revenue<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_revenue_no_conf.csv")
 fmp_revenue_2 <- fmp_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 fmp_revenue_3 <- fmp_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 fmp_revenue_4 <- fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
 
 fmp_revenue_4$Mean<-paste0("$",fmp_revenue_4$Mean)
 
-fmp_revenue_4$Median<-paste0("$",fmp_revenue_4$Median)
-
-fmp_revenue_4$St.Dev<-paste0("$",fmp_revenue_4$St.Dev)
-
 fmp_revenue_4$Resp_Perc<-paste0(fmp_revenue_4$Response_Rate,"%")
 
-fmp_revenue_4 <- subset(fmp_revenue_4, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(fmp_revenue_4, caption = "Revenue by Primary Fishery") 
+fmp_revenue_5 <-subset(fmp_revenue_4, Response>=5)
+fmp_revenue_5$Median<-paste0("$",fmp_revenue_5$Median)
+fmp_revenue_5$St.Dev<-paste0("$",fmp_revenue_5$St.Dev)
 
-fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
-fmp_revenue_plot_2 <- ggplot(fmp_revenue_plot, aes(x = Fishery, y = total_revenue, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
-fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+fmp_revenue_5a <-subset(fmp_revenue_4, Response<5, select = c(Fishery, Response, Sample, Resp_Perc, Mean))
+
+fmp_revenue_6 <-bind_rows(fmp_revenue_5, fmp_revenue_5a)
+fmp_revenue_6 <-fmp_revenue_6[order(fmp_revenue_6$Fishery),]
+
+fmp_revenue_6 <- subset(fmp_revenue_6, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(fmp_revenue_6) <- c("Fishery", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+fmp_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+options(knitr.kable.NA= "C*") #Confidential data indicator
+
+fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fmp_boxplots.csv")
+fmp_revenue_plot_2 <- subset(fmp_revenue_plot, Fishery!="Channeled Whelk" & Fishery!="Dogfish" & Fishery!="Herring" & Fishery!="Monkfish") #Eliminate Fishery with n=3 or n=4
+fmp_revenue_plot_3 <- ggplot(fmp_revenue_plot_2, aes(x = Fishery, y = total_revenue, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
+fmp_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 <br>
 
 When primary gear and FMP are combined, trawl-groundfish has the highest mean revenue per vessel, while scallop dredge-scallop has the highest median revenue. Within primary gear types, a considerable difference in revenues is found across fisheries. For example, mean and median values for lobster pot/trap vessels are roughly twice those values for fluke, black sea bass, and scup pot/trap vessels. Squid trawl vessels have more than twice the mean and median revenues than fluke, black sea bass, and scup trawl vessels.
 
-```{r, fig.cap = "Distribution of Revenue by Primary Gear/Fishery", fig.align='center', echo=FALSE}
-gear_fmp_revenue<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_revenue_no_conf.csv")
+```{r, fig.cap = "Distribution of Revenue by Primary Gear/Fishery", fig.alt = "Boxplot by primary gear/fishery showing median, Q1, and Q3 revenue values with whiskers extended to the inter-quartile range (Q3-Q1) multiplied by 1.5. All gear/fishery groups with at least five responding vessels are included in the plot. The results compare values for different fisheries within the handgear, pot/trap, and trawl gear groups. There is considerable variability within gear groups. For example, summer flounder, scup, black sea bass trawl vessels have lower values (median, Q1, Q3) than trawl vessels from the groundfish and squid, mackerel, butterfish fisheries.Pot/trap vessels in the lobster fishery have higher values than those from the summer flounder, scup, black sea bass fishery. Handgear vessels are less variable across fisheries, with all three fisheries (highly migratory species, striped bass, summer flounder, scup, black sea bass) showing low values.", fig.align='center', echo=FALSE}
+
+gear_fmp_revenue<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_revenue_no_conf.csv")
 gear_fmp_revenue_2<- gear_fmp_revenue %>% mutate(Mean = prettyNum(mean_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_revenue_3<- gear_fmp_revenue_2 %>% mutate(Median = prettyNum(med_rev, big.mark = ',', scientific = FALSE))
 gear_fmp_revenue_4<- gear_fmp_revenue_3 %>% mutate(St.Dev = prettyNum(std_rev, big.mark = ',', scientific = FALSE))
 
 gear_fmp_revenue_4$Mean<-paste0("$",gear_fmp_revenue_4$Mean)
 
-gear_fmp_revenue_4$Median<-paste0("$",gear_fmp_revenue_4$Median)
-
-gear_fmp_revenue_4$St.Dev<-paste0("$",gear_fmp_revenue_4$St.Dev)
-
 gear_fmp_revenue_4$Resp_Perc<-paste0(gear_fmp_revenue_4$Response_Rate,"%")
 
-gear_fmp_revenue_4<- subset(gear_fmp_revenue_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_fmp_revenue_4, caption = "Revenue by Primary Gear/Fishery")
+gear_fmp_revenue_5 <-subset(gear_fmp_revenue_4, Response>=5)
+gear_fmp_revenue_5$Median<-paste0("$",gear_fmp_revenue_5$Median)
+gear_fmp_revenue_5$St.Dev<-paste0("$",gear_fmp_revenue_5$St.Dev)
 
-gear_fmp_revenue_plot<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
-gear_fmp_revenue_plot_2 <- ggplot(gear_fmp_revenue_plot, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
-gear_fmp_revenue_plot_2 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+gear_fmp_revenue_5a <-subset(gear_fmp_revenue_4, Response<5, select = c(Gear_Fishery, Response, Sample, Resp_Perc, Mean))
+
+gear_fmp_revenue_6 <-bind_rows(gear_fmp_revenue_5, gear_fmp_revenue_5a)
+gear_fmp_revenue_6 <-gear_fmp_revenue_6[order(gear_fmp_revenue_6$Gear_Fishery),]
+
+gear_fmp_revenue_6 <- subset(gear_fmp_revenue_6, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(gear_fmp_revenue_6) <- c("Gear-Fishery", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+gear_fmp_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Gear/Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+options(knitr.kable.NA= "C*") #Confidential data indicator
+
+gear_fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_fmp_boxplots.csv")
+gear_fmp_revenue_plot_2 <- subset(gear_fmp_revenue_plot, Gear_Fishery!="Gillnet-Monkfish" & Gear_Fishery!="Handgear-Other" & Gear_Fishery!="Longline-Highly Migratory Species" & Gear_Fishery!="Pot/Trap-Whelk" & Gear_Fishery!= "Trawl-Other") #Eliminate Gear_Fishery with n=3 or n=4
+gear_fmp_revenue_plot_3 <- ggplot(gear_fmp_revenue_plot_2, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
+gear_fmp_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ```
 <br>
 
-Of note, revenues are available for all commercial fishing vessels in the Northeast region, not only for those which responded to the Cost Survey. When comparing revenues for responding vessels to the entire survey sampling frame, similar trends are apparent by fishing fleet. For example, scallop dredge and trawl, and vessels have the highest mean vessel-level revenues across the entire sampling frame. By fishery, scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues. Additionally details on other sources of data are included in the Discussion chapter.
+Of note, revenues are available for all commercial fishing vessels in the Northeast region, not only for those which responded to the Cost Survey. When comparing revenues for responding vessels to the entire survey sampling frame, similar trends are apparent by fishing fleet. For example, scallop dredge and trawl vessels have the highest mean vessel-level revenues across the entire sampling frame. By fishery, scallop, squid/mackerel/butterfish, and groundfish have the highest mean vessel-level revenues. Additionally details on other sources of data are included in the Discussion chapter.
 
 
 # Cost Summary
-This chapter includes fleet cost summaries (mean, median, standard deviation) as well as cost contributors by fleet. There are five distinct contributors included, listed in Chapter 4.3. These include Repairs/Upgrades (Item 1), Vessel Costs (Item 2), Trip Expenses (Item 3), Crew Payments (Item 4), and Overhead (Item 5). Quota costs (Item 6) represent a small percentage of total fleet costs and are included in supplemental tables.
+This chapter includes fleet cost summaries (mean, median, standard deviation) as well as cost contributors by fleet. There are five distinct contributors included, listed in Chapter 5.3. These include Repairs/Upgrades (Item 1), Vessel Costs (Item 2), Trip Expenses (Item 3), Crew Payments (Item 4), and Overhead (Item 5). Quota costs (Item 6) represent a small percentage of total fleet costs and are included in supplemental tables.
 
-By primary gear, magnitude of mean costs from highest to lowest follows a similar order as with revenue- scallop dredge, trawl, longline, pot/trap, gillnet, handgear. The highest cost gear types are generally more crew-intensive with crew expenses accounting for over 35% of total costs among scallop dredge and trawl vessels. Gillnet and pot/trap vessels have the highest share of trip expenses. For pot/trap vessels, high trip expenses can be explained in part by the cost of bait. For handgear vessels, the lowest cost gear group, repairs/upgrades are the largest share of costs. Overhead costs as a share of total costs are similar across primary gear groups, ranging from 5-10%. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for the longline group. Some gear groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+By primary gear, magnitude of mean costs from highest to lowest follows a similar order as with revenue- scallop dredge, trawl, longline, pot/trap, gillnet, handgear. The highest cost gear types are generally more crew-intensive with crew expenses accounting for over 35% of total costs among scallop dredge and trawl vessels. Gillnet and pot/trap vessels have the highest share of trip expenses. For pot/trap vessels, high trip expenses can be explained in part by the cost of bait. For handgear vessels, the lowest cost gear group, repairs/upgrades are the largest share of costs. Overhead costs as a share of total costs are similar across primary gear groups, ranging from 5-10%. Quota net costs are not included in the figures as they represent a relatively small portion of total costs. Some gear groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
 ```{r, echo=FALSE}
 library(scales)
 library(ggh4x)
 
 #Produce summary table
-gear_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_no_conf.csv")
+gear_cost<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_no_conf.csv")
 gear_cost_2 <- gear_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 gear_cost_3 <- gear_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 gear_cost_4 <- gear_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
 
 gear_cost_4$Mean<-paste0("$",gear_cost_4$Mean)
 
-gear_cost_4$Median<-paste0("$",gear_cost_4$Median)
-
-gear_cost_4$St.Dev<-paste0("$",gear_cost_4$St.Dev)
-
 gear_cost_4$Resp_Perc<-paste0(gear_cost_4$Response_Rate,"%")
 
-gear_cost_4 <- subset(gear_cost_4, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_cost_4, caption = "Total Cost by Primary Gear") 
+gear_cost_5 <-subset(gear_cost_4, Response>=5)
+gear_cost_5$Median<-paste0("$",gear_cost_5$Median)
+gear_cost_5$St.Dev<-paste0("$",gear_cost_5$St.Dev)
+
+gear_cost_5a <-subset(gear_cost_4, Response<5, select = c(Gear, Response, Sample, Resp_Perc, Mean))
+
+gear_cost_6 <-bind_rows(gear_cost_5, gear_cost_5a)
+gear_cost_6 <-gear_cost_6[order(gear_cost_6$Gear),]
+
+gear_cost_6 <- subset(gear_cost_6, select=c(Gear, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(gear_cost_6) <- c("Gear", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+gear_cost_6 %>% knitr::kable(label = NA, caption = "Total Cost by Primary Gear", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+options(knitr.kable.NA= "C*") #Confidential data indicator
 ```
 
-```{r, fig.width=8, fig.height=8, fig.cap = "Distribution of Costs by Primary Gear", fig.align='center', echo=FALSE, results='hide'}
-gear_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_cat_perc_2.csv")
+```{r, fig.width=8, fig.height=8, fig.cap = "Distribution of Costs by Primary Gear", fig.alt = "Pie chart by primary gear showing the distribution of costs incurred. Five cost categories are presented- crew payments, trip expenses, overhead, repairs/upgrades, and vessel costs. Crew payments are highest in the scallop dredge group at 42.5% of total costs and in the trawl group at 35.1% of total costs. Trip expenses are highest in the gillnet group at 37.0% of total costs and in the pot/trap group at 34.1% of total costs. Repairs/upgrades are highest in the handgear group at 45.5% of total costs. Overhead costs encompass a similar percentage of total costs for all gear groups at 5-10%. Vessel costs are also relatively similar percentages, ranging from 8-18%.", fig.align='center', echo=FALSE, results='hide'}
+
+gear_dist3<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_cost_cat_perc_2.csv")
 gear_dist3$perc=percent(gear_dist3$percent, accuracy = 0.1)
 gear_dist3a <- gear_dist3[order(gear_dist3$percent),]
 levels(gear_dist3a$Category)
 gear_dist3a$Category <- factor(gear_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-ggplot(data=gear_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+gear_dist3b <- subset(gear_dist3a, Gear!="Longline") #Eliminate Gear with n=3 or n=4
+
+ggplot(data=gear_dist3b, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
 ```
 
 ```{r, echo=FALSE}
-gear_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_quota_percent_no_conf.csv")
+gear_quota<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_quota_percent_no_conf.csv")
 gear_quota$Quota_Percent_Total_Cost<-paste(gear_quota$Quota_Percent_Total_Cost,"%")
 gear_quota_2 <- subset(gear_quota, select=c(Gear, Quota_Percent_Total_Cost))
-knitr::kable(gear_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear") 
+gear_quota_3 <- subset(gear_quota_2, Gear!="Longline") #Eliminate Gear with n=3 or n=4
+colnames(gear_quota_3) <- c("Gear", "Quota Percent")
+knitr::kable(gear_quota_3, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear", row.names = FALSE) 
 ```
 <br>
 
-By FMP, a number of fisheries have similar mean costs. Groundfish vessels have the highest mean costs, though herring, scallop, and squid, mackerel, butterfish all have mean values only slightly lower. The groundfish, scallop and squid, mackerel, butterfish fisheries are the most crew-intensive, with crew payments exceeding 35% of total costs for each. The lobster fishery has relatively higher trip expenses than most other FMPs, with 34% of total costs in this category. Net Quota costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for groundfish. Some FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+By FMP, a number of fisheries have similar mean costs. Groundfish vessels have the highest mean costs, though herring, scallop, and squid, mackerel, butterfish all have mean values only slightly lower. The groundfish, scallop and squid, mackerel, butterfish fisheries are the most crew-intensive, with crew payments exceeding 35% of total costs for each. The lobster fishery has relatively higher trip expenses than most other FMPs, with 34% of total costs in this category. Net Quota costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4.8% for groundfish. Some FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
 ```{r, echo=FALSE}
 
 #Produce summary table
-fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_no_conf.csv")
+fmp_cost<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_no_conf.csv")
 fmp_cost_2 <- fmp_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 fmp_cost_3 <- fmp_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 fmp_cost_4 <- fmp_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
 
 fmp_cost_4$Mean<-paste0("$",fmp_cost_4$Mean)
 
-fmp_cost_4$Median<-paste0("$",fmp_cost_4$Median)
-
-fmp_cost_4$St.Dev<-paste0("$",fmp_cost_4$St.Dev)
-
 fmp_cost_4$Resp_Perc<-paste0(fmp_cost_4$Response_Rate,"%")
 
-fmp_cost_4 <- subset(fmp_cost_4, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(fmp_cost_4, caption = "Total Cost by Primary Fishery") 
+fmp_cost_5 <-subset(fmp_cost_4, Response>=5)
+fmp_cost_5$Median<-paste0("$",fmp_cost_5$Median)
+fmp_cost_5$St.Dev<-paste0("$",fmp_cost_5$St.Dev)
+
+fmp_cost_5a <-subset(fmp_cost_4, Response<5, select = c(Fishery, Response, Sample, Resp_Perc, Mean))
+
+fmp_cost_6 <-bind_rows(fmp_cost_5, fmp_cost_5a)
+fmp_cost_6 <-fmp_cost_6[order(fmp_cost_6$Fishery),]
+
+fmp_cost_6 <- subset(fmp_cost_6, select=c(Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(fmp_cost_6) <- c("Fishery", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+fmp_cost_6 %>% knitr::kable(label = NA, caption = "Total Cost by Primary Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+options(knitr.kable.NA= "C*") #Confidential data indicator
 ```
 
-```{r, fig.cap = "Distribution of Costs by Primary Fishery", fig.align='center', echo=FALSE, results='hide'}
-fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_cat_perc_2.csv")
+```{r, fig.align='center', echo=FALSE, results='hide'}
+
+fmp_dist3<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_cost_cat_perc_2.csv")
 fmp_dist3$perc=percent(fmp_dist3$percent, accuracy = 0.1)
 fmp_dist3a <- fmp_dist3[order(fmp_dist3$percent),]
 levels(fmp_dist3a$Category)
 fmp_dist3a$Category <- factor(fmp_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-ggplot(data=fmp_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3")) 
+fmp_dist3b <- subset(fmp_dist3a, Fishery == "Groundfish" | Fishery == "Highly Migratory Species" | Fishery == "Lobster"| Fishery == "Scallop")
+ggplot(data=fmp_dist3b, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Fishery, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+```
+```{r, fig.cap = "Distribution of Costs by Primary Fishery", fig.alt = "Pie chart by primary fishery showing the distribution of costs incurred. Five cost categories are presented- crew payments, trip expenses, overhead, repairs/upgrades, and vessel costs. Crew payments are highest in the scallop group, squid, mackerel, butterfish group, and groundfish group with the proportion of total costs from this cost category being 42.5%, 35.8%, and 35.3% respectively. Trip expenses are highest in the lobster group at 34.3% of total costs. Repairs/upgrades are highest in the handgear group at 43.5% of total costs. Overhead costs encompass a similar percentage of total costs for all fisheries, generally from 6-9%. Vessel costs are also relatively similar percentages, generally ranging from 7-18%.", fig.align='center', echo=FALSE, results='hide'}
+
+fmp_dist3c <- subset(fmp_dist3a, Fishery == "Squid, Mackerel, Butterfish" | Fishery == "Striped Bass" | Fishery == "Summer Flounder, Scup, Black Sea Bass")
+ggplot(data=fmp_dist3c, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Fishery, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
 ```
 
 ```{r, echo=FALSE}
-fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_quota_percent_no_conf.csv")
+fmp_quota<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_quota_percent_no_conf.csv")
 fmp_quota$Quota_Percent_Total_Cost<-paste(fmp_quota$Quota_Percent_Total_Cost,"%")
 fmp_quota_2 <- subset(fmp_quota, select=c(Fishery, Quota_Percent_Total_Cost))
-knitr::kable(fmp_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Fishery") 
+fmp_quota_3 <- subset(fmp_quota_2, Fishery!="Channeled Whelk" & Fishery!="Dogfish" & Fishery!="Herring" & Fishery!="Monkfish") #Eliminate Fishery with n=3 or n=4
+colnames(fmp_quota_3) <- c("Fishery", "Quota Percent")
+knitr::kable(fmp_quota_3, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Fishery", row.names = FALSE) 
 ```
 <br>
 
-When primary gear and FMP are combined, trawl-groundfish has the highest mean and median costs. Within primary gear types, a considerable difference in costs is found across fisheries. For example, mean and median values for lobster pot/trap vessels are greater than those values for fluke, black sea bass, and scup pot/trap vessels. The top cost contributors are generally similar within a gear group and across fisheries. For example, all trawl fisheries have relatively high crew payments, ~40% of total costs. Handgear fisheries have relatively large shares of repair/maintenance/upgrade/improvement (RMUI) costs. Pot/trap fisheries have relatively high trip expenses, possibly due to the cost of bait. Quota net costs are not included in the figures as they represent a relatively small portion of total costs; the highest share was 4% for Longline-HMS and Trawl- groundfish. Some gear/FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
+When primary gear and FMP are combined, trawl-groundfish has the highest mean costs. Within primary gear types, a considerable difference in costs is found across fisheries. For example, mean and median values for lobster pot/trap vessels are greater than those values for fluke, black sea bass, and scup pot/trap vessels. The top cost contributors are generally similar within a gear group across fisheries. For example, all trawl fisheries have relatively high crew payments, ~35% of total costs. Handgear fisheries have relatively large shares of repair/maintenance/upgrade/improvement (RMUI) costs. Pot/trap fisheries have relatively high trip expenses, possibly due to the cost of bait. Quota net costs are not included in the figures as they represent a relatively small portion of total costs. Some gear/FMP groups have negative quota net costs, in which leasing revenue exceeds costs. However, for some individual vessels, quota leasing may represent a substantial cost.
 
 ```{r, echo=FALSE}
 
 #Produce summary table
-gear_fmp_cost<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_no_conf.csv")
+gear_fmp_cost<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_no_conf.csv")
 gear_fmp_cost_2 <- gear_fmp_cost %>% mutate(Mean = prettyNum(mean_cost, big.mark = ',', scientific = FALSE))
 gear_fmp_cost_3 <- gear_fmp_cost_2 %>% mutate(Median = prettyNum(med_cost, big.mark = ',', scientific = FALSE))
 gear_fmp_cost_4 <- gear_fmp_cost_3 %>% mutate(St.Dev = prettyNum(std_cost, big.mark = ',', scientific = FALSE))
 
 gear_fmp_cost_4$Mean<-paste0("$",gear_fmp_cost_4$Mean)
 
-gear_fmp_cost_4$Median<-paste0("$",gear_fmp_cost_4$Median)
-
-gear_fmp_cost_4$St.Dev<-paste0("$",gear_fmp_cost_4$St.Dev)
-
 gear_fmp_cost_4$Resp_Perc<-paste0(gear_fmp_cost_4$Response_Rate,"%")
 
-gear_fmp_cost_4 <- subset(gear_fmp_cost_4, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
-knitr::kable(gear_fmp_cost_4, caption = "Total Cost by Primary Gear/Fishery") 
+gear_fmp_cost_5 <-subset(gear_fmp_cost_4, Response>=5)
+gear_fmp_cost_5$Median<-paste0("$",gear_fmp_cost_5$Median)
+gear_fmp_cost_5$St.Dev<-paste0("$",gear_fmp_cost_5$St.Dev)
+
+gear_fmp_cost_5a <-subset(gear_fmp_cost_4, Response<5, select = c(Gear_Fishery, Response, Sample, Resp_Perc, Mean))
+
+gear_fmp_cost_6 <-bind_rows(gear_fmp_cost_5, gear_fmp_cost_5a)
+gear_fmp_cost_6 <-gear_fmp_cost_6[order(gear_fmp_cost_6$Gear_Fishery),]
+
+gear_fmp_cost_6 <- subset(gear_fmp_cost_6, select=c(Gear_Fishery, Response, Sample, Resp_Perc, Mean, Median, St.Dev))
+colnames(gear_fmp_cost_6) <- c("Gear-Fishery", "Response", "Sample", "Response (%)", "Mean", "Median", "Standard Deviation")
+gear_fmp_cost_6 %>% knitr::kable(label = NA, caption = "Total Cost by Primary Gear/Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
+options(knitr.kable.NA= "C*") #Confidential data indicator
 ```
 
-```{r, fig.cap = "Distribution of Costs by Primary Gear/Fishery", fig.align='center', echo=FALSE, results='hide'}
-gear_fmp_dist3<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_cat_perc_2.csv")
+```{r, fig.align='center', echo=FALSE, results='hide'}
+
+gear_fmp_dist3<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_cost_cat_perc_2.csv")
 gear_fmp_dist3$perc=percent(gear_fmp_dist3$percent, accuracy = 0.1)
 gear_fmp_dist3a <- gear_fmp_dist3[order(gear_fmp_dist3$percent),]
 levels(gear_fmp_dist3a$Category)
 gear_fmp_dist3a$Category <- factor(gear_fmp_dist3a$Category, levels = c("Crew Payments", "Trip Expenses", "Overhead", "Repairs/Upgrades", "Vessel Costs"))
 
-ggplot(data=gear_fmp_dist3a, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear_Fishery) + theme_void() + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+gear_fmp_dist3b <- subset(gear_fmp_dist3a, Gear_Fishery == "Handgear-Highly Migratory Species" | Gear_Fishery == "Handgear-Striped Bass" | Gear_Fishery == "Handgear-Summer Flounder, Scup, BSB")
+ggplot(data=gear_fmp_dist3b, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear_Fishery, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+
+gear_fmp_dist3c <- subset(gear_fmp_dist3a, Gear_Fishery == "Pot/Trap-Lobster" | Gear_Fishery == "Pot/Trap-Summer Flounder, Scup, BSB")
+ggplot(data=gear_fmp_dist3c, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear_Fishery, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
+```
+```{r, fig.cap = "Distribution of Costs by Primary Gear/Fishery", fig.alt = "Pie chart by primary gear/fishery showing the distribution of costs incurred. Five cost categories are presented- crew payments, trip expenses, overhead, repairs/upgrades, and vessel costs. Trawl vessels, regardless of fishery, show a high crew expense of 34-36% of total costs. Pot/trap vessels show a high proportion of total costs as trip expenses with lobster vessels within that gear group at 34.3% and summer flounder, scup, black sea bass at 25.7%. Handgear vessels show a high proportion of total costs from repairs/upgrades with all fisheries at 30% or greater. Overhead costs encompass a similar percentage of total costs for all groups, generally from 4-10%. Vessel costs for trawl vessels are 6-10% across fisheries and 8% for the two pot/trap fisheries. Within the handgear group fisheries, vessel costs are a much more substantial portion of the total, ranging from 12-33%.", fig.align='center', echo=FALSE, results='hide'}
+
+gear_fmp_dist3d <- subset(gear_fmp_dist3a, Gear_Fishery == "Trawl-Groundfish" | Gear_Fishery == "Trawl-Squid, Mackerel, Butterfish" | Gear_Fishery == "Trawl-Summer Flounder, Scup, BSB")
+ggplot(data=gear_fmp_dist3d, aes(x="", y=percent, fill=Category)) + geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + facet_wrap(.~Gear_Fishery, ncol = 2) + theme_void() + theme(strip.clip = "off") + geom_text(aes(label=perc), position = position_stack(vjust = 0.5), size=3) + theme(legend.text = element_text(size=12), legend.title = element_text(size=12), strip.text.x = element_text(size=11)) + scale_fill_manual(values=c("palegreen2", "palegreen3", "steelblue1", "dodgerblue","steelblue3"))
 ```
 
 ```{r, echo=FALSE}
-gear_fmp_quota<- read.csv(file="V:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_quota_percent_no_conf.csv")
+gear_fmp_quota<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_quota_percent_no_conf.csv")
 gear_fmp_quota$Quota_Percent_Total_Cost<-paste(gear_fmp_quota$Quota_Percent_Total_Cost,"%")
 gear_fmp_quota_2 <- subset(gear_fmp_quota, select=c(Gear_Fishery, Quota_Percent_Total_Cost))
-knitr::kable(gear_fmp_quota_2, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear/Fishery") 
+gear_fmp_quota_3 <- subset(gear_fmp_quota_2, Gear_Fishery!="Gillnet-Monkfish" & Gear_Fishery!="Handgear-Other" & Gear_Fishery!="Longline-Highly Migratory Species" & Gear_Fishery!="Pot/Trap-Whelk" & Gear_Fishery!= "Trawl-Other") #Eliminate Gear_Fishery with n=3 or n=4
+colnames(gear_fmp_quota_3) <- c("Gear-Fishery", "Quota Percent")
+knitr::kable(gear_fmp_quota_3, caption = "Net Quota Leasing Costs as a Percentage of Total Costs by Primary Gear/Fishery", row.names = FALSE) 
 ```

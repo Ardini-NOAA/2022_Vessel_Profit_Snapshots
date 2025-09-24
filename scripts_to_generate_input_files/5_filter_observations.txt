@@ -3,7 +3,6 @@ libname drop_1 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profi
 libname drop_2 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Response_Inclusion_Exclusion/drop/process_2';
 libname count '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Response_Inclusion_Exclusion/count_question_responses';
 
-/*libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';*/
 libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute';
 
 data all; set cost.final_response_dataset_04_17; /*This dataset is the same as ICFnoaa2023vessel_final_CLEAN_04.17.2024_FINAL_PROFITS*/
@@ -24,7 +23,6 @@ permit_1 = strip(put(permit, 6.)); drop permit;
 data cost.all_4; set all_3; 
 if vessel_activity in ('INACTIVE', 'REC_OR_OTHER') then delete; /*These two options skip the trip expense and crew payment section of the survey and would be dropped anyway*/
 proc sort; by permit_1;
-/*333 obs. after filtering out responses from inactive vessels according to survey question 2*/
 
 data revenue; set rev.final_revenue; 
 permit_1 = strip(put(permit, 6.)); drop permit;
@@ -37,13 +35,12 @@ by permit_1;
 if inone=1; if intwo=1;
 if primary_comm_gear_2022 in ('No Revenue', 'Recreational') then delete; /*This covers all cases where commercial_revenue=0*/
 proc sort; by icf_master_id;
-/*321 obs. after filtering out vessels that had no revenue during 2022. All responses have vessel_activity = 'COMMERCIAL'*/
 
 
 
 /***Process 1: Drop any observation that has any 2 survey sections skipped***/
 /*Section 1: New/Replacement, Repair/Maintenance, Upgrade Costs*/
-data drop_1.section_1; set cost.starting_point; /*318 obs. out of 321 (Eliminates 3 obs.)*/
+data drop_1.section_1; set cost.starting_point; 
 if rmui_engine_exp<0 then do;
 if rmui_seine_skiff_exp<0 then do;
 if rmui_deck_eqpt_exp<0 then do;
@@ -53,22 +50,22 @@ if rmui_fishing_gear_exp<0 then do;
 if rmui_wheel_electronics_exp<0 then do;
 if rmui_process_refrig_exp<0 then do;
 if rmui_safety_eqpt_exp<0 then delete; 
-end;end;end;end;end;end;end;end;/*8*/
+end;end;end;end;end;end;end;end;
 
 
 /*Section 2: Vessel Costs*/
-data drop_1.section_2; set cost.starting_point; /*315 obs. out of 321*/
+data drop_1.section_2; set cost.starting_point; 
 if mooring_fees<0 then do;
 if ifq_recovery_cost<0 then do;
 if vessel_or_permit_pymt<0 then do;
 if permit_fees<0 then do;
 if trailer_launch_fees<0 then do;
 if vessel_insurance_cost<0 then delete;
-end;end;end;end;end;/*5*/
+end;end;end;end;end;
 
 
 /*Section 3: Trip Expenses*/
-data drop_1.section_3; set cost.starting_point; /*310 obs. out of 321*/
+data drop_1.section_3; set cost.starting_point; 
 if fuel_cost<0 then do;	
 if bait_cost<0 then do;	
 if food_cost<0 then do;	
@@ -83,10 +80,10 @@ if ice_avg_trip_cost<0 then do;
 if catch_handling_avg_trip_cost<0 then do;	
 if packing_avg_trip_cost<0 then do;	
 if paralytic_avg_trip_cost<0 then delete;
-end;end;end;end;end;end;end;end;end;end;end;end;end;/*13*/
+end;end;end;end;end;end;end;end;end;end;end;end;end;
 
 /*Section 4: Crew Payment System*/
-data drop_1.section_4; set cost.starting_point; /*302 obs. out of 321*/
+data drop_1.section_4; set cost.starting_point; 
 if crew_captain_present in (-888, -969696969) then do;
 if crew_pymts<0 then do;
 if captain_pymts<0 then do;	
@@ -94,7 +91,7 @@ if crew_benefits<0 then delete;
 end;end;end;
 
 /*Section 5: Overhead Costs*/
-data drop_1.section_5; set cost.starting_point; /*299 obs. out of 321*/
+data drop_1.section_5; set cost.starting_point; 
 if vehicle_usage_cost<0 then do;		
 if business_travel_cost<0 then do;		
 if association_fees<0 then do;		
@@ -113,7 +110,7 @@ if communication_cost_allves<0 then do;
 if office_expenses_allves<0 then do;		
 if noncrew_labor_cost_allves<0 then do;		
 if spotter_plane_cost_allves<0 then delete;	
-end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;/*17*/
+end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;
 
 /*Excluded Observations*/
 
@@ -169,55 +166,55 @@ if inone=1; if intwo=0;
 
 
 /*COMBINE*/
-data drop_1.dropped_1_2; /*2 obs.*/
+data drop_1.dropped_1_2; 
 merge drop_1.dropped_obs_section_1 (in=inone) drop_1.dropped_obs_section_2 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_1_3; /*0 obs.*/
+data drop_1.dropped_1_3; 
 merge drop_1.dropped_obs_section_1 (in=inone) drop_1.dropped_obs_section_3 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_1_4; /*0 obs.*/
+data drop_1.dropped_1_4; 
 merge drop_1.dropped_obs_section_1 (in=inone) drop_1.dropped_obs_section_4 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_1_5; /*0 obs.*/
+data drop_1.dropped_1_5; 
 merge drop_1.dropped_obs_section_1 (in=inone) drop_1.dropped_obs_section_5 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
 
-data drop_1.dropped_2_3; /*4 obs.*/
+data drop_1.dropped_2_3; 
 merge drop_1.dropped_obs_section_2 (in=inone) drop_1.dropped_obs_section_3 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_2_4; /*4 obs.*/
+data drop_1.dropped_2_4; 
 merge drop_1.dropped_obs_section_2 (in=inone) drop_1.dropped_obs_section_4 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_2_5; /*4 obs.*/
+data drop_1.dropped_2_5; 
 merge drop_1.dropped_obs_section_2 (in=inone) drop_1.dropped_obs_section_5 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
 
-data drop_1.dropped_3_4; /*11 obs.*/
+data drop_1.dropped_3_4; 
 merge drop_1.dropped_obs_section_3 (in=inone) drop_1.dropped_obs_section_4 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
-data drop_1.dropped_3_5; /*11 obs.*/
+data drop_1.dropped_3_5; 
 merge drop_1.dropped_obs_section_3 (in=inone) drop_1.dropped_obs_section_5 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
 
 
-data drop_1.dropped_4_5; /*15 obs.*/
+data drop_1.dropped_4_5; 
 merge drop_1.dropped_obs_section_4 (in=inone) drop_1.dropped_obs_section_5 (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=1;
@@ -245,7 +242,7 @@ proc sort nodupkey; by icf_master_id;
 /***Process 2: Drop any observation that has any 1 survey section skipped (cumulative drops by section)***/
 
 /*Section 1: New/Replacement, Repair/Maintenance, Upgrade Costs*/
-data drop_2.section_1; set cost.starting_point; /*318 obs. Eliminates 3 obs.*/
+data drop_2.section_1; set cost.starting_point; 
 if rmui_engine_exp<0 then do;
 if rmui_seine_skiff_exp<0 then do;
 if rmui_deck_eqpt_exp<0 then do;
@@ -255,20 +252,20 @@ if rmui_fishing_gear_exp<0 then do;
 if rmui_wheel_electronics_exp<0 then do;
 if rmui_process_refrig_exp<0 then do;
 if rmui_safety_eqpt_exp<0 then delete; 
-end;end;end;end;end;end;end;end;/*8*/
+end;end;end;end;end;end;end;end;
 
 /*Section 2: Vessel Costs*/
-data drop_2.section_2; set drop_2.section_1; /*314 obs. Eliminates 4 obs.*/
+data drop_2.section_2; set drop_2.section_1; 
 if mooring_fees<0 then do;
 if ifq_recovery_cost<0 then do;
 if vessel_or_permit_pymt<0 then do;
 if permit_fees<0 then do;
 if trailer_launch_fees<0 then do;
 if vessel_insurance_cost<0 then delete;
-end;end;end;end;end;/*5*/
+end;end;end;end;end;
 
 /*Section 3: Trip Expenses*/
-data drop_2.section_3; set drop_2.section_2; /*307 obs. Eliminates 7 obs.*/
+data drop_2.section_3; set drop_2.section_2;
 if fuel_cost<0 then do;	
 if bait_cost<0 then do;	
 if food_cost<0 then do;	
@@ -283,10 +280,10 @@ if ice_avg_trip_cost<0 then do;
 if catch_handling_avg_trip_cost<0 then do;	
 if packing_avg_trip_cost<0 then do;	
 if paralytic_avg_trip_cost<0 then delete;
-end;end;end;end;end;end;end;end;end;end;end;end;end;/*13*/
+end;end;end;end;end;end;end;end;end;end;end;end;end;
 
 /*Section 4: Crew Payment System*/
-data data drop_2.section_4; set drop_2.section_3; /*299 obs. Eliminates 8 obs.*/
+data data drop_2.section_4; set drop_2.section_3; 
 if crew_captain_present in (-888, -969696969) then do;
 if crew_pymts<0 then do;
 if captain_pymts<0 then do;	
@@ -294,7 +291,7 @@ if crew_benefits<0 then delete;
 end;end;end;
 
 /*Section 5: Overhead Costs*/
-data drop_2.section_5; set drop_2.section_4; /*292 obs. Eliminates 7 obs.*/
+data drop_2.section_5; set drop_2.section_4; 
 if vehicle_usage_cost<0 then do;		
 if business_travel_cost<0 then do;		
 if association_fees<0 then do;		
@@ -313,12 +310,12 @@ if communication_cost_allves<0 then do;
 if office_expenses_allves<0 then do;		
 if noncrew_labor_cost_allves<0 then do;		
 if spotter_plane_cost_allves<0 then delete;	
-end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;/*17*/
+end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;end;
 data section_5; set drop_2.section_5;
 keep icf_master_id;
 proc sort; by icf_master_id;
 
-data drop_2.process_2_final_dropped_obs; /*29 observations to drop from starting point*/
+data drop_2.process_2_final_dropped_obs; 
 merge cost.starting_point (in=inone) section_5 (in=intwo);
 by icf_master_id; 
 if inone=1; if intwo=0;
@@ -342,18 +339,18 @@ if inone=1; if intwo=1;
 data process_1; set drop_1.process_1_final_dropped_obs; proc sort; by icf_master_id;
 data starting_point_process_1; set cost.starting_point; proc sort; by icf_master_id;
 
-data drop_1.process_1_retained_obs; /*304 obs. This dataset retains all the survey questions*/
+data drop_1.process_1_retained_obs; 
 merge process_1 (in=inone) starting_point_process_1 (in=intwo);
 by icf_master_id;
 if inone=0; if intwo=1;
 proc sort; by icf_master_id;
 
-data drop_2.process_2_retained_obs; /*292 obs.*/
+data drop_2.process_2_retained_obs; 
 set drop_2.section_5; 
 keep icf_master_id; 
 proc sort; by icf_master_id; 
 
-data drop_2.process_2_dropped_obs; /*12 obs.*/
+data drop_2.process_2_dropped_obs; 
 merge drop_1.process_1_retained_obs (in=inone) drop_2.process_2_retained_obs (in=intwo);
 by icf_master_id;
 if inone=1; if intwo=0;
@@ -878,7 +875,7 @@ merge count.questions_answered_2  process_1_drops  process_2_drops;
 by icf_master_id;
 
 
-data process_1_only_retained_obs; set drop_2.process_2_dropped_obs; /*cost.process_1_only_retained_obs*/ /*12 obs.*/
+data process_1_only_retained_obs; set drop_2.process_2_dropped_obs; 
 keep icf_master_id;
 proc sort; by icf_master_id;
 
@@ -946,19 +943,5 @@ noncrew_labor_cost_allves
 spotter_plane_cost_allves*/
 
 
-/*
-17972412E (Pot/Trap): KEEP. 14 answered questions and 26 including 0s. LAST_QUESTION_FILLED=CLOSE. Skips in crew payment section may indicate absence of crew. 44 ft vessel from Maine according to VPS_VESSEL. (***COMMENT***)
-
-52281011K (Dredge_Scallop): KEEP. 17 answered questions and 26 including 0s. LAST_QUESTION_FILLED=CLOSE. Skips in crew payment section may indicate the absence of crew. 39 foot vessel out of Maine according to VPS_VESSEL.
-94109460L (Pot/Trap): KEEP. 14 answered questions and 26 including 0s. LAST_QUESTION_FILLED=CLOSE. Skips in crew payment section may indicate absence of crew. 37 ft vessel from Maine according to VPS_VESSEL. Costs from records.
-61465754K (Pot/Trap): KEEP. 12 answered questions and 25 including 0s. LAST_QUESTION_FILLED=CLOSE. Skips in crew payment section but indicate no crew in comment box.
-
-14018211K (Pot/Trap): 12 answered questions and 21 including 0s. LAST_QUESTION_FILLED=Q11. All -969696969 starting at vehicle_usage_cost. Lean towards exclude.
-62326767E (Pot/Trap): 16 answered questions and 21 including 0s. LAST_QUESTION_FILLED=Q11. All -969696969 starting at vehicle_usage_cost. Lean towards exclude.
-09800284G (Pot/Trap): 11 answered questions and 19 including 0s. LAST_QUESTION_FILLED=Q11. All -969696969 starting at vehicle_usage_cost. Lean towards exclude.
-43954059J (Pot/Trap): 14 answered questions and 19 including 0s. LAST_QUESTION_FILLED=Q9. All -969696969 starting at captain_status. Lean towards exclude.
-79802637A (Trawl): 11 answered questions and 19 including 0s. LAST_QUESTION_FILLED=Q12. All -969696969 starting at captain_status. Lean towards exclude.
-79892434H (Pot/Trap): 14 answered questions and 19 including 0s. LAST_QUESTION_FILLED=Q9. All -969696969 starting at crew_pymt_sys_other_descr. Lean towards exclude.
-98093667H (Pot/Trap): 14 answered questions and 19 including 0s. LAST_QUESTION_FILLED=Q9. All -969696969 starting at crew_pymt_sys_other_descr. Lean towards exclude.
-12035781B (Pot/Trap): 12 answered questions and 16 including 0s. LAST_QUESTION_FILLED=CLOSE. Skipped RMUI section. Lean towards exclude.*/
+/*CODE REMOVED FROM REPO DUE TO CONFIDENTIALITY*/
 

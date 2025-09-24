@@ -207,7 +207,7 @@ gear_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Gear",
 
 ```{r, fig.cap = "Distribution of Revenue by Primary Gear", fig.alt = "Boxplot by primary gear showing median, Q1, and Q3 revenue values with whiskers extended to the inter-quartile range (Q3-Q1) multiplied by 1.5. All gear groups with at least five responding vessels are included in the plot. Median, Q1, and Q3 values are highest for the scallop dredge group, followed by trawl, pot/trap, gillnet, and handgear.", fig.align='center', echo=FALSE}
 
-gear_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
+gear_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_boxplots.csv")
 gear_revenue_plot_2 <- subset(gear_revenue_plot, Gear!="Longline") #Eliminate Gear with n=3 or n=4
 gear_revenue_plot_3 <- ggplot(gear_revenue_plot_2, aes(x = Gear, y = total_revenue, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000))
@@ -241,7 +241,7 @@ colnames(fmp_revenue_6) <- c("Fishery", "Response", "Sample", "Response (%)", "M
 fmp_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
 options(knitr.kable.NA= "C*") #Confidential data indicator
 
-fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
+fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fmp_boxplots.csv")
 fmp_revenue_plot_2 <- subset(fmp_revenue_plot, Fishery!="Channeled Whelk" & Fishery!="Dogfish" & Fishery!="Herring" & Fishery!="Monkfish") #Eliminate Fishery with n=3 or n=4
 fmp_revenue_plot_3 <- ggplot(fmp_revenue_plot_2, aes(x = Fishery, y = total_revenue, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
@@ -275,7 +275,7 @@ colnames(gear_fmp_revenue_6) <- c("Gear-Fishery", "Response", "Sample", "Respons
 gear_fmp_revenue_6 %>% knitr::kable(label = NA, caption = "Revenue by Primary Gear/Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
 options(knitr.kable.NA= "C*") #Confidential data indicator
 
-gear_fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
+gear_fmp_revenue_plot<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_fmp_boxplots.csv")
 gear_fmp_revenue_plot_2 <- subset(gear_fmp_revenue_plot, Gear_Fishery!="Gillnet-Monkfish" & Gear_Fishery!="Handgear-Other" & Gear_Fishery!="Longline-Highly Migratory Species" & Gear_Fishery!="Pot/Trap-Whelk" & Gear_Fishery!= "Trawl-Other") #Eliminate Gear_Fishery with n=3 or n=4
 gear_fmp_revenue_plot_3 <- ggplot(gear_fmp_revenue_plot_2, aes(x = Gear_Fishery, y = total_revenue, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_revenue_plot_3 + coord_cartesian(ylim=c(0, 2000000)) + scale_y_continuous(breaks = seq(0, 2000000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
@@ -490,7 +490,7 @@ colnames(gear_op_stats_6) <- c("Gear", "Response", "Sample", "Response (%)", "Me
 gear_op_stats_6 %>% knitr::kable(label = NA, caption = "Operating Profit by Primary Gear", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
 options(knitr.kable.NA= "C*") #Confidential data indicator
 
-gear_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_boxplots.csv")
+gear_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_boxplots.csv")
 gear_profit_2 <- subset(gear_profit, Gear!="Longline") #Eliminate Gear with n=3 or n=4
 gear_op <- ggplot(gear_profit_2, aes(x = Gear, y = total_operating_profit, fill=Gear)) + geom_boxplot(show.legend = FALSE, outlier.shape = NA)
 gear_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000))
@@ -526,7 +526,7 @@ colnames(fmp_op_stats_6) <- c("Fishery", "Response", "Sample", "Response (%)", "
 fmp_op_stats_6 %>% knitr::kable(label = NA, caption = "Operating Profit by Primary Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
 options(knitr.kable.NA= "C*") #Confidential data indicator
 
-fmp_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/fmp_boxplots.csv")
+fmp_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/fmp_boxplots.csv")
 fmp_profit_2 <- subset(fmp_profit, Fishery!="Channeled Whelk" & Fishery!="Dogfish" & Fishery!="Herring" & Fishery!="Monkfish") #Eliminate Fishery with n=3 or n=4
 fmp_op <- ggplot(fmp_profit_2, aes(x = Fishery, y = total_operating_profit, fill=Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
@@ -562,7 +562,7 @@ colnames(gear_fmp_op_stats_6) <- c("Gear-Fishery", "Response", "Sample", "Respon
 gear_fmp_op_stats_6 %>% knitr::kable(label = NA, caption = "Operating Profit by Primary Gear/Fishery", row.names = FALSE)  %>% footnote(general = "C* indicates data not presented to protect confidentiality")
 options(knitr.kable.NA= "C*") #Confidential data indicator
 
-gear_fmp_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/bookdown/SSB_Profit_Profiles/input_files/gear_fmp_boxplots.csv")
+gear_fmp_profit<- read.csv(file="Y:/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Final/gear_fmp_boxplots.csv")
 gear_fmp_profit_2 <- subset(gear_fmp_profit, Gear_Fishery!="Gillnet-Monkfish" & Gear_Fishery!="Handgear-Other" & Gear_Fishery!="Longline-Highly Migratory Species" & Gear_Fishery!="Pot/Trap-Whelk" & Gear_Fishery!= "Trawl-Other") #Eliminate Gear_Fishery with n=3 or n=4
 gear_fmp_op <- ggplot(gear_fmp_profit_2, aes(x = Gear_Fishery, y = total_operating_profit, fill=Gear_Fishery)) + geom_boxplot(show.legend = TRUE, outlier.shape = NA)
 gear_fmp_op + coord_cartesian(ylim=c(-250000, 1500000)) + scale_y_continuous(breaks = seq(-250000, 1500000, by=250000)) + theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())

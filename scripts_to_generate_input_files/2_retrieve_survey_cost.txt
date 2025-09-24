@@ -163,51 +163,6 @@ catch_handling_cost_final=catch_handling_cost_2;
 at_sea_processing_cost_final=at_sea_processing_cost_2;
 paralytic_testing_final=paralytic_testing_2;
 
-/*Old Method (no longer used): Trip expenses were allocated to the vessel owner depending on how Q6 was answered. 
-The issue is that trip expenses paid by crew were being double counted. This amount was being subtracted from Q5 and Q10 can be assumed to have already subtracted off trip expenses when paying crew.
-trip_cost_owner_paid_pct_1 = input(trip_cost_owner_paid_pct, 9.);
-if trip_costs_shares not in ('OWNER') then do;
-if trip_cost_owner_paid_pct_1>=0 then trip_cost_owner_paid_pct_final=(trip_cost_owner_paid_pct_1/100); /*Convert to a percentage*
-if trip_cost_owner_paid_pct_1 <0 then trip_cost_owner_paid_pct_final=0;end;
-if trip_costs_shares = ('OWNER') then trip_cost_owner_paid_pct_final=1;
-
-if trip_cost_shares = ('CREW') then do; /*Important caveat that if crew is paying for these expenses, the reduction in their income will not be captured anywhere if we are only focused on vessel-level profits*
-fuel_cost_final=0;
-bait_cost_final=0;
-food_cost_final=0;
-ice_cost_final=0;
-catch_handling_cost_final=0;
-at_sea_processing_cost_final=0;
-paralytic_testing_final=0; end;
-
-if trip_cost_shares = ('OWNER') then do;
-fuel_cost_final=fuel_cost_2;
-bait_cost_final=bait_cost_2;
-food_cost_final=food_cost_2;
-ice_cost_final=ice_cost_2;
-catch_handling_cost_final=catch_handling_cost_2;
-at_sea_processing_cost_final=at_sea_processing_cost_2;
-paralytic_testing_final=paralytic_testing_2; end;
-
-if trip_cost_shares in ('SHARED', 'OTHER', '-888') then do; 
-if ICF_MASTER_ID in ('25819462L') then fuel_cost_final=fuel_cost_2*(fuel_cost_owner_paid_pct/100); /*One specific case where owner pays for fuel but not for other trip expenses*
-if ICF_MASTER_ID not in ('25819462L') then fuel_cost_final=fuel_cost_2*trip_cost_owner_paid_pct_final;
-bait_cost_final=bait_cost_2*trip_cost_owner_paid_pct_final;
-food_cost_final=food_cost_2*trip_cost_owner_paid_pct_final;
-ice_cost_final=ice_cost_2*trip_cost_owner_paid_pct_final;
-catch_handling_cost_final=catch_handling_cost_2*trip_cost_owner_paid_pct_final;
-at_sea_processing_cost_final=at_sea_processing_cost_2*trip_cost_owner_paid_pct_final;
-paralytic_testing_final=paralytic_testing_2*trip_cost_owner_paid_pct_final; end;
-
-if trip_cost_shares in ('-969696969') then do; /*If this question was not presented to the respondent, they had no trip expenses (whole survey section was not presented)*
-fuel_cost_final=0;
-bait_cost_final=0;
-food_cost_final=0;
-ice_cost_final=0;
-catch_handling_cost_final=0;
-at_sea_processing_cost_final=0;
-paralytic_testing_final=0; end;
-
 
 /*crew payments (q10, q11)*/
 crew_pymts_1 = input(crew_pymts, 9.);
@@ -305,20 +260,6 @@ if quota_das_pymt_ves_num>0 then quota_das_payments_3 = (quota_das_payments_mult
 
 /*New Method: All of the quota leasing costs listed in Q17 are subtracted off gross revenues. This is because quota leasing costs paid by crew have already been subtracted from their pay (Q10)*/
 quota_das_payments_final=quota_das_payments_3;
-
-/*Old Method (no longer used): Quota leasing costs were allocated to the vessel owner depending on how Q18 was answered. 
-The issue is that quota leasing costs paid by crew were being double counted. This amount was being subtracted from Q17 and Q10 can be assumed to have already subtracted off trip expenses when paying crew.
-quota_pymt_sys_boat_pct_1 = input(quota_pymt_sys_boat_pct, 9.);
-if quota_pymt_sys_boat_pct_1>=0 then quota_pymt_sys_boat_pct_final=(quota_pymt_sys_boat_pct_1/100); /*Convert to a percentage*
-if quota_pymt_sys_boat_pct_1 <0 then quota_pymt_sys_boat_pct_final=0;
-
-if quota_pymt_sys = ('CREW') then quota_das_payments_final=0;
-
-if quota_pymt_sys = ('OWNER') then quota_das_payments_final=quota_das_payments_3; 
-
-if quota_pymt_sys in ('SHARED', 'OTHER', '-888') then quota_das_payments_final=quota_das_payments_3*quota_pymt_sys_boat_pct_final;
-
-if quota_pymt_sys in ('-969696969') then quota_das_payments_final=0; /*If this question was not presented to the respondent, they had no quota costs*/
 
 
 /*quota leasing revenue (q19)*/

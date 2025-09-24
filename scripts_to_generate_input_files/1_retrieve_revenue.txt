@@ -8,7 +8,7 @@ libname cost_4 '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profi
 libname old '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Annual_Hullid';
 
 %let orausername1 = "gardini";
-%let orapassword1 = "XXXXXXXXXXXXX";
+%let orapassword1 = "XXXXXXXXXXXX";
 
 data cost.sampling_frame_2022; set input.final_sampling_frame_hullid;
 HULLID_1 = strip(put(hull_id, 10.));
@@ -173,13 +173,7 @@ proc sort nodupkey; by permit_1 tripid; /*Removes 7 duplicate records, in which 
 
 data cost_2.response_with_rec_trips_3; set cost_2.response_with_rec_trips_2;
 /*13 trips out of 782 with no state listed. All of these cases are by vessels that only landed in one state throughout the year. Assign landing state for the 13 cases based on the other vessel rec trips*/
-if permit_1 in ('210255') then state1 = "NY"; /*1 trip*/
-if permit_1 in ('212260') then state1 = "ME"; /*1 trip*/
-if permit_1 in ('215142') then state1 = "MA"; /*5 trips*/
-if permit_1 in ('220355') then state1 = "RI"; /*2 trips*/
-if permit_1 in ('223718') then state1 = "RI"; /*2 trips*/
-if permit_1 in ('233764') then state1 = "MA"; /*1 trip*/
-if permit_1 in ('251920') then state1 = "RI"; /*1 trip*/
+/*CODE REMOVED FROM REPO DUE TO CONFIDENTIALITY*/
 proc sort; by state1;
 
 proc freq data=cost_2.response_with_rec_trips_3;
@@ -245,7 +239,7 @@ data gear_2;
 merge gear_1 (in=inone) cost.gear_key; 
 by negear_1; if inone=1;
 if geargroupfor2022survey in ('Dredge_Hydraulic') then comm_gear_2022 = "Dredge_Hydraulic";
-if geargroupfor2022survey in ('Dredge_Scallop') then comm_gear_2022 = "Dredge_Scallop";
+if geargroupfor2022survey in ('Dredge_Scallop') then comm_gear_2022 = "Scallop Dredge";
 if geargroupfor2022survey in ('Gillnet') then comm_gear_2022 = "Gillnet";
 if geargroupfor2022survey in ('Handgear') then comm_gear_2022 = "Handgear";
 if geargroupfor2022survey in ('Longline') then comm_gear_2022 = "Longline";
@@ -336,7 +330,7 @@ if FMP in ('Skates') then species_group = "Skate";
 if FMP in ('Small-Mesh Multispecies') then species_group = "Whiting";
 if FMP in ('Atlantic Deep-Sea Red Crab') then species_group = "Red Crab";
 
-if FMP in ('Summer Flounder, Scup, Black Sea Bass') then species_group = "Fluke, BSB, Scup";
+if FMP in ('Summer Flounder, Scup, Black Sea Bass') then species_group = "Summer Flounder, Scup, Black Sea Bass";
 if FMP in ('Mackerel, Squid, and Butterfish') then species_group = "Squid, Mackerel, Butterfish";
 if FMP in ('Surfclam, Ocean Quahog') then species_group = "Surf Clam, Ocean Quahog";
 if FMP in ('Bluefish') then species_group = "Bluefish";
@@ -527,9 +521,9 @@ data cost.final_sampling_frame_groups;
 merge sf_1 (in=inone) sf_2 (in=intwo) sf_3;
 by hull_id; if inone=1; if intwo=1;
 /*Build fleets combining primary gear and FMP*/
-if primary_comm_gear_2022 in ('Dredge_Scallop') then do;
- if primary_comm_fmp_2022 in ('Scallop') then primary_gear_fmp_2022 = "Dredge_Scallop-Scallop             ";
- else primary_gear_fmp_2022 = "Dredge_Scallop-Other";end;
+if primary_comm_gear_2022 in ('Scallop Dredge') then do;
+ if primary_comm_fmp_2022 in ('Scallop') then primary_gear_fmp_2022 = "Scallop Dredge-Scallop             ";
+ else primary_gear_fmp_2022 = "Scallop Dredge-Other";end;
 
 if primary_comm_gear_2022 in ('Dredge_Hydraulic') then do;
  if primary_comm_fmp_2022 in ('Surf Clam, Ocean Quahog') then primary_gear_fmp_2022 = "Dredge_Hydraulic-SCOQ         ";
@@ -540,10 +534,10 @@ if primary_comm_gear_2022 in ('Gillnet') then do;
  else primary_gear_fmp_2022 = "Gillnet-Other";end;
 
 if primary_comm_gear_2022 in ('Handgear') then do;
- if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Handgear-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Summer Flounder, Scup, Black Sea Bass') then primary_gear_fmp_2022 = "Handgear-Summer Flounder, Scup, BSB             ";
  if primary_comm_fmp_2022 in ('Highly Migratory Species') then primary_gear_fmp_2022 = "Handgear-Highly Migratory Species";
  if primary_comm_fmp_2022 in ('Striped Bass') then primary_gear_fmp_2022 = "Handgear-Striped Bass";
- if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Highly Migratory Species', 'Striped Bass') then primary_gear_fmp_2022 = "Handgear-Other";end;
+ if primary_comm_fmp_2022 not in ('Summer Flounder, Scup, Black Sea Bass', 'Highly Migratory Species', 'Striped Bass') then primary_gear_fmp_2022 = "Handgear-Other";end;
 
 if primary_comm_gear_2022 in ('Longline') then do;
  if primary_comm_fmp_2022 in ('Dogfish') then primary_gear_fmp_2022 = "Longline-Dogfish             ";
@@ -551,37 +545,22 @@ if primary_comm_gear_2022 in ('Longline') then do;
  if primary_comm_fmp_2022 not in ('Dogfish', 'Highly Migratory Species') then primary_gear_fmp_2022 = "Longline-Other";end;
 
 if primary_comm_gear_2022 in ('Pot/Trap') then do;
- if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Pot/Trap-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Summer Flounder, Scup, Black Sea Bass') then primary_gear_fmp_2022 = "Pot/Trap-Summer Flounder, Scup, BSB             ";
  if primary_comm_fmp_2022 in ('Lobster') then primary_gear_fmp_2022 = "Pot/Trap-Lobster";
  if primary_comm_fmp_2022 in ('Channeled Whelk') then primary_gear_fmp_2022 = "Pot/Trap-Whelk";
- if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Lobster', 'Channeled Whelk') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
+ if primary_comm_fmp_2022 not in ('Summer Flounder, Scup, Black Sea Bass', 'Lobster', 'Channeled Whelk') then primary_gear_fmp_2022 = "Pot/Trap-Other";end;
 
 if primary_comm_gear_2022 in ('Seine') then do;
  if primary_comm_fmp_2022 in ('Herring') then primary_gear_fmp_2022 = "Seine-Herring             ";
  else primary_gear_fmp_2022 = "Seine-Other";end;
 
 if primary_comm_gear_2022 in ('Trawl') then do;
- if primary_comm_fmp_2022 in ('Fluke, BSB, Scup') then primary_gear_fmp_2022 = "Trawl-Fluke, BSB, Scup             ";
+ if primary_comm_fmp_2022 in ('Summer Flounder, Scup, Black Sea Bass') then primary_gear_fmp_2022 = "Trawl-Summer Flounder, Scup, BSB             ";
  if primary_comm_fmp_2022 in ('Groundfish') then primary_gear_fmp_2022 = "Trawl-Groundfish";
  if primary_comm_fmp_2022 in ('Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Squid, Mackerel, Butterfish";
- if primary_comm_fmp_2022 not in ('Fluke, BSB, Scup', 'Groundfish', 'Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Other";end;
+ if primary_comm_fmp_2022 not in ('Summer Flounder, Scup, Black Sea Bass', 'Groundfish', 'Squid, Mackerel, Butterfish') then primary_gear_fmp_2022 = "Trawl-Other";end;
 
  if primary_comm_gear_2022 in ('Recreational') then primary_gear_fmp_2022 = "Recreational";
  if primary_comm_gear_2022 in ('No Revenue') then primary_gear_fmp_2022 = "No Revenue";
 
-
- /***Compare with No Impute Dataset***/
-data new_revenue; set cost.final_revenue; proc sort; by icf_master_id;
-
-data old_revenue; set old.final_revenue; 
-old_commercial_revenue = commercial_revenue;
-old_total_revenue = total_revenue;
-keep icf_master_id  old_commercial_revenue  old_total_revenue;
-proc sort; by icf_master_id;
-
-data cost.revenue_comparison;
-merge new_revenue old_revenue;
-by icf_master_id;
-total_revenue_compare = total_revenue - old_total_revenue;
-percent_increase = total_revenue_compare/old_total_revenue;
 

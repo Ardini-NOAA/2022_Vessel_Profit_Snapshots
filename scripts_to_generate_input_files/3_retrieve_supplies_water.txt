@@ -3,7 +3,7 @@ libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitab
 libname cost '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Supply_Water_Cost/Hullid_Impute';
 
 %let orausername1 = "gardini";
-%let orapassword1 = "XXXXXXXXXXXXX";
+%let orapassword1 = "XXXXXXXXXXXX";
 
 data response_2022; set input.final_response_hullid;
 hullid_1 = strip(put(hull_id, 10.));

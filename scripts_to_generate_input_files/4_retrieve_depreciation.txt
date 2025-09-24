@@ -4,7 +4,7 @@ libname surv '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profita
 libname rev '/shares/SSB_Cost_Survey/Ardini_Cost_Survey/SAS_Cost_Survey/Profitability_Profiles/Calculate_Profit/Revenues/Hullid_Impute';
 
 %let orausername1 = "gardini";
-%let orapassword1 = "XXXXXXXXXXXXX";
+%let orapassword1 = "XXXXXXXXXXXX";
 
 
 /***Bring in survey years in which value of vessel was queried separately from permits (2015 and 2022)***/
