@@ -14,3 +14,6 @@ pre code {
   white-space: inherit;
 }
 
+.book .book-summary .book-search {
+  display: none;
+}
